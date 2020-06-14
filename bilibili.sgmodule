@@ -1,0 +1,18 @@
+#!name= BiliBili
+#!desc= Remove BiliBili Ads
+
+[Rule]
+DOMAIN,data.bilibili.com,REJECT 
+URL-REGEX,https://app.bilibili.com/x/v2/(splash|search/(defaultword|square)),REJECT
+URL-REGEX,https://api.bilibili.com/x/v2/dm/ad,REJECT
+
+[MITM]
+hostname = %APPEND% api.bilibili.com, app.bilibili.com, api.live.bilibili.com
+
+[Script]
+bilibili tab = type=http-response,requires-body=1,max-size=0,pattern=https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\?access_key,script-path=bilibili_tab.js
+bilibili feed = type=http-response,requires-body=1,max-size=0,pattern=https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\?access_key,script-path=bilibili_feed.js
+bilibili account = type=http-response,requires-body=1,max-size=0,pattern=https:\/\/app\.bilibili\.com\/x\/v2\/account\/mine\?access_key,script-path=bilibili_account.js
+bilibili view = type=http-response,requires-body=1,max-size=0,pattern=https:\/\/app\.bilibili\.com\/x\/v2\/view\?access_key,script-path=bilibili_view.js
+bilibili reply = type=http-response,requires-body=1,max-size=0,pattern=https:\/\/api\.bilibili\.com\/x\/v2\/reply\/main\?access_key,script-path=bilibili_reply.js
+bilibili live = type=http-response,requires-body=1,max-size=0,pattern=https:\/\/api\.live\.bilibili\.com\/xlive\/app-room\/v1\/index\/getInfoByRoom\?access_key,script-path=bilibili_live.js
