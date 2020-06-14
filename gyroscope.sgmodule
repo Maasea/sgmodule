@@ -1,7 +1,7 @@
 #!name=Gyroscope
 #!desc=MITM
 [MITM]
-hostname = %APPEND% biz.caiyunapp.com
+hostname = %APPEND% api.gyrosco.pe
 
 [Script]
 Gyroscope = type=http-response,requires-body=1,max-size=0,pattern=^https:\/\/api\.gyrosco\.pe\/v1\/account\/$,script-path=gyrosco.js
