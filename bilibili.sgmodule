@@ -1,5 +1,5 @@
 #!name= BiliBili
-#!desc= Remove BiliBili Ads
+#!desc= MITM
 
 [Rule]
 DOMAIN,data.bilibili.com,REJECT 
