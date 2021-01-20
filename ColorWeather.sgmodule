@@ -4,4 +4,4 @@
 hostname = %APPEND% biz.caiyunapp.com
 
 [Script]
-ColorWeather = type=http-response,requires-body=1,max-size=0,pattern=^https:\/\/biz\.caiyunapp\.com\/v2\/user\?app_name\=weather,script-path=ColorWeather.js
+ColorWeather = type=http-response,requires-body=1,max-size=0,pattern=^https:\/\/biz\.caiyunapp\.com\/v2\/user\?app_name\=weather,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/script/ColorWeather/ColorWeather.js
