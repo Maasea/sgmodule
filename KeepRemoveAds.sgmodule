@@ -2,9 +2,9 @@
 #!desc=Mitm
 
 [Script]
-banner = type=http-response,pattern=https://api.gotokeep.com/athena/v4/people/my,requires-body=1,max-size=0,script-path=banner.js
-Tab = type=http-response,pattern=https://api.gotokeep.com/homepage/v2/tab\?type=newCoach,requires-body=1,max-size=0,script-path=keepTab.js
-bottom = type=http-response,pattern=https://api.gotokeep.com/config/v2/basic,requires-body=1,max-size=0,script-path=Keep.js
+banner = type=http-response,pattern=https://api.gotokeep.com/athena/v4/people/my,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/script/keep/banner.js
+Tab = type=http-response,pattern=https://api.gotokeep.com/homepage/v2/tab\?type=newCoach,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/script/keep/sections.js
+bottom = type=http-response,pattern=https://api.gotokeep.com/config/v2/basic,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/script/keep/bottomBar.js
 
 [MitM]
 hostname = %APPEND% *.gotokeep.com
