@@ -1,5 +1,5 @@
 var obj = JSON.parse($response.body);
-obj.license="premium"
-obj.info.purchase_type="premium"
-obj.info.store="premium"
+obj.license="pro"
+obj.info.purchase_type="pro"
+obj.info.store="pro"
 $done({ body: JSON.stringify(obj) });
