@@ -1,0 +1,6 @@
+#!name=Rules
+#!desc=Extral rules
+[Rule]
+DOMAIN-SUFFIX,opq.hmw.one,REJECT
+DOMAIN,img1.mhw.one,PROXY
+URL-REGEX,^https?+:\/\/mp\.weixin\.qq\.com\/mp\/(?>ad_|advertisement|getappmsgad),REJECT-TINYGIF
