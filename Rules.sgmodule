@@ -4,3 +4,4 @@
 DOMAIN-SUFFIX,opq.hmw.one,REJECT
 DOMAIN,img1.mhw.one,PROXY
 URL-REGEX,^https?+:\/\/mp\.weixin\.qq\.com\/mp\/(?>ad_|advertisement|getappmsgad),REJECT-TINYGIF
+DOMAIN-SUFFIX,vthumb.91p52.com,REJECT-TINYGIF
