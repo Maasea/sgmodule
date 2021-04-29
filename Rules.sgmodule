@@ -10,6 +10,4 @@ DOMAIN-SUFFIX,opq.hmw.one,REJECT
 URL-REGEX,^https?+:\/\/mp\.weixin\.qq\.com\/mp\/(?>ad_|advertisement|getappmsgad),REJECT-TINYGIF
 # Ximalaya
 URL-REGEX,^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/(ting|soundPatch),REJECT
-URL-REGEX,^http:\/\/.*\.ximalaya\.com\/discovery-feed,REJECT
-URL-REGEX,^https:\/\/mobwsa\.ximalaya\.com\/discovery-feed,REJECT
-URL-REGEX,^https?:\/\/.*\.ximalaya\.com\/discovery-feed\/isShowUserGiftPendant$,REJECT
+URL-REGEX,^https?:\/\/.*\.ximalaya\.com\/discovery-feed,REJECT
