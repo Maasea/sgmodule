@@ -1,6 +1,0 @@
-#!name=PanBaidu
-#!desc=Redirect
-[Script]
-PanBaidu = type=http-response,pattern=https:\/\/pan\.baidu\.com\/api\/mediainfo,requires-body=1,max-size=0,script-path=Baidu.js
-[MITM]
-hostname = %APPEND% pan.baidu.com
