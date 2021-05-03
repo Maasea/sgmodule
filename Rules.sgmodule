@@ -3,6 +3,10 @@
 [Rule]
 # 91
 DOMAIN-SUFFIX,vthumb.91p52.com,REJECT-TINYGIF
+#Baidu
+DOMAIN-SUFFIX,boxer.baidu.com,REJECT
+DOMAIN-SUFFIX,ug.baidu.com,REJECT
+URL-REGEX,^https?:\/\/mbd\.baidu\.com\/tcbox,REJECT
 # Hptoon
 DOMAIN-SUFFIX,22c.in,REJECT
 DOMAIN-SUFFIX,opq.hmw.one,REJECT
@@ -11,4 +15,4 @@ URL-REGEX,^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d
 URL-REGEX,^https?:\/\/.*\.ximalaya\.com\/discovery-feed,REJECT
 
 [MITM]
-hostname = %APPEND%  *.ximalaya.com
+hostname = %APPEND%  *.ximalaya.com, mbd.baidu.com
