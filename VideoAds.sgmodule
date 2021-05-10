@@ -1,0 +1,15 @@
+#!name=VideoAds
+#!desc=Remove common video ads
+# Modified from @pysta
+
+[General]
+force-http-engine-hosts = %APPEND% *.cp31.ott.cibntv.net, 220.112*, 211.162*, 124.193*, 124.14*, 119.79*, 223.111*, 112.25*
+
+[Rule]
+DOMAIN,video-ad.sm.cn,REJECT-DROP
+DOMAIN,api.cupid.dns.iqiyi.com,REJECT
+DOMAIN-SUFFIX,cupid.iqiyi.com,REJECT
+
+[URL Rewrite]
+http://.+\.cp31\.ott\.cibntv\.net - reject
+http://(\d{1,3}\.){3}\d{1,3}/(variety|vlive\.qqvideo)\.tc\.qq\.com/ - reject
