@@ -3,7 +3,7 @@
 # Modified from @pysta
 
 [General]
-force-http-engine-hosts = %APPEND% *.cp31.ott.cibntv.net, 220.112*, 211.162*, 124.193*, 124.14*, 119.79*, 223.111*, 112.25*
+force-http-engine-hosts = %APPEND% *.cp31.ott.cibntv.net, 220.112*, 211.162*, 124.193*, 124.14*, 119.79*, 223.111*, 112.25*, 58.216*, 117.68*, 140.249*
 
 [Rule]
 DOMAIN,video-ad.sm.cn,REJECT-DROP
