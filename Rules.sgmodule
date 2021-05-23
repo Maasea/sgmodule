@@ -1,5 +1,9 @@
 #!name=Rules
 #!desc=Extral rules
+
+[Map Local]
+https:\/\/www\.hptoon\.com\/hanman\/static\/dist\/ppm\/js\/common(\d)\.js data="https://raw.githubusercontent.com/Maasea/sgmodule/master/script/hptoon/common.js"
+
 [Rule]
 # 91
 DOMAIN-SUFFIX,vthumb.91p52.com,REJECT-TINYGIF
@@ -15,4 +19,4 @@ URL-REGEX,^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d
 URL-REGEX,^https?:\/\/.*\.ximalaya\.com\/discovery-feed,REJECT
 
 [MITM]
-hostname = %APPEND%  *.ximalaya.com, mbd.baidu.com
+hostname = %APPEND%  *.ximalaya.com, mbd.baidu.com, www.hptoon.com
