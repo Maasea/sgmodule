@@ -1,4 +1,4 @@
-#!name=verifyReceipt
+#!name=Receipt
 #!desc=Fake Itunes Receipt
 [MITM]
 hostname = %APPEND% buy.itunes.apple.com
