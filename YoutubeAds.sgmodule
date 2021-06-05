@@ -1,0 +1,9 @@
+#!name=Block YouTube Advertising
+#!desc=Block Advertising for YouTube
+# Modified from @Choler
+
+[Script]
+YouTubeAds = type=http-request,pattern=^https?:\/\/.+?\.googlevideo\.com\/.+&(oad|ctier)=(?!A),script-path=https://choler.github.io/Surge/Script/YouTube.js
+
+[MITM]
+hostname = %APPEND% *.googlevideo.com
