@@ -1,5 +1,5 @@
-#!name=VideoAds
-#!desc=Block Advertising for Video
+#!name=Block Advertising
+#!desc=Block Advertising for Videos
 # Modified from @pysta
 
 [General]
