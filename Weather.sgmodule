@@ -1,5 +1,5 @@
 #!name=ColorWeather
-#!desc=彩云天气 Unlock
+#!desc=ColorWeather Unlock
 [MITM]
 hostname = %APPEND% biz.caiyunapp.com
 
