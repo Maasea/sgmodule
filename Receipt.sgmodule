@@ -1,0 +1,7 @@
+#!name=verifyReceipt
+#!desc=Fake Itunes Receipt
+[MITM]
+hostname = %APPEND% buy.itunes.apple.com
+
+[Script]
+Receipt = type=http-response,pattern=^https:\/\/buy\.itunes\.apple\.com\/verifyReceipt$,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/Script/Receipt/Receipt.js
