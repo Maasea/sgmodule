@@ -2,7 +2,7 @@
 #!desc=Additional Rules
 
 [Map Local]
-https:\/\/www\.hptoon\.com\/hanman\/static\/dist\/ppm\/js\/common(\d)\.js data="https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Hptoon/Common.js"
+https:\/\/www\.hptoon\.com\/hanman\/static\/dist\/ppm\/js\/common(\d)?\.js data="https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Hptoon/Common.js"
 
 [Rule]
 # > 91
