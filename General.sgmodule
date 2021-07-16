@@ -15,7 +15,9 @@ exclude-simple-hostnames = true
 # > Redirect Google Service
 ^https?:\/\/(www.)?(g|google)\.cn https://www.google.com 302
 ^https?:\/\/(ditu|maps).google\.cn https://maps.google.com 302
-
+# > Turn Off Google Safesearch
+(https:\/\/www\.google\.com([.a-z]+)?\/.+)(&safe=(active|strict)&)(.+) $1&safe=off 302
+https://www\.google\.com\.hk\/search\?q=([\w.]+)&(.+) https://www.google.com.sg/search?q=$1&safe=off 302
 
 [MITM]
-hostname = %INSERT% www.google.cn
+hostname = %INSERT% www.google.cn,www.google.com,www.google.com.*
