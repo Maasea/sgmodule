@@ -1,9 +1,11 @@
 #!name=Block Keep Advertising
 #!desc=Block Advertising for Keep
 
+[Rule]
+URL-REGEX,^https:\/\/static2\.keepcdn\.com\/.*\.gif,REJECT 
 [Script]
 Tab = type=http-response,pattern=https:\/\/api\.gotokeep\.com\/homepage\/v4\/tab,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/Script/Keep/Sections.js
 Bottom = type=http-response,pattern=https:\/\/api\.gotokeep\.com\/config\/v3/basic,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/Script/Keep/BottomBar.js
 
 [MitM]
-hostname = %APPEND% api.gotokeep.com
+hostname = %APPEND% api.gotokeep.com, static2.keepcdn.com
