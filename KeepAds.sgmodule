@@ -2,7 +2,9 @@
 #!desc=Block Advertising for Keep
 
 [Rule]
-URL-REGEX,^https:\/\/static2\.keepcdn\.com\/.*\.gif,REJECT 
+URL-REGEX,^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v1\/ad,REJECT
+URL-REGEX,^https:\/\/api\.gotokeep\.com\/training\/box\/config,REJECT
+URL-REGEX,^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v1\/ad\/preload$,REJECT
 [Script]
 Tab = type=http-response,pattern=https:\/\/api\.gotokeep\.com\/homepage\/v4\/tab,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/Script/Keep/Sections.js
 Bottom = type=http-response,pattern=https:\/\/api\.gotokeep\.com\/config\/v3/basic,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/Script/Keep/BottomBar.js

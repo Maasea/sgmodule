@@ -1,4 +1,4 @@
-#!name=Rules
+#!name=Anti-AD
 #!desc=Additional Rules
 
 [Map Local]
@@ -12,8 +12,8 @@ DOMAIN-SUFFIX,boxer.baidu.com,REJECT
 DOMAIN-SUFFIX,ug.baidu.com,REJECT
 URL-REGEX,^https?:\/\/mbd\.baidu\.com\/tcbox,REJECT
 # > Ximalaya
-URL-REGEX,^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/(ting|soundPatch),REJECT
-URL-REGEX,^https?:\/\/.*\.ximalaya\.com\/discovery-feed,REJECT
+URL-REGEX,^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/(ting|soundPatch|chase_recommend|anchor-sell),REJECT
+URL-REGEX,^https?:\/\/.*\.ximalaya\.com\/(discovery-feed|anchor-sell),REJECT
 
 [MITM]
 hostname = %APPEND%  *.ximalaya.com, mbd.baidu.com, www.hptoon.com
