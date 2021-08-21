@@ -1,5 +1,5 @@
 #!name=Anti-AD
-#!desc=Additional Rules
+#!desc=去广告规则补充
 
 [Map Local]
 https:\/\/www\.hptoon\.com\/hanman\/static\/dist\/ppm\/js\/common(\d)?\.js data="https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Hptoon/Common.js"
