@@ -8,7 +8,6 @@ https:\/\/www\.hptoon\.com\/hanman\/static\/dist\/ppm\/js\/common(\d)?\.js data=
 # > 91
 DOMAIN,vthumb.killcovid2021.com,REJECT
 # > Baidu 
-DOMAIN-SUFFIX,boxer.baidu.com,REJECT
 DOMAIN-SUFFIX,ug.baidu.com,REJECT
 URL-REGEX,^https?:\/\/mbd\.baidu\.com\/tcbox,REJECT
 # > Ximalaya

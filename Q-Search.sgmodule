@@ -1,6 +1,6 @@
 #!name=Q-Search
 #!desc=Safari Search Add-ons
-# Modified from @Neurogram and add google unsafe model
+# Modified from @Neurogram
 
 [URL Rewrite]
 ^https:\/\/duckduckgo.com\/\?q=bd\+([^&]+).+ https://www.baidu.com/s?wd=$1 302
@@ -9,7 +9,7 @@
 ^https:\/\/duckduckgo.com\/\?q=gm\+([^&]+).+ https://www.google.com/search?&tbm=isch&q=$1 302
 ^https:\/\/duckduckgo.com\/\?q=yd\+([^&]+).+ http://dict.youdao.com/search?q=$1 302
 ^https:\/\/duckduckgo.com\/\?q=ddg\+([^&]+).+ https://duckduckgo.com/?ia=about&q=$1 302
-^https:\/\/duckduckgo.com\/\?q=([^&]+).+ https://www.google.com.sg/search?q=$1&safe=off 302
+^https:\/\/duckduckgo.com\/\?q=([^&]+).+ https://www.google.com/search?q=$1 302
 
 
 [MITM]
