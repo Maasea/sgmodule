@@ -2,11 +2,9 @@
 #!desc=去广告规则补充
 
 [Map Local]
-https:\/\/www\.hptoon\.com\/hanman\/static\/dist\/ppm\/js\/common(\d)?\.js data="https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Hptoon/Common.js"
+https:\/\/www\.kptoon\.com\/hanman\/static\/dist\/ppm\/js\/common(\d)?\.js data="https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Hptoon/Common.js"
 
 [Rule]
-# > 91
-DOMAIN,vthumb.killcovid2021.com,REJECT
 # > Baidu 
 DOMAIN-SUFFIX,ug.baidu.com,REJECT
 URL-REGEX,^https?:\/\/mbd\.baidu\.com\/tcbox,REJECT
@@ -15,4 +13,4 @@ URL-REGEX,^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d
 URL-REGEX,^https?:\/\/.*\.ximalaya\.com\/(discovery-feed|anchor-sell),REJECT
 
 [MITM]
-hostname = %APPEND%  *.ximalaya.com, mbd.baidu.com, www.hptoon.com
+hostname = %APPEND%  *.ximalaya.com, mbd.baidu.com, www.kptoon.com
