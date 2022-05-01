@@ -11,6 +11,11 @@ URL-REGEX,^https?:\/\/mbd\.baidu\.com\/tcbox,REJECT
 # > Ximalaya
 URL-REGEX,^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/(ting|soundPatch|chase_recommend|anchor-sell),REJECT
 URL-REGEX,^https?:\/\/.*\.ximalaya\.com\/(discovery-feed|anchor-sell),REJECT
-
+URL-REGEX,^http:\/\/ar\.ximalaya\.com\/rec-association\/recommend\/album,REJECT
+# > 
+DOMAIN-SUFFIX,rayjump.com,REJECT
+DOMAIN,adx-tk.rayjump.com,REJECT
+DOMAIN,api.growingio.com,REJECT
+DOMAIN-SUFFIX,mintegral.com,REJECT
 [MITM]
 hostname = %APPEND%  *.ximalaya.com, mbd.baidu.com, www.kptoon.com
