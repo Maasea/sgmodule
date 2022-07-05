@@ -1,3 +1,3 @@
-# module for surge
+# Module for Surge
 
 
