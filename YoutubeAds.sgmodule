@@ -9,7 +9,7 @@
 ^https?:\/\/s\.youtube\.com\/api\/stats\/qoe\?adcontext - reject
 
 [Script]
-YouTubeAds = type=http-request,pattern=^https?:\/\/.+?\.googlevideo\.com\/.+&oad=(?!A),script-path=https://choler.github.io/Surge/Script/YouTube.js
+YouTubeAds = type=http-request,pattern=^https?:\/\/.+?\.googlevideo\.com\/.+&oad=(?!A),script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/Script/YouTube/YouTube.js
 
 [MITM]
 hostname = %APPEND% -redirector*.googlevideo.com,*.googlevideo.com,www.youtube.com,s.youtube.com,youtubei.googleapis.com
