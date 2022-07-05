@@ -1,9 +1,15 @@
 #!name=Block YouTube Advertising
 #!desc=Block Advertising for YouTube
-# Modified from @Choler
+# Modified from @Choler & @DivineEngine
+[URL Rewrite]
+(^https?:\/\/[\w-]+\.googlevideo\.com\/(?!dclk_video_ads).+?)&ctier=L(&.+?),ctier,(.+) $1$2$3 header
+^https?:\/\/youtubei\.googleapis\.com\/youtubei\/v\d\/player\/ad_break - reject
+^https?:\/\/(www|s)\.youtube\.com\/api\/stats\/ads - reject
+^https?:\/\/(www|s)\.youtube\.com\/(pagead|ptracking) - reject
+^https?:\/\/s\.youtube\.com\/api\/stats\/qoe\?adcontext - reject
 
 [Script]
-YouTubeAds = type=http-request,pattern=^https?:\/\/.+?\.googlevideo\.com\/.+&(oad|ctier)=(?!A),script-path=https://choler.github.io/Surge/Script/YouTube.js
+YouTubeAds = type=http-request,pattern=^https?:\/\/.+?\.googlevideo\.com\/.+&oad=(?!A),script-path=https://choler.github.io/Surge/Script/YouTube.js
 
 [MITM]
-hostname = %APPEND% *.googlevideo.com
+hostname = %APPEND% -redirector*.googlevideo.com,*.googlevideo.com,www.youtube.com,s.youtube.com,youtubei.googleapis.com
