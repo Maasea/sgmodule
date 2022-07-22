@@ -1,1 +1,1 @@
-$done({ response: { body: "" } });
+$done({ body: "", status: 304 });
