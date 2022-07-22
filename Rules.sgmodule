@@ -2,7 +2,10 @@
 #!desc=去广告规则补充
 
 [Map Local]
+# > hptoon
 https:\/\/www\.kptoon\.com\/hanman\/static\/dist\/ppm\/js\/common(\d)?\.js data="https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Hptoon/Common.js"
+# > Weixin
+^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad data="https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/WeChat/WeChat.json"
 
 [Rule]
 # > Baidu 
@@ -17,5 +20,6 @@ DOMAIN-SUFFIX,rayjump.com,REJECT
 DOMAIN,adx-tk.rayjump.com,REJECT
 DOMAIN,api.growingio.com,REJECT
 DOMAIN-SUFFIX,mintegral.com,REJECT
+
 [MITM]
-hostname = %APPEND%  *.ximalaya.com, mbd.baidu.com, www.kptoon.com
+hostname = %APPEND% *.ximalaya.com, mbd.baidu.com, www.kptoon.com, mp.weixin.qq.com

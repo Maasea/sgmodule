@@ -1,7 +1,0 @@
-#!name=Bilibili Redirect
-#!desc=解决网页无法跳转到国际版 Bilibili
-[MITM]
-hostname = %APPEND% d.bilibili.com
-
-[Script]
-bilibili-redirect = type=http-response,pattern=^https:\/\/d\.bilibili\.com\/bi-li-bi-li-dong-hua,requires-body=0,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Bilibili/BilibiliRedirect.js
