@@ -3,9 +3,9 @@
 
 [Map Local]
 # > hptoon
-https:\/\/www\.kptoon\.com\/hanman\/static\/dist\/ppm\/js\/common(\d)?\.js data="https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Hptoon/Common.js"
+https:\/\/www\.kptoon\.com\/hanman\/static\/dist\/ppm\/js\/common(\d)?\.js data="https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Hptoon/common.js"
 # > Weixin
-^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad data="https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/WeChat/WeChat.json"
+^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad data="https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/WeChat/wechat.json"
 
 [Rule]
 # > Baidu 
