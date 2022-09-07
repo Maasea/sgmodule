@@ -7,7 +7,7 @@ URL-REGEX,^https:\/\/api\.gotokeep\.com\/training\/box\/config,REJECT
 URL-REGEX,^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v1\/ad\/preload$,REJECT
 
 [Script]
-KeepTab = type=http-response,pattern=https:\/\/api\.gotokeep\.com\/homepage\/v4\/tab,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/Script/Keep/sections.js
+KeepMy = type=http-response,pattern=https:\/\/api\.gotokeep\.com\/athena\/v5\/people\/my,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/Script/Keep/my.js
 KeepBottom = type=http-response,pattern=https:\/\/api\.gotokeep\.com\/config\/v3/basic,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/Script/Keep/bottom_bar.js
 
 [MITM]
