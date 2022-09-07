@@ -2,7 +2,7 @@
 #!desc=ColorWeather Unlock
 
 [Script]
-Weather = type=http-response,requires-body=1,max-size=0,pattern=^https:\/\/biz\.caiyunapp\.com\/v2\/user\?app_name\=weather,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/Script/Weather/Weather.js
+Weather = type=http-response,requires-body=1,max-size=0,pattern=^https:\/\/biz\.caiyunapp\.com\/v2\/user\?app_name\=weather,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/Script/Weather/weather.js
 
 [MITM]
 hostname = %APPEND% biz.caiyunapp.com
