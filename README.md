@@ -1,10 +1,5 @@
 # Module for Surge
 
-解锁部分 APP 功能
-
-1. [Duet](./Duet.sgmodule)
-2. [Enpass](./Enpass.sgmodule)
-
 去除 APP 广告
 
 1. [Keep](./KeepAds.sgmodule)
