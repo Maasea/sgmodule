@@ -11,6 +11,22 @@ if (url.includes("book/readingstat")) {
     resp = { "synckey": parseInt(new Date().getTime() / 1000), "hasGroup": 0 }
 } else if (url.includes("review/list")) {
     resp = { "refUsers": [], "hasMore": 0, "totalCount": 0, "removed": [], "columns": [], "atUsers": [], "reviews": [] }
+} else if (url.includes("discoverfeed/new")) {
+    resp = JSON.parse($response.body)
+    resp.data = resp.data.filter(item => item.type !== 2)
+} else if (url.includes("discoverfeed/get")) {
+    resp = JSON.parse($response.body)
+    if (Array.isArray(resp.removed)) {
+        resp.removed.push("63", "dailybooklist")
+        resp.updated = 1
+    }
+    if (Array.isArray(resp.updatedNewRawItemIds)) {
+        resp.updatedNewRawItemIds = resp.updatedNewRawItemIds.filter(item => item === "26")
+    }
+    if (Array.isArray(resp.items)) {
+        resp.items = resp.items.filter(item => item.rawItemId === 26)
+    }
+
 } else if (url.includes("user/profile")) {
     resp = JSON.parse($response.body)
     resp.showMedal = 0
@@ -26,6 +42,7 @@ if (url.includes("book/readingstat")) {
     resp.storyfeed = 0
     resp.storyfeedUpdated = 0
     resp.readingExchange = 0
+    resp.friendReviewUpdate = 0
 }
 if (resp)
     $done({ body: JSON.stringify(resp) })
