@@ -1,5 +1,5 @@
 #!name=去除 Youtube 广告 
-#!desc=去除 Youtube 广告（Beta）
+#!desc=去除 Youtube 广告/Shorts（Beta）
 # IOS>15
 # 修正 IPad 的错误显示
 # 更改了广告的清理方式，可能会有漏网之鱼，出现少量广告 
