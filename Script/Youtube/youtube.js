@@ -95,7 +95,7 @@ function isVideo(o) {
     let type = subItem?.n8F1?.n9F168777401?.n10F3?.n11F172035250?.type;
     if (!type) type = subItem?.n8F2?.n9F183314536?.type;
     if (type) {
-      const adRegex = new RegExp("ads?_|video_display_full|shorts_shelf|inline_shorts|shelf_header");
+      const adRegex = new RegExp("ads?[_|\.]|video_display_full|shorts_shelf|inline_shorts|shelf_header");
       const knownRegex = new RegExp("cell_divider|home_video|related_video|search_video|compact_video");
       if (adRegex.test(type)) flag = false;
       // 用于排查遗留的广告类型
