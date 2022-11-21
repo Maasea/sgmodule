@@ -103,15 +103,17 @@ function removeBanner(itemObject) {
 }
 
 function isVideo(o) {
-  let flag = true;
-  if (o?.n7F157152291 || o?.n6F62887855 || o?.n6F166487981) flag = false;
-  else {
+  let adFlag = true;
+  let ads = o?.n7F157152291 || o?.n6F62887855 || o?.n6F166487981;
+  if (!ads) {
     let type = parseEml(o?.n6F153515154?.n7F172660663) || parseEml(o?.n6F153515154?.n7F172660663?.n8F3);
-    if (/_ads?\.|ads?_|video_display_full|landscape_image|square_image|shorts|shelf_header/.test(type)) flag = false;
-    if (flag && !/cell_divider|_video|comment_thread/.test(type)) console.log(type); // 用于排查遗留的广告类型
+    adFlag = /_ads?\.|ads?_|video_display_full|image|shorts|shelf_header|cell_divider/.test(type);
+    // 用于排查遗留的广告类型
+    if (!/cell_divider|video_with|comment_thread|post_base/.test(type))
+      console.log(`${type}--${adFlag}`);
   }
-  if (!flag) needProcessFlag = true;
-  return flag;
+  if (adFlag) needProcessFlag = true;
+  return !adFlag;
 }
 
 function isNotUpload(o) {
