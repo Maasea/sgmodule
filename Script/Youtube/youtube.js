@@ -109,10 +109,11 @@ function isVideo(o) {
   let ads = o?.n7F157152291 || o?.n6F62887855 || o?.n6F166487981;
   if (!ads) {
     let type = parseEml(o?.n6F153515154?.n7F172660663) || parseEml(o?.n6F153515154?.n7F172660663?.n8F3);
-    adFlag = /_ads?\.|ads?_|video_display_full|image|shorts|shelf_header|cell_divider/.test(type);
+    adFlag = /_ads?\.|ads?_|video_display_full|image|shorts(?!_pivot_item)|shelf_header|cell_divider/.test(
+      type
+    );
     // 用于排查遗留的广告类型
-    if (!/cell_divider|video_with|comment_thread|post_base/.test(type))
-      console.log(`${type}--${adFlag}`);
+    // if (!/cell_divider|video_with|comment_thread|post_base/.test(type)) console.log(`${type}--${adFlag}`);
   }
   if (adFlag) needProcessFlag = true;
   return !adFlag;
