@@ -1,4 +1,4 @@
-// Build: 2023/1/14 17:11:50
+// Build: 2023/1/26 15:04:20
 (() => {
   // lib/text-polyfill.mjs
   function text(r) {
@@ -138,12 +138,13 @@
   }
   var ___ = text(globalThis);
 
-  // lib/env.ts
-  var SimpleEnv = class {
+  // lib/client.ts
+  var SimpleClient = class {
     constructor(name, opt2) {
       this.name = name || "";
+      this.debug = opt2.debug || false;
       if (name) {
-        console.log(`${name} Start`);
+        this.log(`${name} Start`);
       }
     }
     isQuanX() {
@@ -229,11 +230,21 @@
         $notify(title, subt, desc, toEnvOpts(opts));
       }
     }
+    log(val) {
+      if (this.debug) {
+        if (typeof val === "object") {
+          val = JSON.stringify(val);
+        }
+        console.log(val);
+      }
+    }
     done(val = {}) {
       $done(val);
     }
   };
-  var $ = new SimpleEnv("YouTube");
+
+  // lib/env.ts
+  var $ = new SimpleClient("YouTube", { debug: true });
 
   // node_modules/@protobuf-ts/runtime/build/es2015/json-typings.js
   function typeofJsonValue(value) {
@@ -4440,11 +4451,12 @@
   var Player$Type = class extends MessageType {
     constructor() {
       super("Player", [
-        { no: 7, name: "b1f7", kind: "message", jsonName: "b1f7", repeat: 1, T: () => b1f7 }
+        { no: 7, name: "p1F7", kind: "message", repeat: 1, T: () => p1F7 },
+        { no: 2, name: "p1F2", kind: "message", T: () => p1F2 }
       ]);
     }
     create(value) {
-      const message = { b1F7: [] };
+      const message = { p1F7: [] };
       globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
       if (value !== void 0)
         reflectionMergePartial(this, message, value);
@@ -4455,9 +4467,13 @@
       while (reader.pos < end) {
         let [fieldNo, wireType] = reader.tag();
         switch (fieldNo) {
-          case /* repeated b1f7 b1f7 = 7 [json_name = "b1f7"];*/
+          case /* repeated p1F7 p1F7 */
           7:
-            message.b1F7.push(b1f7.internalBinaryRead(reader, reader.uint32(), options));
+            message.p1F7.push(p1F7.internalBinaryRead(reader, reader.uint32(), options));
+            break;
+          case /* p1F2 p1F2 */
+          2:
+            message.p1F2 = p1F2.internalBinaryRead(reader, reader.uint32(), options, message.p1F2);
             break;
           default:
             let u = options.readUnknownField;
@@ -4471,8 +4487,10 @@
       return message;
     }
     internalBinaryWrite(message, writer, options) {
-      for (let i = 0; i < message.b1F7.length; i++)
-        b1f7.internalBinaryWrite(message.b1F7[i], writer.tag(7, WireType.LengthDelimited).fork(), options).join();
+      for (let i = 0; i < message.p1F7.length; i++)
+        p1F7.internalBinaryWrite(message.p1F7[i], writer.tag(7, WireType.LengthDelimited).fork(), options).join();
+      if (message.p1F2)
+        p1F2.internalBinaryWrite(message.p1F2, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
       let u = options.writeUnknownFields;
       if (u !== false)
         (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -4480,10 +4498,10 @@
     }
   };
   var Player = new Player$Type();
-  var b1f7$Type = class extends MessageType {
+  var p1F2$Type = class extends MessageType {
     constructor() {
-      super("b1f7", [
-        { no: 84813246, name: "b2f84813246", kind: "message", jsonName: "b2f84813246", T: () => b2f84813246 }
+      super("p1F2", [
+        { no: 21, name: "p2F21", kind: "message", T: () => p2F21 }
       ]);
     }
     create(value) {
@@ -4498,9 +4516,9 @@
       while (reader.pos < end) {
         let [fieldNo, wireType] = reader.tag();
         switch (fieldNo) {
-          case /* b2f84813246 b2f84813246 = 84813246 [json_name = "b2f84813246"];*/
-          84813246:
-            message.b2F84813246 = b2f84813246.internalBinaryRead(reader, reader.uint32(), options, message.b2F84813246);
+          case /* p2F21 p2F21 */
+          21:
+            message.p2F21 = p2F21.internalBinaryRead(reader, reader.uint32(), options, message.p2F21);
             break;
           default:
             let u = options.readUnknownField;
@@ -4514,18 +4532,61 @@
       return message;
     }
     internalBinaryWrite(message, writer, options) {
-      if (message.b2F84813246)
-        b2f84813246.internalBinaryWrite(message.b2F84813246, writer.tag(84813246, WireType.LengthDelimited).fork(), options).join();
+      if (message.p2F21)
+        p2F21.internalBinaryWrite(message.p2F21, writer.tag(21, WireType.LengthDelimited).fork(), options).join();
       let u = options.writeUnknownFields;
       if (u !== false)
         (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
       return writer;
     }
   };
-  var b1f7 = new b1f7$Type();
-  var b2f84813246$Type = class extends MessageType {
+  var p1F2 = new p1F2$Type();
+  var p1F7$Type = class extends MessageType {
     constructor() {
-      super("b2f84813246", [
+      super("p1F7", [
+        { no: 84813246, name: "p2F84813246", kind: "message", T: () => p2F84813246 }
+      ]);
+    }
+    create(value) {
+      const message = {};
+      globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+      if (value !== void 0)
+        reflectionMergePartial(this, message, value);
+      return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+      let message = target != null ? target : this.create(), end = reader.pos + length;
+      while (reader.pos < end) {
+        let [fieldNo, wireType] = reader.tag();
+        switch (fieldNo) {
+          case /* p2F84813246 p2F84813246 */
+          84813246:
+            message.p2F84813246 = p2F84813246.internalBinaryRead(reader, reader.uint32(), options, message.p2F84813246);
+            break;
+          default:
+            let u = options.readUnknownField;
+            if (u === "throw")
+              throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+            let d = reader.skip(wireType);
+            if (u !== false)
+              (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+        }
+      }
+      return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+      if (message.p2F84813246)
+        p2F84813246.internalBinaryWrite(message.p2F84813246, writer.tag(84813246, WireType.LengthDelimited).fork(), options).join();
+      let u = options.writeUnknownFields;
+      if (u !== false)
+        (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+      return writer;
+    }
+  };
+  var p1F7 = new p1F7$Type();
+  var p2F84813246$Type = class extends MessageType {
+    constructor() {
+      super("p2F84813246", [
         {
           no: 3,
           name: "v",
@@ -4571,16 +4632,437 @@
       return writer;
     }
   };
-  var b2f84813246 = new b2f84813246$Type();
+  var p2F84813246 = new p2F84813246$Type();
+  var p2F21$Type = class extends MessageType {
+    constructor() {
+      super("p2F21", [
+        { no: 151635310, name: "p3F151635310", kind: "message", T: () => p3F151635310 }
+      ]);
+    }
+    create(value) {
+      const message = {};
+      globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+      if (value !== void 0)
+        reflectionMergePartial(this, message, value);
+      return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+      let message = target != null ? target : this.create(), end = reader.pos + length;
+      while (reader.pos < end) {
+        let [fieldNo, wireType] = reader.tag();
+        switch (fieldNo) {
+          case /* p3F151635310 p3F151635310 */
+          151635310:
+            message.p3F151635310 = p3F151635310.internalBinaryRead(reader, reader.uint32(), options, message.p3F151635310);
+            break;
+          default:
+            let u = options.readUnknownField;
+            if (u === "throw")
+              throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+            let d = reader.skip(wireType);
+            if (u !== false)
+              (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+        }
+      }
+      return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+      if (message.p3F151635310)
+        p3F151635310.internalBinaryWrite(message.p3F151635310, writer.tag(151635310, WireType.LengthDelimited).fork(), options).join();
+      let u = options.writeUnknownFields;
+      if (u !== false)
+        (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+      return writer;
+    }
+  };
+  var p2F21 = new p2F21$Type();
+  var p3F151635310$Type = class extends MessageType {
+    constructor() {
+      super("p3F151635310", [
+        {
+          no: 1,
+          name: "pip",
+          kind: "scalar",
+          T: 5
+          /*ScalarType.INT32*/
+        }
+      ]);
+    }
+    create(value) {
+      const message = { pip: 0 };
+      globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+      if (value !== void 0)
+        reflectionMergePartial(this, message, value);
+      return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+      let message = target != null ? target : this.create(), end = reader.pos + length;
+      while (reader.pos < end) {
+        let [fieldNo, wireType] = reader.tag();
+        switch (fieldNo) {
+          case /* int32 pip */
+          1:
+            message.pip = reader.int32();
+            break;
+          default:
+            let u = options.readUnknownField;
+            if (u === "throw")
+              throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+            let d = reader.skip(wireType);
+            if (u !== false)
+              (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+        }
+      }
+      return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+      if (message.pip !== 0)
+        writer.tag(1, WireType.Varint).int32(message.pip);
+      let u = options.writeUnknownFields;
+      if (u !== false)
+        (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+      return writer;
+    }
+  };
+  var p3F151635310 = new p3F151635310$Type();
+  var Log$Type = class extends MessageType {
+    constructor() {
+      super("Log", [
+        { no: 1, name: "l1F1", kind: "message", T: () => l1F1 }
+      ]);
+    }
+    create(value) {
+      const message = {};
+      globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+      if (value !== void 0)
+        reflectionMergePartial(this, message, value);
+      return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+      let message = target != null ? target : this.create(), end = reader.pos + length;
+      while (reader.pos < end) {
+        let [fieldNo, wireType] = reader.tag();
+        switch (fieldNo) {
+          case /* l1F1 l1F1 */
+          1:
+            message.l1F1 = l1F1.internalBinaryRead(reader, reader.uint32(), options, message.l1F1);
+            break;
+          default:
+            let u = options.readUnknownField;
+            if (u === "throw")
+              throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+            let d = reader.skip(wireType);
+            if (u !== false)
+              (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+        }
+      }
+      return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+      if (message.l1F1)
+        l1F1.internalBinaryWrite(message.l1F1, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+      let u = options.writeUnknownFields;
+      if (u !== false)
+        (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+      return writer;
+    }
+  };
+  var Log = new Log$Type();
+  var l1F1$Type = class extends MessageType {
+    constructor() {
+      super("l1F1", [
+        { no: 16, name: "l2F16", kind: "message", T: () => l2F16 }
+      ]);
+    }
+    create(value) {
+      const message = {};
+      globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+      if (value !== void 0)
+        reflectionMergePartial(this, message, value);
+      return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+      let message = target != null ? target : this.create(), end = reader.pos + length;
+      while (reader.pos < end) {
+        let [fieldNo, wireType] = reader.tag();
+        switch (fieldNo) {
+          case /* l2F16 l2F16 */
+          16:
+            message.l2F16 = l2F16.internalBinaryRead(reader, reader.uint32(), options, message.l2F16);
+            break;
+          default:
+            let u = options.readUnknownField;
+            if (u === "throw")
+              throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+            let d = reader.skip(wireType);
+            if (u !== false)
+              (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+        }
+      }
+      return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+      if (message.l2F16)
+        l2F16.internalBinaryWrite(message.l2F16, writer.tag(16, WireType.LengthDelimited).fork(), options).join();
+      let u = options.writeUnknownFields;
+      if (u !== false)
+        (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+      return writer;
+    }
+  };
+  var l1F1 = new l1F1$Type();
+  var l2F16$Type = class extends MessageType {
+    constructor() {
+      super("l2F16", [
+        { no: 7, name: "l3F7", kind: "message", T: () => l3F7 }
+      ]);
+    }
+    create(value) {
+      const message = {};
+      globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+      if (value !== void 0)
+        reflectionMergePartial(this, message, value);
+      return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+      let message = target != null ? target : this.create(), end = reader.pos + length;
+      while (reader.pos < end) {
+        let [fieldNo, wireType] = reader.tag();
+        switch (fieldNo) {
+          case /* l3F7 l3F7 */
+          7:
+            message.l3F7 = l3F7.internalBinaryRead(reader, reader.uint32(), options, message.l3F7);
+            break;
+          default:
+            let u = options.readUnknownField;
+            if (u === "throw")
+              throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+            let d = reader.skip(wireType);
+            if (u !== false)
+              (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+        }
+      }
+      return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+      if (message.l3F7)
+        l3F7.internalBinaryWrite(message.l3F7, writer.tag(7, WireType.LengthDelimited).fork(), options).join();
+      let u = options.writeUnknownFields;
+      if (u !== false)
+        (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+      return writer;
+    }
+  };
+  var l2F16 = new l2F16$Type();
+  var l3F7$Type = class extends MessageType {
+    constructor() {
+      super("l3F7", [
+        { no: 138536474, name: "l4F138536474", kind: "message", T: () => l4F138536474 }
+      ]);
+    }
+    create(value) {
+      const message = {};
+      globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+      if (value !== void 0)
+        reflectionMergePartial(this, message, value);
+      return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+      let message = target != null ? target : this.create(), end = reader.pos + length;
+      while (reader.pos < end) {
+        let [fieldNo, wireType] = reader.tag();
+        switch (fieldNo) {
+          case /* l4F138536474 l4F138536474 */
+          138536474:
+            message.l4F138536474 = l4F138536474.internalBinaryRead(reader, reader.uint32(), options, message.l4F138536474);
+            break;
+          default:
+            let u = options.readUnknownField;
+            if (u === "throw")
+              throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+            let d = reader.skip(wireType);
+            if (u !== false)
+              (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+        }
+      }
+      return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+      if (message.l4F138536474)
+        l4F138536474.internalBinaryWrite(message.l4F138536474, writer.tag(138536474, WireType.LengthDelimited).fork(), options).join();
+      let u = options.writeUnknownFields;
+      if (u !== false)
+        (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+      return writer;
+    }
+  };
+  var l3F7 = new l3F7$Type();
+  var l4F138536474$Type = class extends MessageType {
+    constructor() {
+      super("l4F138536474", [
+        { no: 1, name: "l5F1", kind: "message", T: () => l5F1 }
+      ]);
+    }
+    create(value) {
+      const message = {};
+      globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+      if (value !== void 0)
+        reflectionMergePartial(this, message, value);
+      return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+      let message = target != null ? target : this.create(), end = reader.pos + length;
+      while (reader.pos < end) {
+        let [fieldNo, wireType] = reader.tag();
+        switch (fieldNo) {
+          case /* l5F1 l5F1 */
+          1:
+            message.l5F1 = l5F1.internalBinaryRead(reader, reader.uint32(), options, message.l5F1);
+            break;
+          default:
+            let u = options.readUnknownField;
+            if (u === "throw")
+              throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+            let d = reader.skip(wireType);
+            if (u !== false)
+              (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+        }
+      }
+      return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+      if (message.l5F1)
+        l5F1.internalBinaryWrite(message.l5F1, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+      let u = options.writeUnknownFields;
+      if (u !== false)
+        (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+      return writer;
+    }
+  };
+  var l4F138536474 = new l4F138536474$Type();
+  var l5F1$Type = class extends MessageType {
+    constructor() {
+      super("l5F1", [
+        {
+          no: 14,
+          name: "t14",
+          kind: "scalar",
+          T: 5
+          /*ScalarType.INT32*/
+        },
+        {
+          no: 16,
+          name: "t16",
+          kind: "scalar",
+          T: 5
+          /*ScalarType.INT32*/
+        },
+        {
+          no: 18,
+          name: "t18",
+          kind: "scalar",
+          T: 5
+          /*ScalarType.INT32*/
+        },
+        {
+          no: 19,
+          name: "t19",
+          kind: "scalar",
+          T: 5
+          /*ScalarType.INT32*/
+        },
+        {
+          no: 26,
+          name: "t26",
+          kind: "scalar",
+          T: 5
+          /*ScalarType.INT32*/
+        },
+        {
+          no: 30,
+          name: "pip",
+          kind: "scalar",
+          T: 5
+          /*ScalarType.INT32*/
+        }
+      ]);
+    }
+    create(value) {
+      const message = { t14: 0, t16: 0, t18: 0, t19: 0, t26: 0, pip: 0 };
+      globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+      if (value !== void 0)
+        reflectionMergePartial(this, message, value);
+      return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+      let message = target != null ? target : this.create(), end = reader.pos + length;
+      while (reader.pos < end) {
+        let [fieldNo, wireType] = reader.tag();
+        switch (fieldNo) {
+          case /* int32 t14 */
+          14:
+            message.t14 = reader.int32();
+            break;
+          case /* int32 t16 */
+          16:
+            message.t16 = reader.int32();
+            break;
+          case /* int32 t18 */
+          18:
+            message.t18 = reader.int32();
+            break;
+          case /* int32 t19 */
+          19:
+            message.t19 = reader.int32();
+            break;
+          case /* int32 t26 */
+          26:
+            message.t26 = reader.int32();
+            break;
+          case /* int32 pip */
+          30:
+            message.pip = reader.int32();
+            break;
+          default:
+            let u = options.readUnknownField;
+            if (u === "throw")
+              throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+            let d = reader.skip(wireType);
+            if (u !== false)
+              (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+        }
+      }
+      return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+      if (message.t14 !== 0)
+        writer.tag(14, WireType.Varint).int32(message.t14);
+      if (message.t16 !== 0)
+        writer.tag(16, WireType.Varint).int32(message.t16);
+      if (message.t18 !== 0)
+        writer.tag(18, WireType.Varint).int32(message.t18);
+      if (message.t19 !== 0)
+        writer.tag(19, WireType.Varint).int32(message.t19);
+      if (message.t26 !== 0)
+        writer.tag(26, WireType.Varint).int32(message.t26);
+      if (message.pip !== 0)
+        writer.tag(30, WireType.Varint).int32(message.pip);
+      let u = options.writeUnknownFields;
+      if (u !== false)
+        (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+      return writer;
+    }
+  };
+  var l5F1 = new l5F1$Type();
 
-  // src/youtube.ts
+  // src/handler.ts
   var YouTubeMessage = class {
     constructor(whiteObj, name) {
       this.decoder = new TextDecoder("utf-8", {
         fatal: false,
         ignoreBOM: true
       });
-      console.log(name);
+      $.log(name);
       this.whiteNo = whiteObj.whiteNo;
       this.blackNo = whiteObj.blackNo;
       this.whiteEml = whiteObj.whiteEml;
@@ -4588,7 +5070,7 @@
     }
     save() {
       if (this.needSave) {
-        console.log("Update Config");
+        $.log("Update Config");
         const YouTubeWhiteObj = {
           whiteNo: this.whiteNo,
           blackNo: this.blackNo,
@@ -4602,7 +5084,7 @@
       this.save();
       if (this.needProcess) {
         this.toBinary();
-        console.log("Handle");
+        $.log("Handle");
         if ($.isQuanX()) {
           $.done({
             bodyBytes: this.body.buffer.slice(
@@ -4614,7 +5096,7 @@
           $.done({ body: this.body });
         }
       } else {
-        $.done({});
+        $.done();
       }
     }
     iterate(obj = {}, target, call, proto) {
@@ -4657,7 +5139,7 @@
       const adFlag = rawText.includes("pagead");
       adFlag ? this.blackNo.push(no) : this.whiteNo.push(no);
       this.needSave = true;
-      console.log("UnknownField:" + no + ": " + adFlag);
+      $.log("UnknownField:" + no + ": " + adFlag);
       return adFlag;
     }
     handleKnownField(field) {
@@ -4741,10 +5223,14 @@
       this.message = Player.fromBinary(binaryBody2);
     }
     pure() {
-      var _a;
-      if ((_a = this.message.b1F7) == null ? void 0 : _a.length) {
-        this.message.b1F7.length = 0;
+      var _a, _b, _c, _d;
+      if ((_a = this.message.p1F7) == null ? void 0 : _a.length) {
+        this.message.p1F7.length = 0;
         this.needProcess = true;
+      }
+      const option = (_d = (_c = (_b = this.message) == null ? void 0 : _b.p1F2) == null ? void 0 : _c.p2F21) == null ? void 0 : _d.p3F151635310;
+      if (option) {
+        option.pip = 1;
       }
     }
     toBinary() {
@@ -4805,6 +5291,25 @@
       this.body = Guide.toBinary(this.message);
     }
   };
+  var LogMessage = class extends YouTubeMessage {
+    constructor(whiteObj, name = "Log") {
+      super(whiteObj, name);
+    }
+    fromBinary(binaryBody2) {
+      this.message = Log.fromBinary(binaryBody2);
+    }
+    pure() {
+      this.iterate(this.message, "pip", (obj) => {
+        if (!obj.pip) {
+          obj.pip = 1;
+          this.needProcess = true;
+        }
+      });
+    }
+    toBinary() {
+      this.body = Log.toBinary(this.message);
+    }
+  };
 
   // lib/factory.ts
   var Factory = class {
@@ -4821,6 +5326,8 @@
         return new ShortsMessage(opt2);
       } else if (url2.includes("/v1/guide")) {
         return new GuideMessage(opt2);
+      } else if (url2.includes("/v1/log_event")) {
+        return new LogMessage(opt2);
       } else {
         return false;
       }
@@ -4842,7 +5349,7 @@
     youtubeMsg.pure();
     youtubeMsg.done();
   } else {
-    $.msg("youtube-proto\u811A\u672C\u5339\u914D\u9519\u8BEF", "\u53EF\u80FD\u9700\u8981\u66F4\u65B0\u811A\u672C\u8D44\u6E90", url);
+    $.msg("youtube \u811A\u672C\u5339\u914D\u9519\u8BEF", "\u53EF\u80FD\u9700\u8981\u66F4\u65B0\u811A\u672C\u8D44\u6E90", url);
     $.done();
   }
 })();
