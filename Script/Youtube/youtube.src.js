@@ -1,4 +1,4 @@
-// Build: 2023/1/27 12:56:21
+// Build: 2023/1/27 14:54:43
 (() => {
   // lib/text-polyfill.mjs
   function text(r) {
@@ -6067,12 +6067,7 @@
               st3F5: st3F52
             }
           };
-          const isPIP = obj.st3F3.some((e) => {
-            var _a, _b;
-            return ((_b = (_a = e == null ? void 0 : e.st4F61331416) == null ? void 0 : _a.st3F5) == null ? void 0 : _b.f1) === 135;
-          });
-          if (!isPIP)
-            obj.st3F3.push(fakePIP);
+          obj.st3F3.push(fakePIP);
         }
       });
       const fakeF88478200 = {
@@ -6094,17 +6089,10 @@
           f12: 1
         }
       };
-      const isBack = this.message.st1F6.some((e) => {
-        var _a, _b;
-        return ((_b = (_a = e == null ? void 0 : e.st2F88478200) == null ? void 0 : _a.st3F5) == null ? void 0 : _b.f1) === 2;
-      });
-      if (!isBack) {
-        this.message.st1F6.push(JSON.parse(JSON.stringify(fakeF88478200)));
-        fakeF88478200.st2F88478200.st3F5.f1 = 1;
-        fakeF88478200.st2F88478200.st3F5.f3 = 9;
-        this.message.st1F7 = fakeF88478200;
-        $.log("no background play");
-      }
+      this.message.st1F6.push(JSON.parse(JSON.stringify(fakeF88478200)));
+      fakeF88478200.st2F88478200.st3F5.f1 = 1;
+      fakeF88478200.st2F88478200.st3F5.f3 = 9;
+      this.message.st1F7 = fakeF88478200;
       this.needProcess = true;
     }
     toBinary() {
