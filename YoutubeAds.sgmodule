@@ -10,7 +10,7 @@
 # > Note
 # 广告信息会有遗漏，可能偶现广告
 # 该模块已足够全面，无需其他规则混用，防止重写规则被破坏
-# 不支持 Mock 的客户端可以用 reject-img 替代
+# 不支持 Mock 的客户端可以用 reject-200/reject-img 替代
 
 # > Credit 
 # @Choler & @DivineEngine & @app2smile
@@ -19,7 +19,7 @@
 youtube = type=http-response,pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting)\?,requires-body=1,binary-body-mode=1,max-size=3145728,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/youtube.js
 
 [Map Local]
-^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data="https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/tinygif.gif"
+^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data="https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/blank.txt" header="Content-Type: application/vnd.yt-ump"
 
 [MITM]
 hostname = %APPEND% *.googlevideo.com, youtubei.googleapis.com
