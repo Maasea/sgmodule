@@ -1,15 +1,8 @@
 #!name=URL Rewrite
-#!desc=URL 重定向
+#!desc=Google 地址重定向
 
 [URL Rewrite]
 # Redirect Google Search Service
 ^https?:\/\/(www.)?(g|google)\.cn https://www.google.com 302
 # Redirect Google Maps Service
 ^https?:\/\/(ditu|maps).google\.cn https://maps.google.com 302
-
-[Script]
-# bilibili 网页跳转到国际版
-bilibili-redirect = type=http-request,pattern=^https:\/\/d\.bilibili\.com\/bi-li-bi-li-dong-hua,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Bilibili/bilibili_redirect.js
-
-[MITM]
-hostname = %INSERT% www.google.cn, d.bilibili.com

@@ -11,17 +11,10 @@ https:\/\/www\.kptoon\.com\/hanman\/static\/dist\/ppm\/js\/common(\d)?\.js data=
 # > Baidu 
 DOMAIN-SUFFIX,ug.baidu.com,REJECT
 URL-REGEX,^https?:\/\/mbd\.baidu\.com\/tcbox,REJECT
-# > China mobile 需要重新安装中国移动app [可能会导致小组件无法使用]
-URL-REGEX,^https:\/\/client\.app\.coc\.10086\.cn\/biz-orange\/DN\/init\/startInit,REJECT
-URL-REGEX,^https:\/\/client\.app\.coc\.10086\.cn\/biz-orange\/DN\/clientUpdate\/getclientUpdate$,REJECT
 # > Ximalaya
 URL-REGEX,^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/(ting|soundPatch|chase_recommend|anchor-sell),REJECT
 URL-REGEX,^https?:\/\/.*\.ximalaya\.com\/(discovery-feed|anchor-sell),REJECT
 URL-REGEX,^http:\/\/ar\.ximalaya\.com\/rec-association\/recommend\/album,REJECT
-# > 
-DOMAIN-SUFFIX,rayjump.com,REJECT
-DOMAIN,api.growingio.com,REJECT
-DOMAIN-SUFFIX,mintegral.com,REJECT
 
 [MITM]
-hostname = %APPEND% *.ximalaya.com, mbd.baidu.com, www.kptoon.com, mp.weixin.qq.com, client.app.coc.10086.cn
+hostname = %APPEND% *.ximalaya.com, mbd.baidu.com, www.kptoon.com, mp.weixin.qq.com
