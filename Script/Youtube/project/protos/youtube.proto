@@ -1,0 +1,283 @@
+syntax = "proto3";
+
+message Browse {
+  n1F9 n1F9 = 9;
+  n1F10 n1F10 = 10;
+}
+message n1F9 {
+  m2F58173949 m2F58173949 = 58173949;
+}
+message n1F10 {
+  n2F49399797 n2F49399797 = 49399797;
+}
+message m2F58173949 {
+  repeated m3F1 m3F1 = 1;
+}
+message m3F1 {
+  m4F58174010 m4F58174010 = 58174010;
+}
+message m4F58174010 {
+  n1F10 n1F10 = 4;
+}
+
+message n2F49399797 {
+  repeated n3F1 n3F1 = 1;
+}
+
+message n3F1 {
+  n4F50195462 n4F50195462 = 50195462;
+  n4F51845067 n4F51845067 = 51845067;
+}
+
+message n4F50195462 {
+  repeated n5F1 n5F1 = 1;
+}
+
+message n4F51845067 {
+  n5F5 n5F5 = 5;
+}
+
+message n5F1 {
+  n6F153515154 n6F153515154 = 153515154;
+}
+message n5F5 {
+  n6F51431404 n6F51431404 = 51431404;
+}
+
+message n6F153515154 {
+  n7F172660663 n7F172660663 = 172660663;
+}
+message n6F51431404 {
+  repeated n5F1 n5F1 = 1;
+}
+
+message n7F172660663 {
+  n8F1 n8F1 = 1;
+  n8F2 n8F2 = 2;
+  n8F3 n8F3 = 3;
+}
+
+message n8F1 {
+  n9F168777401 n9F168777401 = 168777401;
+}
+
+message n8F2 {
+  n9F183314536 n9F183314536 = 183314536;
+}
+message n8F3 {
+  n8F1 n8F1 = 1;
+  n8F2 n8F2 = 2;
+}
+message n9F168777401 {
+  n10F3 n10F3 = 3;
+}
+message n9F183314536 {
+  string type = 1;
+}
+message n10F3 {
+  n11F172035250 n11F172035250 = 172035250;
+}
+
+message n11F172035250 {
+  string type = 1;
+}
+
+message Next {
+  a1F7 a1F7 = 7;
+  a1F8 a1F8 = 8;
+}
+
+message a1F7 {
+  a2F51779735 a2F51779735 = 51779735;
+}
+
+message a1F8 {
+  n2F49399797 n2F49399797 = 49399797;
+}
+
+message a2F51779735 {
+  a3F1 a3F1 = 1;
+}
+
+message a3F1 {
+  n2F49399797 n2F49399797 = 49399797;
+}
+
+message Search {
+  s1F4 s1F4 = 4;
+  s1F7 s1F7 = 7;
+}
+
+message s1F4 {
+  n2F49399797 n2F49399797 = 49399797;
+}
+
+message s1F7 {
+  n4F50195462 n4F50195462 = 50195462;
+  n2F49399797 n2F49399797 = 49399797;
+}
+
+message Shorts {
+  repeated t1F2 t1F2 = 2;
+}
+
+message t1F2 {
+  n2F1 n2F1 = 1;
+}
+
+message n2F1 {
+  n3F139608561 n3F139608561 = 139608561;
+}
+
+message n3F139608561 {
+  n4F8 n4F8 = 8;
+}
+
+message n4F8 {}
+
+message Guide {
+  repeated g1F4 g1F4 = 4;
+  repeated g1F6 g1F6 = 6;
+}
+message g1F4 {
+  g2F117866661 g2F117866661 = 117866661;
+}
+
+message g1F6 {
+  g2F117866661 g2F117866661 = 117866661;
+}
+
+message g2F117866661 {
+  repeated g3F1 g3F1 = 1;
+}
+message g3F1 {
+  g4F318370163 g4F318370163 = 318370163;
+}
+message g4F318370163 {}
+
+message Player {
+  repeated p1F7 p1F7 = 7;
+  p1F2 p1F2 = 2;
+}
+
+message p1F2{
+  p2F21 p2F21 = 21;
+  p2F11 p2F11 = 11;
+}
+message p1F7 {
+  p2F84813246 p2F84813246 = 84813246;
+}
+message p2F84813246 {
+  int32 v = 3;
+}
+message p2F21 {
+  p3F151635310 p3F151635310 = 151635310;
+}
+message  p2F11{
+  p3F64657230 p3F64657230 = 64657230;
+}
+message p3F151635310{
+  int32 pip = 1;
+}
+message p3F64657230{
+  int32 backPlay = 1;
+}
+
+//message Log{
+//  l1F1 l1F1 = 1;
+//}
+//
+//message l1F1{
+//  l2F16 l2F16 = 16;
+//}
+//
+//message l2F16{
+//  l3F7 l3F7 = 7;
+//}
+//
+//message l3F7{
+//  l4F138536474 l4F138536474 = 138536474;
+//}
+//
+//message l4F138536474{
+//  l5F1 l5F1 = 1;
+//}
+//
+//message l5F1{
+//  int32 pip = 30;
+//}
+
+message Setting{
+  repeated st1F6 st1F6 = 6;
+  st1F7 st1F7 = 7;
+  st1F10 st1F10 = 10;
+}
+
+message st1F6{
+  st2F88478200 st2F88478200 = 88478200;
+  st2F66930374 st2F66930374 = 66930374;
+}
+message  st1F7{
+  st2F88478200 st2F88478200 = 88478200;
+}
+message st1F10{
+  st2F4 st2F4 = 4;
+}
+
+message st2F4 {
+  uint64 f1 = 1 [jstype = JS_STRING];
+  fixed32 f2 = 2;
+  fixed32 f3 = 3;
+}
+message st2F88478200{
+  //  st3F1 st3F1 = 1;
+  int32 f2 = 2;
+  int32 f3 = 3;
+  st3F5 st3F5 = 5;
+  int32 f6 = 6;
+  int32 f7 = 7;
+  int32 f8 = 8;
+  int32 f9 = 9;
+  int32 f10 = 10;
+  int32 f12 = 12;
+}
+message st2F66930374{
+  repeated st3F3 st3F3 = 3;
+  int32 num = 4;
+}
+
+message st3F1{
+  st4F1 st4F1 = 1;
+}
+message st3F3{
+  st4F61331416 st4F61331416 = 61331416;
+}
+message st3F5{
+  int32 f1 = 1;
+  int32 f2 = 2;
+  int32 f3 = 3;
+  st2F4 st2F4 = 4;
+}
+message st4F1{
+  string title = 1;
+}
+message st4F61331416{
+  st5F5 st5F5 = 5;
+  st5F5 st5F6 = 6;
+  st3F5 st3F5 = 13;
+  int32 f15 = 15;
+}
+message st5F5{
+  st3F5 st3F5 = 2;
+  st6F81212182 st6F81212182 = 81212182;
+}
+message st6F81212182{
+  st7F1 st7F1 = 1;
+}
+message st7F1{
+  st8F1 st8F1 = 1;
+  int32 f3 = 3;
+}
+message st8F1{
+  int32 f1 = 1;
+}

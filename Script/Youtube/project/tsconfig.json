@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "src": [
+        "./src/"
+      ]
+    },
+    "target": "ES6",
+    "strictNullChecks": true
+  }
+}
