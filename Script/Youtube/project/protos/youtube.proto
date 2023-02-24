@@ -133,7 +133,13 @@ message n3F139608561 {
   n4F8 n4F8 = 8;
 }
 
-message n4F8 {}
+message n4F8 {
+  n4F139970731 n4F139970731 = 139970731;
+}
+
+message n4F139970731{
+  int32 f1 = 12;
+}
 
 message Guide {
   repeated g1F4 g1F4 = 4;
@@ -153,7 +159,9 @@ message g2F117866661 {
 message g3F1 {
   g4F318370163 g4F318370163 = 318370163;
 }
-message g4F318370163 {}
+message g4F318370163 {
+  string f1 = 1;
+}
 
 message Name {
   repeated Runs runs = 1 [json_name = "runs"];
