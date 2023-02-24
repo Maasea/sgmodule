@@ -155,9 +155,55 @@ message g3F1 {
 }
 message g4F318370163 {}
 
+message Name {
+  repeated Runs runs = 1 [json_name = "runs"];
+	message Runs {
+    string text = 1 [json_name = "text"];
+  };
+};
+
 message Player {
   repeated p1F7 p1F7 = 7;
   p1F2 p1F2 = 2;
+  Captions captions = 10 [json_name = "captions"];
+  message Captions {
+    PlayerCaptionsTracklistRenderer playerCaptionsTracklistRenderer = 51621377 [json_name = "playerCaptionsTracklistRenderer"];
+    
+    message PlayerCaptionsTracklistRenderer {
+      repeated CaptionTracks captionTracks = 1 [json_name = "captionTracks"];
+      repeated AudioTracks audioTracks = 2 [json_name = "audioTracks"];
+      repeated TranslationLanguages translationLanguages = 3 [json_name = "translationLanguages"];
+      optional int32 defaultAudioTrackIndex = 4 [json_name = "defaultAudioTrackIndex"];
+      optional int32 defaultCaptionTrackIndex = 6 [json_name = "defaultAudioTrackIndex"];
+
+      message CaptionTracks {
+        string baseUrl = 1 [json_name = "baseUrl"];
+        Name name = 2 [json_name = "name"];
+        string vssId = 3 [json_name = "vssId"];
+        string languageCode = 4 [json_name = "languageCode"];
+        optional string kind = 5 [json_name = "kind"];
+        optional bool rtl = 6 [json_name = "rtl"];
+        bool isTranslatable = 7 [json_name = "isTranslatable"];
+      };
+
+      message AudioTracks {
+        repeated int32 captionTrackIndices = 2 [json_name = "captionTrackIndices", packed = false];
+        optional int32 defaultCaptionTrackIndex = 3 [json_name = "defaultCaptionTrackIndex"];
+        optional int32 forcedCaptionTrackIndex = 4 [json_name = "forcedCaptionTrackIndex"];
+        optional int32 visibility = 5 [json_name = "visibility"];
+        optional bool hasDefaultTrack = 6 [json_name = "hasDefaultTrack"];
+        optional bool hasForcedTrack = 7 [json_name = "hasForcedTrack"];
+        optional string audioTrackId = 8 [json_name = "audioTrackId"];
+        optional int32 captionsInitialState = 11 [json_name = "captionsInitialState"];
+      };
+        
+      message TranslationLanguages {
+        string languageCode = 1 [json_name = "languageCode"];
+        Name languageName = 2 [json_name = "languageName"];
+        //??? ??? = 3 [json_name = "???"];
+      };
+    };
+  };
 }
 
 message p1F2{

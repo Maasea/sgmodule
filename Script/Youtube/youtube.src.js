@@ -1,4 +1,4 @@
-// Build: 2023/1/28 16:51:47
+// Build: 2023/2/24 11:36:13
 (() => {
   // lib/text-polyfill.mjs
   function text(r) {
@@ -2381,7 +2381,7 @@
       let name = field.localName;
       if (field.oneof) {
         const group = input[field.oneof];
-        if (group == void 0) {
+        if ((group === null || group === void 0 ? void 0 : group.oneofKind) == void 0) {
           continue;
         }
         fieldValue = group[name];
@@ -4448,11 +4448,104 @@
     }
   };
   var g4F318370163 = new g4F318370163$Type();
+  var Name$Type = class extends MessageType {
+    constructor() {
+      super("Name", [
+        { no: 1, name: "runs", kind: "message", repeat: 1, T: () => Name_Runs }
+      ]);
+    }
+    create(value) {
+      const message = { runs: [] };
+      globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+      if (value !== void 0)
+        reflectionMergePartial(this, message, value);
+      return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+      let message = target != null ? target : this.create(), end = reader.pos + length;
+      while (reader.pos < end) {
+        let [fieldNo, wireType] = reader.tag();
+        switch (fieldNo) {
+          case /* repeated Name.Runs runs */
+          1:
+            message.runs.push(Name_Runs.internalBinaryRead(reader, reader.uint32(), options));
+            break;
+          default:
+            let u = options.readUnknownField;
+            if (u === "throw")
+              throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+            let d = reader.skip(wireType);
+            if (u !== false)
+              (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+        }
+      }
+      return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+      for (let i = 0; i < message.runs.length; i++)
+        Name_Runs.internalBinaryWrite(message.runs[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+      let u = options.writeUnknownFields;
+      if (u !== false)
+        (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+      return writer;
+    }
+  };
+  var Name = new Name$Type();
+  var Name_Runs$Type = class extends MessageType {
+    constructor() {
+      super("Name.Runs", [
+        {
+          no: 1,
+          name: "text",
+          kind: "scalar",
+          T: 9
+          /*ScalarType.STRING*/
+        }
+      ]);
+    }
+    create(value) {
+      const message = { text: "" };
+      globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+      if (value !== void 0)
+        reflectionMergePartial(this, message, value);
+      return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+      let message = target != null ? target : this.create(), end = reader.pos + length;
+      while (reader.pos < end) {
+        let [fieldNo, wireType] = reader.tag();
+        switch (fieldNo) {
+          case /* string text */
+          1:
+            message.text = reader.string();
+            break;
+          default:
+            let u = options.readUnknownField;
+            if (u === "throw")
+              throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+            let d = reader.skip(wireType);
+            if (u !== false)
+              (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+        }
+      }
+      return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+      if (message.text !== "")
+        writer.tag(1, WireType.LengthDelimited).string(message.text);
+      let u = options.writeUnknownFields;
+      if (u !== false)
+        (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+      return writer;
+    }
+  };
+  var Name_Runs = new Name_Runs$Type();
   var Player$Type = class extends MessageType {
     constructor() {
       super("Player", [
         { no: 7, name: "p1F7", kind: "message", repeat: 1, T: () => p1F7 },
-        { no: 2, name: "p1F2", kind: "message", T: () => p1F2 }
+        { no: 2, name: "p1F2", kind: "message", T: () => p1F2 },
+        { no: 10, name: "captions", kind: "message", T: () => Player_Captions }
       ]);
     }
     create(value) {
@@ -4475,6 +4568,10 @@
           2:
             message.p1F2 = p1F2.internalBinaryRead(reader, reader.uint32(), options, message.p1F2);
             break;
+          case /* Player.Captions captions */
+          10:
+            message.captions = Player_Captions.internalBinaryRead(reader, reader.uint32(), options, message.captions);
+            break;
           default:
             let u = options.readUnknownField;
             if (u === "throw")
@@ -4491,6 +4588,8 @@
         p1F7.internalBinaryWrite(message.p1F7[i], writer.tag(7, WireType.LengthDelimited).fork(), options).join();
       if (message.p1F2)
         p1F2.internalBinaryWrite(message.p1F2, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+      if (message.captions)
+        Player_Captions.internalBinaryWrite(message.captions, writer.tag(10, WireType.LengthDelimited).fork(), options).join();
       let u = options.writeUnknownFields;
       if (u !== false)
         (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -4498,6 +4597,466 @@
     }
   };
   var Player = new Player$Type();
+  var Player_Captions$Type = class extends MessageType {
+    constructor() {
+      super("Player.Captions", [
+        { no: 51621377, name: "playerCaptionsTracklistRenderer", kind: "message", T: () => Player_Captions_PlayerCaptionsTracklistRenderer }
+      ]);
+    }
+    create(value) {
+      const message = {};
+      globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+      if (value !== void 0)
+        reflectionMergePartial(this, message, value);
+      return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+      let message = target != null ? target : this.create(), end = reader.pos + length;
+      while (reader.pos < end) {
+        let [fieldNo, wireType] = reader.tag();
+        switch (fieldNo) {
+          case /* Player.Captions.PlayerCaptionsTracklistRenderer playerCaptionsTracklistRenderer */
+          51621377:
+            message.playerCaptionsTracklistRenderer = Player_Captions_PlayerCaptionsTracklistRenderer.internalBinaryRead(reader, reader.uint32(), options, message.playerCaptionsTracklistRenderer);
+            break;
+          default:
+            let u = options.readUnknownField;
+            if (u === "throw")
+              throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+            let d = reader.skip(wireType);
+            if (u !== false)
+              (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+        }
+      }
+      return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+      if (message.playerCaptionsTracklistRenderer)
+        Player_Captions_PlayerCaptionsTracklistRenderer.internalBinaryWrite(message.playerCaptionsTracklistRenderer, writer.tag(51621377, WireType.LengthDelimited).fork(), options).join();
+      let u = options.writeUnknownFields;
+      if (u !== false)
+        (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+      return writer;
+    }
+  };
+  var Player_Captions = new Player_Captions$Type();
+  var Player_Captions_PlayerCaptionsTracklistRenderer$Type = class extends MessageType {
+    constructor() {
+      super("Player.Captions.PlayerCaptionsTracklistRenderer", [
+        { no: 1, name: "captionTracks", kind: "message", repeat: 1, T: () => Player_Captions_PlayerCaptionsTracklistRenderer_CaptionTracks },
+        { no: 2, name: "audioTracks", kind: "message", repeat: 1, T: () => Player_Captions_PlayerCaptionsTracklistRenderer_AudioTracks },
+        { no: 3, name: "translationLanguages", kind: "message", repeat: 1, T: () => Player_Captions_PlayerCaptionsTracklistRenderer_TranslationLanguages },
+        {
+          no: 4,
+          name: "defaultAudioTrackIndex",
+          kind: "scalar",
+          opt: true,
+          T: 5
+          /*ScalarType.INT32*/
+        },
+        {
+          no: 6,
+          name: "defaultCaptionTrackIndex",
+          kind: "scalar",
+          jsonName: "defaultAudioTrackIndex",
+          opt: true,
+          T: 5
+          /*ScalarType.INT32*/
+        }
+      ]);
+    }
+    create(value) {
+      const message = { captionTracks: [], audioTracks: [], translationLanguages: [] };
+      globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+      if (value !== void 0)
+        reflectionMergePartial(this, message, value);
+      return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+      let message = target != null ? target : this.create(), end = reader.pos + length;
+      while (reader.pos < end) {
+        let [fieldNo, wireType] = reader.tag();
+        switch (fieldNo) {
+          case /* repeated Player.Captions.PlayerCaptionsTracklistRenderer.CaptionTracks captionTracks */
+          1:
+            message.captionTracks.push(Player_Captions_PlayerCaptionsTracklistRenderer_CaptionTracks.internalBinaryRead(reader, reader.uint32(), options));
+            break;
+          case /* repeated Player.Captions.PlayerCaptionsTracklistRenderer.AudioTracks audioTracks */
+          2:
+            message.audioTracks.push(Player_Captions_PlayerCaptionsTracklistRenderer_AudioTracks.internalBinaryRead(reader, reader.uint32(), options));
+            break;
+          case /* repeated Player.Captions.PlayerCaptionsTracklistRenderer.TranslationLanguages translationLanguages */
+          3:
+            message.translationLanguages.push(Player_Captions_PlayerCaptionsTracklistRenderer_TranslationLanguages.internalBinaryRead(reader, reader.uint32(), options));
+            break;
+          case /* optional int32 defaultAudioTrackIndex */
+          4:
+            message.defaultAudioTrackIndex = reader.int32();
+            break;
+          case /* optional int32 defaultCaptionTrackIndex = 6 [json_name = "defaultAudioTrackIndex"];*/
+          6:
+            message.defaultCaptionTrackIndex = reader.int32();
+            break;
+          default:
+            let u = options.readUnknownField;
+            if (u === "throw")
+              throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+            let d = reader.skip(wireType);
+            if (u !== false)
+              (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+        }
+      }
+      return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+      for (let i = 0; i < message.captionTracks.length; i++)
+        Player_Captions_PlayerCaptionsTracklistRenderer_CaptionTracks.internalBinaryWrite(message.captionTracks[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+      for (let i = 0; i < message.audioTracks.length; i++)
+        Player_Captions_PlayerCaptionsTracklistRenderer_AudioTracks.internalBinaryWrite(message.audioTracks[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+      for (let i = 0; i < message.translationLanguages.length; i++)
+        Player_Captions_PlayerCaptionsTracklistRenderer_TranslationLanguages.internalBinaryWrite(message.translationLanguages[i], writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+      if (message.defaultAudioTrackIndex !== void 0)
+        writer.tag(4, WireType.Varint).int32(message.defaultAudioTrackIndex);
+      if (message.defaultCaptionTrackIndex !== void 0)
+        writer.tag(6, WireType.Varint).int32(message.defaultCaptionTrackIndex);
+      let u = options.writeUnknownFields;
+      if (u !== false)
+        (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+      return writer;
+    }
+  };
+  var Player_Captions_PlayerCaptionsTracklistRenderer = new Player_Captions_PlayerCaptionsTracklistRenderer$Type();
+  var Player_Captions_PlayerCaptionsTracklistRenderer_CaptionTracks$Type = class extends MessageType {
+    constructor() {
+      super("Player.Captions.PlayerCaptionsTracklistRenderer.CaptionTracks", [
+        {
+          no: 1,
+          name: "baseUrl",
+          kind: "scalar",
+          T: 9
+          /*ScalarType.STRING*/
+        },
+        { no: 2, name: "name", kind: "message", T: () => Name },
+        {
+          no: 3,
+          name: "vssId",
+          kind: "scalar",
+          T: 9
+          /*ScalarType.STRING*/
+        },
+        {
+          no: 4,
+          name: "languageCode",
+          kind: "scalar",
+          T: 9
+          /*ScalarType.STRING*/
+        },
+        {
+          no: 5,
+          name: "kind",
+          kind: "scalar",
+          opt: true,
+          T: 9
+          /*ScalarType.STRING*/
+        },
+        {
+          no: 6,
+          name: "rtl",
+          kind: "scalar",
+          opt: true,
+          T: 8
+          /*ScalarType.BOOL*/
+        },
+        {
+          no: 7,
+          name: "isTranslatable",
+          kind: "scalar",
+          T: 8
+          /*ScalarType.BOOL*/
+        }
+      ]);
+    }
+    create(value) {
+      const message = { baseUrl: "", vssId: "", languageCode: "", isTranslatable: false };
+      globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+      if (value !== void 0)
+        reflectionMergePartial(this, message, value);
+      return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+      let message = target != null ? target : this.create(), end = reader.pos + length;
+      while (reader.pos < end) {
+        let [fieldNo, wireType] = reader.tag();
+        switch (fieldNo) {
+          case /* string baseUrl */
+          1:
+            message.baseUrl = reader.string();
+            break;
+          case /* Name name */
+          2:
+            message.name = Name.internalBinaryRead(reader, reader.uint32(), options, message.name);
+            break;
+          case /* string vssId */
+          3:
+            message.vssId = reader.string();
+            break;
+          case /* string languageCode */
+          4:
+            message.languageCode = reader.string();
+            break;
+          case /* optional string kind */
+          5:
+            message.kind = reader.string();
+            break;
+          case /* optional bool rtl */
+          6:
+            message.rtl = reader.bool();
+            break;
+          case /* bool isTranslatable */
+          7:
+            message.isTranslatable = reader.bool();
+            break;
+          default:
+            let u = options.readUnknownField;
+            if (u === "throw")
+              throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+            let d = reader.skip(wireType);
+            if (u !== false)
+              (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+        }
+      }
+      return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+      if (message.baseUrl !== "")
+        writer.tag(1, WireType.LengthDelimited).string(message.baseUrl);
+      if (message.name)
+        Name.internalBinaryWrite(message.name, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+      if (message.vssId !== "")
+        writer.tag(3, WireType.LengthDelimited).string(message.vssId);
+      if (message.languageCode !== "")
+        writer.tag(4, WireType.LengthDelimited).string(message.languageCode);
+      if (message.kind !== void 0)
+        writer.tag(5, WireType.LengthDelimited).string(message.kind);
+      if (message.rtl !== void 0)
+        writer.tag(6, WireType.Varint).bool(message.rtl);
+      if (message.isTranslatable !== false)
+        writer.tag(7, WireType.Varint).bool(message.isTranslatable);
+      let u = options.writeUnknownFields;
+      if (u !== false)
+        (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+      return writer;
+    }
+  };
+  var Player_Captions_PlayerCaptionsTracklistRenderer_CaptionTracks = new Player_Captions_PlayerCaptionsTracklistRenderer_CaptionTracks$Type();
+  var Player_Captions_PlayerCaptionsTracklistRenderer_AudioTracks$Type = class extends MessageType {
+    constructor() {
+      super("Player.Captions.PlayerCaptionsTracklistRenderer.AudioTracks", [
+        {
+          no: 2,
+          name: "captionTrackIndices",
+          kind: "scalar",
+          repeat: 2,
+          T: 5
+          /*ScalarType.INT32*/
+        },
+        {
+          no: 3,
+          name: "defaultCaptionTrackIndex",
+          kind: "scalar",
+          opt: true,
+          T: 5
+          /*ScalarType.INT32*/
+        },
+        {
+          no: 4,
+          name: "forcedCaptionTrackIndex",
+          kind: "scalar",
+          opt: true,
+          T: 5
+          /*ScalarType.INT32*/
+        },
+        {
+          no: 5,
+          name: "visibility",
+          kind: "scalar",
+          opt: true,
+          T: 5
+          /*ScalarType.INT32*/
+        },
+        {
+          no: 6,
+          name: "hasDefaultTrack",
+          kind: "scalar",
+          opt: true,
+          T: 8
+          /*ScalarType.BOOL*/
+        },
+        {
+          no: 7,
+          name: "hasForcedTrack",
+          kind: "scalar",
+          opt: true,
+          T: 8
+          /*ScalarType.BOOL*/
+        },
+        {
+          no: 8,
+          name: "audioTrackId",
+          kind: "scalar",
+          opt: true,
+          T: 9
+          /*ScalarType.STRING*/
+        },
+        {
+          no: 11,
+          name: "captionsInitialState",
+          kind: "scalar",
+          opt: true,
+          T: 5
+          /*ScalarType.INT32*/
+        }
+      ]);
+    }
+    create(value) {
+      const message = { captionTrackIndices: [] };
+      globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+      if (value !== void 0)
+        reflectionMergePartial(this, message, value);
+      return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+      let message = target != null ? target : this.create(), end = reader.pos + length;
+      while (reader.pos < end) {
+        let [fieldNo, wireType] = reader.tag();
+        switch (fieldNo) {
+          case /* repeated int32 captionTrackIndices = 2 [packed = false];*/
+          2:
+            if (wireType === WireType.LengthDelimited)
+              for (let e = reader.int32() + reader.pos; reader.pos < e; )
+                message.captionTrackIndices.push(reader.int32());
+            else
+              message.captionTrackIndices.push(reader.int32());
+            break;
+          case /* optional int32 defaultCaptionTrackIndex */
+          3:
+            message.defaultCaptionTrackIndex = reader.int32();
+            break;
+          case /* optional int32 forcedCaptionTrackIndex */
+          4:
+            message.forcedCaptionTrackIndex = reader.int32();
+            break;
+          case /* optional int32 visibility */
+          5:
+            message.visibility = reader.int32();
+            break;
+          case /* optional bool hasDefaultTrack */
+          6:
+            message.hasDefaultTrack = reader.bool();
+            break;
+          case /* optional bool hasForcedTrack */
+          7:
+            message.hasForcedTrack = reader.bool();
+            break;
+          case /* optional string audioTrackId */
+          8:
+            message.audioTrackId = reader.string();
+            break;
+          case /* optional int32 captionsInitialState */
+          11:
+            message.captionsInitialState = reader.int32();
+            break;
+          default:
+            let u = options.readUnknownField;
+            if (u === "throw")
+              throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+            let d = reader.skip(wireType);
+            if (u !== false)
+              (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+        }
+      }
+      return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+      for (let i = 0; i < message.captionTrackIndices.length; i++)
+        writer.tag(2, WireType.Varint).int32(message.captionTrackIndices[i]);
+      if (message.defaultCaptionTrackIndex !== void 0)
+        writer.tag(3, WireType.Varint).int32(message.defaultCaptionTrackIndex);
+      if (message.forcedCaptionTrackIndex !== void 0)
+        writer.tag(4, WireType.Varint).int32(message.forcedCaptionTrackIndex);
+      if (message.visibility !== void 0)
+        writer.tag(5, WireType.Varint).int32(message.visibility);
+      if (message.hasDefaultTrack !== void 0)
+        writer.tag(6, WireType.Varint).bool(message.hasDefaultTrack);
+      if (message.hasForcedTrack !== void 0)
+        writer.tag(7, WireType.Varint).bool(message.hasForcedTrack);
+      if (message.audioTrackId !== void 0)
+        writer.tag(8, WireType.LengthDelimited).string(message.audioTrackId);
+      if (message.captionsInitialState !== void 0)
+        writer.tag(11, WireType.Varint).int32(message.captionsInitialState);
+      let u = options.writeUnknownFields;
+      if (u !== false)
+        (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+      return writer;
+    }
+  };
+  var Player_Captions_PlayerCaptionsTracklistRenderer_AudioTracks = new Player_Captions_PlayerCaptionsTracklistRenderer_AudioTracks$Type();
+  var Player_Captions_PlayerCaptionsTracklistRenderer_TranslationLanguages$Type = class extends MessageType {
+    constructor() {
+      super("Player.Captions.PlayerCaptionsTracklistRenderer.TranslationLanguages", [
+        {
+          no: 1,
+          name: "languageCode",
+          kind: "scalar",
+          T: 9
+          /*ScalarType.STRING*/
+        },
+        { no: 2, name: "languageName", kind: "message", T: () => Name }
+      ]);
+    }
+    create(value) {
+      const message = { languageCode: "" };
+      globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+      if (value !== void 0)
+        reflectionMergePartial(this, message, value);
+      return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+      let message = target != null ? target : this.create(), end = reader.pos + length;
+      while (reader.pos < end) {
+        let [fieldNo, wireType] = reader.tag();
+        switch (fieldNo) {
+          case /* string languageCode */
+          1:
+            message.languageCode = reader.string();
+            break;
+          case /* Name languageName */
+          2:
+            message.languageName = Name.internalBinaryRead(reader, reader.uint32(), options, message.languageName);
+            break;
+          default:
+            let u = options.readUnknownField;
+            if (u === "throw")
+              throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+            let d = reader.skip(wireType);
+            if (u !== false)
+              (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+        }
+      }
+      return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+      if (message.languageCode !== "")
+        writer.tag(1, WireType.LengthDelimited).string(message.languageCode);
+      if (message.languageName)
+        Name.internalBinaryWrite(message.languageName, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+      let u = options.writeUnknownFields;
+      if (u !== false)
+        (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+      return writer;
+    }
+  };
+  var Player_Captions_PlayerCaptionsTracklistRenderer_TranslationLanguages = new Player_Captions_PlayerCaptionsTracklistRenderer_TranslationLanguages$Type();
   var p1F2$Type = class extends MessageType {
     constructor() {
       super("p1F2", [
@@ -5967,6 +6526,16 @@
       if (typeof ((_e = this.message) == null ? void 0 : _e.p1F2) === "object") {
         Object.assign(this.message.p1F2, backPlayFake);
       }
+      this.iterate(this.message, "captionTracks", (obj, stack) => {
+        let captionTracks = obj.captionTracks;
+        if (Array.isArray(captionTracks)) {
+          for (let captionTrack of captionTracks) {
+            captionTrack.isTranslatable = true;
+          }
+        }
+        obj.translationLanguages = [{ "languageCode": "sq", "languageName": { "runs": [{ "text": "\u963F\u5C14\u5DF4\u5C3C\u4E9A\u8BED" }] } }, { "languageCode": "ak", "languageName": { "runs": [{ "text": "\u963F\u80AF\u8BED" }] } }, { "languageCode": "ar", "languageName": { "runs": [{ "text": "\u963F\u62C9\u4F2F\u8BED" }] } }, { "languageCode": "am", "languageName": { "runs": [{ "text": "\u963F\u59C6\u54C8\u62C9\u8BED" }] } }, { "languageCode": "as", "languageName": { "runs": [{ "text": "\u963F\u8428\u59C6\u8BED" }] } }, { "languageCode": "az", "languageName": { "runs": [{ "text": "\u963F\u585E\u62DC\u7586\u8BED" }] } }, { "languageCode": "ee", "languageName": { "runs": [{ "text": "\u57C3\u7EF4\u8BED" }] } }, { "languageCode": "ay", "languageName": { "runs": [{ "text": "\u827E\u9A6C\u62C9\u8BED" }] } }, { "languageCode": "ga", "languageName": { "runs": [{ "text": "\u7231\u5C14\u5170\u8BED" }] } }, { "languageCode": "et", "languageName": { "runs": [{ "text": "\u7231\u6C99\u5C3C\u4E9A\u8BED" }] } }, { "languageCode": "or", "languageName": { "runs": [{ "text": "\u5965\u91CC\u4E9A\u8BED" }] } }, { "languageCode": "om", "languageName": { "runs": [{ "text": "\u5965\u7F57\u83AB\u8BED" }] } }, { "languageCode": "eu", "languageName": { "runs": [{ "text": "\u5DF4\u65AF\u514B\u8BED" }] } }, { "languageCode": "be", "languageName": { "runs": [{ "text": "\u767D\u4FC4\u7F57\u65AF\u8BED" }] } }, { "languageCode": "bg", "languageName": { "runs": [{ "text": "\u4FDD\u52A0\u5229\u4E9A\u8BED" }] } }, { "languageCode": "nso", "languageName": { "runs": [{ "text": "\u5317\u7D22\u6258\u8BED" }] } }, { "languageCode": "is", "languageName": { "runs": [{ "text": "\u51B0\u5C9B\u8BED" }] } }, { "languageCode": "pl", "languageName": { "runs": [{ "text": "\u6CE2\u5170\u8BED" }] } }, { "languageCode": "bs", "languageName": { "runs": [{ "text": "\u6CE2\u65AF\u5C3C\u4E9A\u8BED" }] } }, { "languageCode": "fa", "languageName": { "runs": [{ "text": "\u6CE2\u65AF\u8BED" }] } }, { "languageCode": "bho", "languageName": { "runs": [{ "text": "\u535A\u6770\u666E\u5C14\u8BED" }] } }, { "languageCode": "ts", "languageName": { "runs": [{ "text": "\u806A\u52A0\u8BED" }] } }, { "languageCode": "tt", "languageName": { "runs": [{ "text": "\u9791\u977C\u8BED" }] } }, { "languageCode": "da", "languageName": { "runs": [{ "text": "\u4E39\u9EA6\u8BED" }] } }, { "languageCode": "de", "languageName": { "runs": [{ "text": "\u5FB7\u8BED" }] } }, { "languageCode": "dv", "languageName": { "runs": [{ "text": "\u8FEA\u7EF4\u5E0C\u8BED" }] } }, { "languageCode": "ru", "languageName": { "runs": [{ "text": "\u4FC4\u8BED" }] } }, { "languageCode": "fr", "languageName": { "runs": [{ "text": "\u6CD5\u8BED" }] } }, { "languageCode": "sa", "languageName": { "runs": [{ "text": "\u68B5\u8BED" }] } }, { "languageCode": "fil", "languageName": { "runs": [{ "text": "\u83F2\u5F8B\u5BBE\u8BED" }] } }, { "languageCode": "fi", "languageName": { "runs": [{ "text": "\u82AC\u5170\u8BED" }] } }, { "languageCode": "km", "languageName": { "runs": [{ "text": "\u9AD8\u68C9\u8BED" }] } }, { "languageCode": "ka", "languageName": { "runs": [{ "text": "\u683C\u9C81\u5409\u4E9A\u8BED" }] } }, { "languageCode": "gu", "languageName": { "runs": [{ "text": "\u53E4\u5409\u62C9\u7279\u8BED" }] } }, { "languageCode": "gn", "languageName": { "runs": [{ "text": "\u74DC\u62C9\u5C3C\u8BED" }] } }, { "languageCode": "kk", "languageName": { "runs": [{ "text": "\u54C8\u8428\u514B\u8BED" }] } }, { "languageCode": "ht", "languageName": { "runs": [{ "text": "\u6D77\u5730\u514B\u91CC\u5965\u5C14\u8BED" }] } }, { "languageCode": "ko", "languageName": { "runs": [{ "text": "\u97E9\u8BED" }] } }, { "languageCode": "ha", "languageName": { "runs": [{ "text": "\u8C6A\u8428\u8BED" }] } }, { "languageCode": "nl", "languageName": { "runs": [{ "text": "\u8377\u5170\u8BED" }] } }, { "languageCode": "gl", "languageName": { "runs": [{ "text": "\u52A0\u5229\u897F\u4E9A\u8BED" }] } }, { "languageCode": "ca", "languageName": { "runs": [{ "text": "\u52A0\u6CF0\u7F57\u5C3C\u4E9A\u8BED" }] } }, { "languageCode": "cs", "languageName": { "runs": [{ "text": "\u6377\u514B\u8BED" }] } }, { "languageCode": "kn", "languageName": { "runs": [{ "text": "\u5361\u7EB3\u8FBE\u8BED" }] } }, { "languageCode": "ky", "languageName": { "runs": [{ "text": "\u67EF\u5C14\u514B\u5B5C\u8BED" }] } }, { "languageCode": "xh", "languageName": { "runs": [{ "text": "\u79D1\u8428\u8BED" }] } }, { "languageCode": "co", "languageName": { "runs": [{ "text": "\u79D1\u897F\u5609\u8BED" }] } }, { "languageCode": "hr", "languageName": { "runs": [{ "text": "\u514B\u7F57\u5730\u4E9A\u8BED" }] } }, { "languageCode": "qu", "languageName": { "runs": [{ "text": "\u514B\u4E18\u4E9A\u8BED" }] } }, { "languageCode": "ku", "languageName": { "runs": [{ "text": "\u5E93\u5C14\u5FB7\u8BED" }] } }, { "languageCode": "la", "languageName": { "runs": [{ "text": "\u62C9\u4E01\u8BED" }] } }, { "languageCode": "lv", "languageName": { "runs": [{ "text": "\u62C9\u8131\u7EF4\u4E9A\u8BED" }] } }, { "languageCode": "lo", "languageName": { "runs": [{ "text": "\u8001\u631D\u8BED" }] } }, { "languageCode": "lt", "languageName": { "runs": [{ "text": "\u7ACB\u9676\u5B9B\u8BED" }] } }, { "languageCode": "ln", "languageName": { "runs": [{ "text": "\u6797\u52A0\u62C9\u8BED" }] } }, { "languageCode": "lg", "languageName": { "runs": [{ "text": "\u5362\u5E72\u8FBE\u8BED" }] } }, { "languageCode": "lb", "languageName": { "runs": [{ "text": "\u5362\u68EE\u5821\u8BED" }] } }, { "languageCode": "rw", "languageName": { "runs": [{ "text": "\u5362\u65FA\u8FBE\u8BED" }] } }, { "languageCode": "ro", "languageName": { "runs": [{ "text": "\u7F57\u9A6C\u5C3C\u4E9A\u8BED" }] } }, { "languageCode": "mt", "languageName": { "runs": [{ "text": "\u9A6C\u8033\u4ED6\u8BED" }] } }, { "languageCode": "mr", "languageName": { "runs": [{ "text": "\u9A6C\u62C9\u5730\u8BED" }] } }, { "languageCode": "mg", "languageName": { "runs": [{ "text": "\u9A6C\u62C9\u52A0\u65AF\u8BED" }] } }, { "languageCode": "ml", "languageName": { "runs": [{ "text": "\u9A6C\u62C9\u96C5\u62C9\u59C6\u8BED" }] } }, { "languageCode": "ms", "languageName": { "runs": [{ "text": "\u9A6C\u6765\u8BED" }] } }, { "languageCode": "mk", "languageName": { "runs": [{ "text": "\u9A6C\u5176\u987F\u8BED" }] } }, { "languageCode": "mi", "languageName": { "runs": [{ "text": "\u6BDB\u5229\u8BED" }] } }, { "languageCode": "mn", "languageName": { "runs": [{ "text": "\u8499\u53E4\u8BED" }] } }, { "languageCode": "bn", "languageName": { "runs": [{ "text": "\u5B5F\u52A0\u62C9\u8BED" }] } }, { "languageCode": "my", "languageName": { "runs": [{ "text": "\u7F05\u7538\u8BED" }] } }, { "languageCode": "hmn", "languageName": { "runs": [{ "text": "\u82D7\u8BED" }] } }, { "languageCode": "af", "languageName": { "runs": [{ "text": "\u5357\u975E\u8377\u5170\u8BED" }] } }, { "languageCode": "st", "languageName": { "runs": [{ "text": "\u5357\u7D22\u6258\u8BED" }] } }, { "languageCode": "ne", "languageName": { "runs": [{ "text": "\u5C3C\u6CCA\u5C14\u8BED" }] } }, { "languageCode": "no", "languageName": { "runs": [{ "text": "\u632A\u5A01\u8BED" }] } }, { "languageCode": "pa", "languageName": { "runs": [{ "text": "\u65C1\u906E\u666E\u8BED" }] } }, { "languageCode": "pt", "languageName": { "runs": [{ "text": "\u8461\u8404\u7259\u8BED" }] } }, { "languageCode": "ps", "languageName": { "runs": [{ "text": "\u666E\u4EC0\u56FE\u8BED" }] } }, { "languageCode": "ny", "languageName": { "runs": [{ "text": "\u9F50\u5207\u74E6\u8BED" }] } }, { "languageCode": "ja", "languageName": { "runs": [{ "text": "\u65E5\u8BED" }] } }, { "languageCode": "sv", "languageName": { "runs": [{ "text": "\u745E\u5178\u8BED" }] } }, { "languageCode": "sm", "languageName": { "runs": [{ "text": "\u8428\u6469\u4E9A\u8BED" }] } }, { "languageCode": "sr", "languageName": { "runs": [{ "text": "\u585E\u5C14\u7EF4\u4E9A\u8BED" }] } }, { "languageCode": "si", "languageName": { "runs": [{ "text": "\u50E7\u4F3D\u7F57\u8BED" }] } }, { "languageCode": "sn", "languageName": { "runs": [{ "text": "\u7ECD\u7EB3\u8BED" }] } }, { "languageCode": "eo", "languageName": { "runs": [{ "text": "\u4E16\u754C\u8BED" }] } }, { "languageCode": "sk", "languageName": { "runs": [{ "text": "\u65AF\u6D1B\u4F10\u514B\u8BED" }] } }, { "languageCode": "sl", "languageName": { "runs": [{ "text": "\u65AF\u6D1B\u6587\u5C3C\u4E9A\u8BED" }] } }, { "languageCode": "sw", "languageName": { "runs": [{ "text": "\u65AF\u74E6\u5E0C\u91CC\u8BED" }] } }, { "languageCode": "gd", "languageName": { "runs": [{ "text": "\u82CF\u683C\u5170\u76D6\u5C14\u8BED" }] } }, { "languageCode": "ceb", "languageName": { "runs": [{ "text": "\u5BBF\u52A1\u8BED" }] } }, { "languageCode": "so", "languageName": { "runs": [{ "text": "\u7D22\u9A6C\u91CC\u8BED" }] } }, { "languageCode": "tg", "languageName": { "runs": [{ "text": "\u5854\u5409\u514B\u8BED" }] } }, { "languageCode": "te", "languageName": { "runs": [{ "text": "\u6CF0\u5362\u56FA\u8BED" }] } }, { "languageCode": "ta", "languageName": { "runs": [{ "text": "\u6CF0\u7C73\u5C14\u8BED" }] } }, { "languageCode": "th", "languageName": { "runs": [{ "text": "\u6CF0\u8BED" }] } }, { "languageCode": "ti", "languageName": { "runs": [{ "text": "\u63D0\u683C\u5229\u5C3C\u4E9A\u8BED" }] } }, { "languageCode": "tr", "languageName": { "runs": [{ "text": "\u571F\u8033\u5176\u8BED" }] } }, { "languageCode": "tk", "languageName": { "runs": [{ "text": "\u571F\u5E93\u66FC\u8BED" }] } }, { "languageCode": "cy", "languageName": { "runs": [{ "text": "\u5A01\u5C14\u58EB\u8BED" }] } }, { "languageCode": "ug", "languageName": { "runs": [{ "text": "\u7EF4\u543E\u5C14\u8BED" }] } }, { "languageCode": "und", "languageName": { "runs": [{ "text": "\u672A\u77E5\u8BED\u8A00" }] } }, { "languageCode": "ur", "languageName": { "runs": [{ "text": "\u4E4C\u5C14\u90FD\u8BED" }] } }, { "languageCode": "uk", "languageName": { "runs": [{ "text": "\u4E4C\u514B\u5170\u8BED" }] } }, { "languageCode": "uz", "languageName": { "runs": [{ "text": "\u4E4C\u5179\u522B\u514B\u8BED" }] } }, { "languageCode": "es", "languageName": { "runs": [{ "text": "\u897F\u73ED\u7259\u8BED" }] } }, { "languageCode": "fy", "languageName": { "runs": [{ "text": "\u897F\u5F17\u91CC\u897F\u4E9A\u8BED" }] } }, { "languageCode": "iw", "languageName": { "runs": [{ "text": "\u5E0C\u4F2F\u6765\u8BED" }] } }, { "languageCode": "el", "languageName": { "runs": [{ "text": "\u5E0C\u814A\u8BED" }] } }, { "languageCode": "haw", "languageName": { "runs": [{ "text": "\u590F\u5A01\u5937\u8BED" }] } }, { "languageCode": "sd", "languageName": { "runs": [{ "text": "\u4FE1\u5FB7\u8BED" }] } }, { "languageCode": "hu", "languageName": { "runs": [{ "text": "\u5308\u7259\u5229\u8BED" }] } }, { "languageCode": "su", "languageName": { "runs": [{ "text": "\u5DFD\u4ED6\u8BED" }] } }, { "languageCode": "hy", "languageName": { "runs": [{ "text": "\u4E9A\u7F8E\u5C3C\u4E9A\u8BED" }] } }, { "languageCode": "ig", "languageName": { "runs": [{ "text": "\u4F0A\u535A\u8BED" }] } }, { "languageCode": "it", "languageName": { "runs": [{ "text": "\u610F\u5927\u5229\u8BED" }] } }, { "languageCode": "yi", "languageName": { "runs": [{ "text": "\u610F\u7B2C\u7EEA\u8BED" }] } }, { "languageCode": "hi", "languageName": { "runs": [{ "text": "\u5370\u5730\u8BED" }] } }, { "languageCode": "id", "languageName": { "runs": [{ "text": "\u5370\u5EA6\u5C3C\u897F\u4E9A\u8BED" }] } }, { "languageCode": "en", "languageName": { "runs": [{ "text": "\u82F1\u8BED" }] } }, { "languageCode": "yo", "languageName": { "runs": [{ "text": "\u7EA6\u9C81\u5DF4\u8BED" }] } }, { "languageCode": "vi", "languageName": { "runs": [{ "text": "\u8D8A\u5357\u8BED" }] } }, { "languageCode": "jv", "languageName": { "runs": [{ "text": "\u722A\u54C7\u8BED" }] } }, { "languageCode": "zh-Hant", "languageName": { "runs": [{ "text": "\u4E2D\u6587\uFF08\u7E41\u4F53\uFF09" }] } }, { "languageCode": "zh-Hans", "languageName": { "runs": [{ "text": "\u4E2D\u6587\uFF08\u7B80\u4F53\uFF09" }] } }, { "languageCode": "zu", "languageName": { "runs": [{ "text": "\u7956\u9C81\u8BED" }] } }, { "languageCode": "kri", "languageName": { "runs": [{ "text": "Kri" }] } }];
+        stack.length = 0;
+      });
       this.needProcess = true;
     }
     toBinary() {
@@ -6106,7 +6675,7 @@
       if (url2.includes("/v1/browse")) {
         return new BrowseMessage(opt2);
       } else if (url2.includes("/v1/next")) {
-        return new NextMessage(opt2, "Next");
+        return new NextMessage(opt2);
       } else if (url2.includes("/v1/player")) {
         return new PlayerMessage(opt2);
       } else if (url2.includes("/v1/search")) {
