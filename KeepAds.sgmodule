@@ -1,15 +1,16 @@
 #!name=Block Keep Advertising
 #!desc=去除 keep 广告
 
-[Rule]
-URL-REGEX,^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v1\/ad,REJECT
-URL-REGEX,^https:\/\/api\.gotokeep\.com\/training\/box\/config,REJECT
-URL-REGEX,^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v1\/ad\/preload$,REJECT
-URL-REGEX,^https:\/\/api\.gotokeep\.com\/anno\/v1\/upgrade\/check$,REJECT
+[URL Rewrite]
+^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v1\/ad _ reject
+^https:\/\/api\.gotokeep\.com\/anno\/v1\/upgrade\/check$ _ reject
+^https?:\/\/api.gotokeep.com/cauchy/growth/init _ reject
+^https:\/\/api\.gotokeep\.com\/training\/box\/config _ reject
 
 [Script]
-KeepMy = type=http-response,pattern=https:\/\/api\.gotokeep\.com\/athena\/v5\/people\/my,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/Script/Keep/my.js
-KeepBottom = type=http-response,pattern=https:\/\/api\.gotokeep\.com\/config\/v3/basic,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/Script/Keep/bottom_bar.js
+KeepMy = type=http-response,pattern=https:\/\/api\.gotokeep\.com\/athena\/v\d\/people\/my,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/Script/Keep/my.js
+KeepBasic = type=http-response,pattern=https:\/\/api\.gotokeep\.com\/config\/v3/basic,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/Script/Keep/basic.js
+Kad = type=http-response,pattern=https:\/\/kad\.gotokeep\.com\/op-engine-webapp\/v1\/ad,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/surgeModule/master/Script/Keep/kad.js
 
 [MITM]
-hostname = %APPEND% api.gotokeep.com, static2.keepcdn.com
+hostname = %APPEND% api.gotokeep.com, kad.gotokeep.com

@@ -1,3 +1,6 @@
 let obj = JSON.parse($response.body);
-obj.data.floatingInfo = {};
+
+delete obj.data.creative;
+obj.data.hasAd = 0;
+
 $done({ body: JSON.stringify(obj) });
