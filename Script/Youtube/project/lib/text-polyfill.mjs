@@ -1,5 +1,5 @@
 // fastestsmallesttextencoderdecoder
-function text(r) {
+function textPolyfill(r) {
   "use strict";
   function x() {}
   function y() {}
@@ -163,4 +163,4 @@ function text(r) {
   r.TextDecoder = x;
   r.TextEncoder = y;
 }
-export const ___ = text(globalThis);
+export const ___ = textPolyfill(globalThis);
