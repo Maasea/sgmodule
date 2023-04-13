@@ -17,5 +17,5 @@ npm run build
 **Generate new youtube.ts from proto**
 
 ```
-npm run build:ts
+npm run build:all
 ```

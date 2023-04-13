@@ -2,6 +2,15 @@ import { $ } from "lib/env";
 import Factory from "lib/factory";
 import RequestMessage from "src/requestHandler";
 
+// Surge version check
+const build = $environment?.["surge-build"];
+if (build < 2700) {
+  $.msg("YouTubeAds Beta", "不支持该 Surge 版本", "点击通知可跳转旧版脚本", {
+    url: "https://raw.githubusercontent.com/Maasea/sgmodule/master/YoutubeAds.sgmodule",
+  });
+  $.done();
+}
+
 // Handle request body
 const url = $request.url;
 const requestMsg = new RequestMessage();
