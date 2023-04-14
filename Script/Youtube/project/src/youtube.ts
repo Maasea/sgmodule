@@ -1,5 +1,5 @@
-import { $ } from '../lib/env'
 import { UnknownFieldHandler } from '@protobuf-ts/runtime'
+import { $ } from '../lib/env'
 
 export abstract class YouTubeMessage {
   needProcess: boolean
@@ -17,7 +17,7 @@ export abstract class YouTubeMessage {
 
   protected constructor (name: string) {
     $.log(name)
-    Object.assign(this, $.getjson('YouTubeWhiteStr', {
+    Object.assign(this, $.getJSON('YouTubeWhiteStr', {
       whiteNo: [],
       blackNo: [],
       whiteEml: [],
@@ -40,7 +40,7 @@ export abstract class YouTubeMessage {
         whiteEml: this.whiteEml,
         blackEml: this.blackEml
       }
-      $.setjson(YouTubeWhiteObj, 'YouTubeWhiteStr')
+      $.setJSON(YouTubeWhiteObj, 'YouTubeWhiteStr')
     }
   }
 

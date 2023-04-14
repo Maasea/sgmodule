@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node test/test.ts",
-    "build": "node build.js",
+    "build": "node build.mjs",
     "build:res": "protoc --ts_out lib --proto_path protos protos/response.proto",
     "build:req": "protoc --ts_out lib --proto_path protos protos/request.proto",
     "build:all": "protoc --ts_out lib --proto_path protos protos/*"

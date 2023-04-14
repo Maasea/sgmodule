@@ -647,23 +647,23 @@ export interface p3F64657230 {
 // message Log{
 //  l1F1 l1F1 = 1;
 // }
-// 
+//
 // message l1F1{
 //  l2F16 l2F16 = 16;
 // }
-// 
+//
 // message l2F16{
 //  l3F7 l3F7 = 7;
 // }
-// 
+//
 // message l3F7{
 //  l4F138536474 l4F138536474 = 138536474;
 // }
-// 
+//
 // message l4F138536474{
 //  l5F1 l5F1 = 1;
 // }
-// 
+//
 // message l5F1{
 //  int32 pip = 30;
 // }
@@ -951,6 +951,7 @@ class Browse$Type extends MessageType<Browse> {
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
         return writer;
     }
+
 }
 /**
  * @generated MessageType for protobuf message Browse
