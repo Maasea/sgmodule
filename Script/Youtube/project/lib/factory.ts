@@ -7,24 +7,23 @@ import {
   GuideMessage,
   SettingMessage,
 } from 'src/responseHandler'
+import { YouTubeMessage } from '../src/youtube'
 
-export default class Factory {
-  static create (url) {
-    if (url.includes('/v1/browse')) {
-      return new BrowseMessage()
-    } else if (url.includes('/v1/next')) {
-      return new NextMessage()
-    } else if (url.includes('/v1/player')) {
-      return new PlayerMessage()
-    } else if (url.includes('/v1/search')) {
-      return new SearchMessage()
-    } else if (url.includes('/v1/reel/reel_watch_sequence')) {
-      return new ShortsMessage()
-    } else if (url.includes('/v1/guide')) {
-      return new GuideMessage()
-    } else if (url.includes('/v1/account/get_setting')) {
-      return new SettingMessage()
+const messages = new Map([
+  ['browse', BrowseMessage],
+  ['next', NextMessage],
+  ['player', PlayerMessage],
+  ['search', SearchMessage],
+  ['reel_watch_sequence', ShortsMessage],
+  ['guide', GuideMessage],
+  ['get_setting', SettingMessage],
+])
+
+export default function createMessage (url): YouTubeMessage | null {
+  for (const [path, MessageClass] of messages.entries()) {
+    if (url.includes(path)) {
+      return new MessageClass()
     }
-    return null
   }
+  return null
 }

@@ -11,5 +11,6 @@ esbuild.buildSync({
   inject: ['./lib/text-polyfill.mjs'],
   sourcemap: false,
   define: { 'DEBUG': `${debug}` },
+  target: 'es2020',
   outfile: '../youtube.beta.js',
 })

@@ -16,11 +16,12 @@ export class BrowseMessage extends YouTubeMessage {
     super(name)
   }
 
-  fromBinary (binaryBody): void {
+  fromBinary (binaryBody): this {
     this.message = Browse.fromBinary(binaryBody)
+    return this
   }
 
-  pure (): void {
+  pure (): this {
     this.iterate(this.message, 'n5F1', (obj) => {
       for (let i = obj.n5F1?.length - 1; i >= 0; i--) {
         if (this.isAdvertise(obj.n5F1[i])) {
@@ -28,10 +29,11 @@ export class BrowseMessage extends YouTubeMessage {
         }
       }
     })
+    return this
   }
 
-  toBinary (): void {
-    this.body = Browse.toBinary(this.message)
+  toBinary (): Uint8Array {
+    return Browse.toBinary(this.message)
   }
 }
 
@@ -40,12 +42,13 @@ export class NextMessage extends BrowseMessage {
     super(name)
   }
 
-  fromBinary (binaryBody): void {
+  fromBinary (binaryBody): this {
     this.message = Next.fromBinary(binaryBody)
+    return this
   }
 
-  toBinary (): void {
-    this.body = Next.toBinary(this.message)
+  toBinary (): Uint8Array {
+    return Next.toBinary(this.message)
   }
 }
 
@@ -54,11 +57,12 @@ export class PlayerMessage extends YouTubeMessage {
     super(name)
   }
 
-  fromBinary (binaryBody): void {
+  fromBinary (binaryBody): this {
     this.message = Player.fromBinary(binaryBody)
+    return this
   }
 
-  pure (): void {
+  pure (): this {
     if (this.message.p1F7?.length) {
       this.message.p1F7.length = 0
     }
@@ -598,10 +602,11 @@ export class PlayerMessage extends YouTubeMessage {
       stack.length = 0
     })
     this.needProcess = true
+    return this
   }
 
-  toBinary (): void {
-    this.body = Player.toBinary(this.message)
+  toBinary (): Uint8Array {
+    return Player.toBinary(this.message)
   }
 }
 
@@ -610,12 +615,13 @@ export class SearchMessage extends BrowseMessage {
     super(name)
   }
 
-  fromBinary (binaryBody): void {
+  fromBinary (binaryBody): this {
     this.message = Search.fromBinary(binaryBody)
+    return this
   }
 
-  toBinary (): void {
-    this.body = Search.toBinary(this.message)
+  toBinary (): Uint8Array {
+    return Search.toBinary(this.message)
   }
 }
 
@@ -624,11 +630,12 @@ export class ShortsMessage extends YouTubeMessage {
     super(name)
   }
 
-  fromBinary (binaryBody): void {
+  fromBinary (binaryBody): this {
     this.message = Shorts.fromBinary(binaryBody)
+    return this
   }
 
-  pure (): void {
+  pure (): this {
     const shortsRawLength = this.message.t1F2?.length
     if (shortsRawLength) {
       for (let i = shortsRawLength - 1; i >= 0; i--) {
@@ -638,10 +645,11 @@ export class ShortsMessage extends YouTubeMessage {
         }
       }
     }
+    return this
   }
 
-  toBinary (): void {
-    this.body = Shorts.toBinary(this.message)
+  toBinary (): Uint8Array {
+    return Shorts.toBinary(this.message)
   }
 }
 
@@ -650,11 +658,12 @@ export class GuideMessage extends YouTubeMessage {
     super(name)
   }
 
-  fromBinary (binaryBody): void {
+  fromBinary (binaryBody): this {
     this.message = Guide.fromBinary(binaryBody)
+    return this
   }
 
-  pure (): void {
+  pure (): this {
     this.iterate(this.message, 'g3F1', (obj) => {
       for (let i = obj.g3F1.length - 1; i >= 0; i--) {
         if (this.isUpload(obj.g3F1[i])) {
@@ -662,10 +671,11 @@ export class GuideMessage extends YouTubeMessage {
         }
       }
     })
+    return this
   }
 
-  toBinary (): void {
-    this.body = Guide.toBinary(this.message)
+  toBinary (): Uint8Array {
+    return Guide.toBinary(this.message)
   }
 }
 
@@ -697,11 +707,12 @@ export class SettingMessage extends YouTubeMessage {
     super(name)
   }
 
-  fromBinary (binaryBody): void {
+  fromBinary (binaryBody): this {
     this.message = Setting.fromBinary(binaryBody)
+    return this
   }
 
-  pure (): void {
+  pure (): this {
     // 增加 PIP
     this.iterate(this.message, 'num', (obj) => {
       if (obj.num === 10005) {
@@ -764,9 +775,10 @@ export class SettingMessage extends YouTubeMessage {
     fakeF88478200.st2F88478200.st3F5.f3 = 9
     this.message.st1F7 = fakeF88478200
     this.needProcess = true
+    return this
   }
 
-  toBinary (): void {
-    this.body = Setting.toBinary(this.message)
+  toBinary (): Uint8Array {
+    return Setting.toBinary(this.message)
   }
 }

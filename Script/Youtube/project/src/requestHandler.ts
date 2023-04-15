@@ -6,16 +6,18 @@ export default class RequestMessage extends YouTubeMessage {
     super(name)
   }
 
-  fromBinary (binaryBody): void {
+  fromBinary (binaryBody): this {
     this.message = Request.fromBinary(binaryBody)
+    return this
   }
 
-  pure (): void {
+  pure (): this {
     this.message.context.adSignalsInfo.params.length = 0
     this.needProcess = true
+    return this
   }
 
-  toBinary (): void {
-    this.body = Request.toBinary(this.message)
+  toBinary (): Uint8Array {
+    return Request.toBinary(this.message)
   }
 }

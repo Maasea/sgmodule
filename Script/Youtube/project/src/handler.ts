@@ -1,28 +1,20 @@
-import Factory from 'lib/factory'
+import createMessage from 'lib/factory'
 import RequestMessage from './requestHandler'
 import { $ } from '../lib/env'
 import { Request, Response } from '../types/surge'
 
 const handleRequest = (request: Request): Request => {
   const requestMsg = new RequestMessage()
-  requestMsg.fromBinary(request.body)
-  requestMsg.pure()
-  requestMsg.toBinary()
-  request.body = requestMsg.body
+  request.body = requestMsg.fromBinary(request.body).pure().toBinary()
   return request
 }
 
-const handleResponse = (error: any, response: Response, data: any): void => {
-  if (error as boolean) $.done()
+const handleResponse = (error: any, response: Response, data: Uint8Array): void => {
+  if (error) $.done()
+  const responseMsg = createMessage($request.url)
 
-  response.headers['Content-Encoding'] = 'identity'
-  const url = $request.url
-  const responseMsg = Factory.create(url)
-
-  if (responseMsg != null) {
-    responseMsg.fromBinary(data)
-    responseMsg.pure()
-    responseMsg.done(response, data)
+  if (responseMsg) {
+    responseMsg.fromBinary(data).pure().done(response, data)
   } else {
     $.msg('YouTubeAds', '脚本需要更新', '外部资源 -> 全部更新')
     $.done()

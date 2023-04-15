@@ -4,7 +4,6 @@ import { $ } from '../lib/env'
 export abstract class YouTubeMessage {
   needProcess: boolean
   needSave: boolean
-  body: Uint8Array
   message: any
   whiteNo: number[]
   blackNo: number[]
@@ -17,44 +16,44 @@ export abstract class YouTubeMessage {
 
   protected constructor (name: string) {
     $.log(name)
-    Object.assign(this, $.getJSON('YouTubeWhiteStr', {
+    Object.assign(this, $.getJSON('YouTubeAdvertiseInfo', {
       whiteNo: [],
       blackNo: [],
       whiteEml: [],
-      blackEml: []
+      blackEml: ['cell_divider.eml']
     }))
   }
 
-  abstract fromBinary (binaryBody: Uint8Array): void
+  abstract fromBinary (binaryBody: Uint8Array): this
 
-  abstract pure (): void
+  abstract pure (): this
 
-  abstract toBinary (): void
+  abstract toBinary (): Uint8Array
 
   save (): void {
     if (this.needSave) {
       $.log('Update Config')
-      const YouTubeWhiteObj = {
+      const YouTubeAdvertiseInfo = {
         whiteNo: this.whiteNo,
         blackNo: this.blackNo,
         whiteEml: this.whiteEml,
         blackEml: this.blackEml
       }
-      $.setJSON(YouTubeWhiteObj, 'YouTubeWhiteStr')
+      $.setJSON(YouTubeAdvertiseInfo, 'YouTubeAdvertiseInfo')
     }
   }
 
-  done (response, data): void {
+  done (response, body): void {
     this.save()
-    if (this.needProcess) {
-      this.toBinary()
-      data = this.body
-    }
+    if (this.needProcess) body = this.toBinary()
+
+    response.headers['Content-Encoding'] = 'identity'
+    response.headers['Content-Length'] = body.length.toString()
 
     $.done({
       response: {
         ...response,
-        body: data
+        body
       }
     })
   }
@@ -62,9 +61,11 @@ export abstract class YouTubeMessage {
   iterate (obj: any = {}, target: string, call: Function, proto?: Function): any {
     const stack: any = []
     stack.push(obj)
+
     while (stack.length) {
       const item = stack.pop()
       const keys = Object.keys(item)
+
       while (keys.length) {
         const key = keys.pop()
         if (key === target) {
@@ -80,8 +81,8 @@ export abstract class YouTubeMessage {
   }
 
   isAdvertise (o): boolean {
-    const unknownFiled = UnknownFieldHandler.list(o)[0]
-    const adFlag = unknownFiled ? this.handleUnknownField(unknownFiled) : this.handleKnownField(o)
+    const filed = UnknownFieldHandler.list(o)[0]
+    const adFlag = filed ? this.handleFieldNo(filed) : this.handleFieldEml(o)
     if (adFlag) this.needProcess = true
     return adFlag
   }
@@ -92,7 +93,7 @@ export abstract class YouTubeMessage {
     return isUpload
   }
 
-  handleUnknownField (field): boolean {
+  handleFieldNo (field): boolean {
     const no = field.no
     // 增加白名单直接跳过用于提升性能
     if (this.whiteNo.includes(no)) {
@@ -103,11 +104,10 @@ export abstract class YouTubeMessage {
     const adFlag = rawText.includes('pagead')
     adFlag ? this.blackNo.push(no) : this.whiteNo.push(no)
     this.needSave = true
-    $.log('UnknownField:' + no + ': ' + adFlag)
     return adFlag
   }
 
-  handleKnownField (field): boolean {
+  handleFieldEml (field): boolean {
     let adFlag = false
     let match = true
     let type = ''
@@ -129,11 +129,11 @@ export abstract class YouTubeMessage {
         () => {
         },
         (obj, stack) => {
-          const unknownFiledArray = UnknownFieldHandler.list(obj)
-          while (unknownFiledArray.length) {
-            const unknownFiled = unknownFiledArray.pop()
-            if (unknownFiled.data.length > 1000) {
-              const rawText = this.decoder.decode(unknownFiled.data)
+          const unknownFieldArray = UnknownFieldHandler.list(obj)
+
+          for (const unknownField of unknownFieldArray) {
+            if (unknownField.data.length > 1000) {
+              const rawText = this.decoder.decode(unknownField.data)
               adFlag = rawText.includes('pagead')
               if (adFlag) {
                 stack.length = 0
