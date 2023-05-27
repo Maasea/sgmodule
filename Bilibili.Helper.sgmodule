@@ -6,6 +6,7 @@
 # 2. 去除青少年弹窗 (可能)
 # 3. 支持在持久化存储中指定视频播放CDN, 告别 mcdn
 #    - 默认使用 `upos-sz-mirrorali.bilivideo.com`
+#    - 可能无法设置 https
 
 # Note
 # Beta 版本不保证稳定运行
@@ -13,10 +14,10 @@
 # QX 不可用
 
 # Credit
-# @BiliUniverse
+# @BiliUniverse, SocialSisterYi/bilibili-API-collect
 
 [Script]
-bilibili.helper.DmView = type=http-response,pattern=https:\/\/grpc\.biliapi\.net\/bilibili\.community\.service\.dm\.v1\.DM\/DmView,requires-body=1,max-size=-1,binary-body-mode=1,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Bilibili/bilibili.helper.beta.js
+bilibili.helper.dmView = type=http-response,pattern=https:\/\/grpc\.biliapi\.net\/bilibili\.community\.service\.dm\.v1\.DM\/DmView,requires-body=1,max-size=-1,binary-body-mode=1,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Bilibili/bilibili.helper.beta.js
 bilibili.helper.teenager = type=http-response,pattern=https:\/\/grpc\.biliapi\.net\/bilibili\.app\.interface\.v1\.Teenagers\/ModeStatus,requires-body=1,binary-body-mode=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Bilibili/bilibili.helper.beta.js
 bilibili.helper.playView = type=http-response,pattern=https:\/\/grpc\.biliapi\.net\/bilibili\.app\.playurl\.v1\.PlayURL\/PlayView,requires-body=1,binary-body-mode=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Bilibili/bilibili.helper.beta.js
 
