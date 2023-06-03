@@ -24,4 +24,3 @@ bilibili.helper.mainList = type=http-response,pattern=^https:\/\/grpc\.biliapi\.
 
 [MITM]
 hostname = %APPEND% grpc.biliapi.net
-
