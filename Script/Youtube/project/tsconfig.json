@@ -6,7 +6,12 @@
         "./src/"
       ]
     },
+    "typeRoots": [
+      "./types/*.d.ts",
+      "./node_modules/@types"
+    ],
     "target": "ES2020",
+    "strictNullChecks": true,
     "moduleResolution": "node"
   }
 }
