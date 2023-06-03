@@ -13,6 +13,7 @@ npm install
 ```
 npm run build
 ```
+
 **Generate new js from proto**
 
 ```
