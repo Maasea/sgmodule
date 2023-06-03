@@ -67,16 +67,3 @@ declare interface ConversionRule<T> {
 // declare type ClientType = CRequest | CResponse | CFetchRequest | CFetchResponse | CDone
 //
 // declare type QuanXType = QxRequest | QxResponse | QxFetchRequest | QxFetchResponse | QxDone
-
-// declare const $environment: SgEnvironment | QxEnvironment
-// declare const $request: SgRequest | QxRequest
-// declare const $response: SgResponse | QxResponse
-// declare const $done: (options?: SgDone | QxDone) => void
-// declare const $loon: any
-// declare const $rocket: any
-// declare const $persistentStore: PersistentStore
-// declare const $httpClient: HttpClient
-// declare const $notification: Notification
-// declare const $notify: (title: string, subtitle: string, message: string, option?: NotifyOption) => void
-// declare const $prefs: Prefs
-// declare const $task: Task

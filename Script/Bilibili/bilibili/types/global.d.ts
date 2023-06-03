@@ -7,8 +7,8 @@ import {
     Notification,
     PersistentStore,
     Utils
-} from "./types/surge"
-import {QxEnvironment, QxRequest, QxResponse, QxDone, NotifyOption, Prefs, Task} from "./types/quantumultX";
+} from "./surge"
+import {QxEnvironment, QxRequest, QxResponse, QxDone, NotifyOption, Prefs, Task} from "./quantumultX";
 
 declare global {
     const $environment: SgEnvironment | QxEnvironment
