@@ -1,4 +1,4 @@
-import createMessage from 'lib/factory'
+import createMessage from '../lib/factory'
 import RequestMessage from './requestHandler'
 import { $ } from '../lib/env'
 import { Request, Response } from '../types/surge'

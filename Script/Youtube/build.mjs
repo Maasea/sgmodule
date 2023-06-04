@@ -12,5 +12,5 @@ esbuild.buildSync({
   sourcemap: false,
   define: { 'DEBUG': `${debug}` },
   target: 'es2020',
-  outfile: '../youtube.beta.js',
+  outfile: './dist/youtube.beta.js',
 })
