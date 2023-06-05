@@ -43,17 +43,18 @@ export abstract class YouTubeMessage {
     }
   }
 
-  done (response, body): void {
+  done (response: CFetchResponse): void {
     this.save()
+    let body = response.bodyBytes
     if (this.needProcess) body = this.toBinary()
 
     response.headers['Content-Encoding'] = 'identity'
-    response.headers['Content-Length'] = body.length.toString()
+    response.headers['Content-Length'] = (body?.length ?? 0)?.toString()
 
     $.done({
       response: {
         ...response,
-        body
+        bodyBytes: body
       }
     })
   }
@@ -67,7 +68,7 @@ export abstract class YouTubeMessage {
       const keys = Object.keys(item)
 
       while (keys.length) {
-        const key = keys.pop()
+        const key = keys.pop() as any
         if (key === target) {
           call(item, stack)
         } else if (typeof item[key] === 'object') {

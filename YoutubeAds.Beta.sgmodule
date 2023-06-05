@@ -1,10 +1,8 @@
 #!name=去除 Youtube 广告 (Beta)
-#!desc=Surge-Build ≥ 2700 and IOS ≥ 15
+#!desc=IOS ≥ 15
 
 # > DIFF
 # 1. 提升页面的加载速度
-# 2. 仅适用于 Surge 且版本为 5.20.0 (2700) 及以上
-# 3. 可能需要开启 MITM over HTTP/2
 
 [Script]
 youtube.beta = type=http-request,pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting)\?,requires-body=1,max-size=-1,binary-body-mode=1,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/dist/youtube.beta.js

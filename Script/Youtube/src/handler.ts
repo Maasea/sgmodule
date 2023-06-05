@@ -1,42 +1,55 @@
 import createMessage from '../lib/factory'
 import RequestMessage from './requestHandler'
 import { $ } from '../lib/env'
-import { Request, Response } from '../types/surge'
 
-const handleRequest = (request: Request): Request => {
+const handleRequestBodyBytes = (bodyBytes: Uint8Array): Uint8Array => {
   const requestMsg = new RequestMessage()
-  request.body = requestMsg.fromBinary(request.body).pure().toBinary()
-  return request
+  try {
+    return requestMsg.fromBinary(bodyBytes).pure().toBinary()
+  } catch (e) {
+    $.log(e.toString())
+    return bodyBytes
+  }
 }
 
-const handleResponse = (error: any, response: Response, data: Uint8Array): void => {
-  if (error) $.done()
-  const responseMsg = createMessage($request.url)
+const handleResponse = (response: CFetchResponse): void => {
+  const responseMsg = createMessage($.request.url)
 
   if (responseMsg) {
-    responseMsg.fromBinary(data).pure().done(response, data)
+    try {
+      const body = response.bodyBytes as Uint8Array
+      responseMsg.fromBinary(body).pure().done(response)
+    } catch (e) {
+      console.log(e.toString())
+    }
   } else {
     $.msg('YouTubeAds', '脚本需要更新', '外部资源 -> 全部更新')
-    $.done()
+    $.exit()
   }
 }
 export const checkSurgeVersion = (): void => {
   const build = parseInt($environment?.['surge-build'])
-  if (build < 2700) {
-    $.msg('YouTubeAds Beta', '不支持该 Surge 版本', '点击通知可跳转旧版脚本', {
-      url: 'https://raw.githubusercontent.com/Maasea/sgmodule/master/YoutubeAds.sgmodule'
-    })
-    $.done()
+  if (isNaN(build) || build < 2700) {
+    $.msg(
+      'YouTubeAds Beta',
+      '不支持该 Surge 版本',
+      '点击通知可跳转旧版脚本',
+      'https://raw.githubusercontent.com/Maasea/sgmodule/master/YoutubeAds.sgmodule'
+    )
+    $.exit()
   }
 }
 
-export const buildRequest = (): void => {
-  const request = handleRequest($request)
-  $httpClient.post(
-    {
-      ...request,
-      'binary-mode': true
-    },
-    handleResponse
-  )
+export const buildRequest = async (): Promise<void> => {
+  const bodyBytes = handleRequestBodyBytes($.request.bodyBytes as Uint8Array)
+  try {
+    const response = await $.fetch({
+      ...$.request,
+      bodyBytes
+    })
+    handleResponse(response)
+  } catch (e) {
+    $.log(e.toString())
+    $.exit()
+  }
 }

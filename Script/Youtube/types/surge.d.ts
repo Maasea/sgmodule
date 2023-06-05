@@ -11,7 +11,7 @@ declare interface SgResponse extends BResponse<SurgeBody> {
 }
 
 // httpClient
-declare interface HttpClientRequest extends FetchRequest<Uint8Array> {
+declare interface HttpClientRequest extends Omit<FetchRequest<Uint8Array>, 'method'> {
   id?: string
   ['binary-mode']?: boolean
 }
@@ -47,6 +47,10 @@ declare type HttpAPI = (method: string, path: string, body: object, callback: (r
 
 declare interface HttpClient {
   post: (
+    options: HttpClientRequest,
+    callback: (error: any, response: HttpClientResponse, data: string | Uint8Array) => void
+  ) => void
+  get: (
     options: HttpClientRequest,
     callback: (error: any, response: HttpClientResponse, data: string | Uint8Array) => void
   ) => void

@@ -1,8 +1,3 @@
-import { checkSurgeVersion, buildRequest } from './src/handler'
+import { buildRequest } from './src/handler'
 
-const main = (): void => {
-  checkSurgeVersion()
-  buildRequest()
-}
-
-main()
+void buildRequest()
