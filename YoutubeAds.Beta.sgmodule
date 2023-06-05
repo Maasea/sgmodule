@@ -3,6 +3,8 @@
 
 # > DIFF
 # 1. 提升页面的加载速度
+# 2. 客户端需要支持发送 Binary
+# 3. 相对于非Beta版本，占用更多的内存，但加载速度得到一些提升
 
 [Script]
 youtube.beta = type=http-request,pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting)\?,requires-body=1,max-size=-1,binary-body-mode=1,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/dist/youtube.beta.js
