@@ -59,6 +59,12 @@ export abstract class YouTubeMessage {
     })
   }
 
+  doneResponse (bodyBytes: Uint8Array): void {
+    this.save()
+    if (this.needProcess) bodyBytes = this.toBinary()
+    $.done({ bodyBytes })
+  }
+
   iterate (obj: any = {}, target: string, call: Function, proto?: Function): any {
     const stack: any = []
     stack.push(obj)
