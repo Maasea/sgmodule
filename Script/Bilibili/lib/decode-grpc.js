@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as zlib from "zlib";
-import { exec } from "child_process";
+import { spawnSync } from "child_process";
 
 const fileName = "v";
 const path = "../raw/";
@@ -14,16 +14,17 @@ if (header[0]) {
   data = zlib.gunzipSync(data);
 }
 
-fs.writeFileSync(`../protobuf/${output}`, data);
-
-exec(`protoc --decode_raw < ../protobuf/${output}`, (error, stdout, stderr) => {
-  if (error) {
-    console.error(`执行命令时出错：${error}`);
-    return;
-  }
-  const decodeStr = stdout.replace(/(\\\d{3})+/g, Octal2Chinese);
-  fs.writeFileSync(`../protobuf/${output}.bin`, decodeStr);
+const protoc = spawnSync("protoc", ["--decode_raw"], {
+  input: data,
+  encoding: "utf8",
 });
+
+if (protoc.stderr) {
+  console.error(`执行命令时出错：${protoc.stderr}`);
+} else {
+  const decodeStr = protoc.stdout.replace(/(\\\d{3})+/g, Octal2Chinese);
+  fs.writeFileSync(`../protobuf/${output}.bin`, decodeStr);
+}
 
 function Octal2Chinese(str) {
   const splits = str.split("\\");

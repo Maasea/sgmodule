@@ -25,11 +25,11 @@ message CmIpad {
 }
 
 // 相关推荐项
-message Relate {string uri = 9;}
+//message Relate {string uri = 9;}
 
 // 视频页信息-响应
 message ViewReply {
-  repeated Relate relates = 10;
+//  repeated Relate relates = 10;
   // 广告
   repeated CM cms = 30;
   // 广告配置
