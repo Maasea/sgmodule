@@ -1,12 +1,15 @@
 import { handleSearch, handleIndex, handleSplash } from "./src/jsonHandler.js";
 
 const url = $request.url;
-const body = $response.body;
+let body = $response.body;
+if (!body) $done({});
+
+body = JSON.parse(body);
 
 const routeHandlers = {
-  "search": handleSearch,
+  search: handleSearch,
   "feed/index": handleIndex,
-  "splash": handleSplash,
+  splash: handleSplash,
 };
 
 for (let route in routeHandlers) {

@@ -38,7 +38,7 @@ export function handleSplash(body) {
 }
 
 export function handleIndex(body) {
-  body.data.item = body.data.item.filter(
+  body.data.items = body.data.items.filter(
     (item) => !/banner|cm/.test(item.card_type)
   );
 
