@@ -20,4 +20,4 @@ bilibili.helper.v1.view = type=http-response,pattern=^https:\/\/grpc\.biliapi\.n
 bilibili.helper.mainList = type=http-response,pattern=^https:\/\/grpc\.biliapi\.net\/bilibili\.main\.community\.reply\.v1\.Reply\/MainList,requires-body=1,binary-body-mode=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Bilibili/dist/bilibili.helper.beta.js
 
 [MITM]
-hostname = %APPEND% grpc.biliapi.net
+hostname = %APPEND% grpc.biliapi.net, app.bilibili.com
