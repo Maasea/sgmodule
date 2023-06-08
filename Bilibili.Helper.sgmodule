@@ -1,22 +1,19 @@
-#!name= Bilibili Helper 
+#!name= Bilibili Helper
 #!desc= MITM over HTTP/2 && IOS >= 15
 
 # Feature
-# 1. 去除交互式弹幕 (点赞, 投票)
-# 2. 去除青少年弹窗 (Beta)
-# 3. 去除播放页广告 
-# x 支持在持久化存储中指定视频播放CDN, 告别 mcdn
-#   - 待完善暂时关闭
+# 1. 去除交互式弹幕
+# 2. 去除青少年弹窗
+# 3. 去除部分广告
 
 # Note
-# Beta 版本不保证稳定运行
-# 可能需要开启 MITM over HTTP/2
-# QX 不可用
+# 需要开启 MITM over HTTP/2
 
 # Credit
 # @BiliUniverse, SocialSisterYi/bilibili-API-collect
 
 [Script]
+bilibili.helper.v2 = type=http-response,pattern=^https:\/\/app\.bilibili\.com\/x\/v2\/(splash|search\?|feed\/index),requires-body=1,max-size=-1,binary-body-mode=0,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Bilibili/dist/bilibili.helper.v2.beta.js
 bilibili.helper.dmView = type=http-response,pattern=^https:\/\/grpc\.biliapi\.net\/bilibili\.community\.service\.dm\.v1\.DM\/DmView,requires-body=1,max-size=-1,binary-body-mode=1,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Bilibili/dist/bilibili.helper.beta.js
 bilibili.helper.teenager = type=http-response,pattern=^https:\/\/grpc\.biliapi\.net\/bilibili\.app\.interface\.v1\.Teenagers\/ModeStatus,requires-body=1,binary-body-mode=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Bilibili/dist/bilibili.helper.beta.js
 bilibili.helper.v1.view = type=http-response,pattern=^https:\/\/grpc\.biliapi\.net\/bilibili\.app\.view\.v1\.View\/View$,requires-body=1,binary-body-mode=1,max-size=0,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Bilibili/dist/bilibili.helper.beta.js

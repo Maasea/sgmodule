@@ -71,3 +71,7 @@ export function modifyBody(IMessage, message) {
   const binaryBody = IMessage.toBinary(message);
   $done({ body: newRawBody(binaryBody) });
 }
+
+export function stringifyBody (body) {
+  $done({ body: JSON.stringify(body) })
+}

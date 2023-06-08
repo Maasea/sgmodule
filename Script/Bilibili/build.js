@@ -11,3 +11,13 @@ esbuild.buildSync({
   sourcemap: false,
   outfile: "/dist/bilibili.helper.beta.js",
 });
+
+esbuild.buildSync({
+  entryPoints: ["jsonMain.js"],
+  bundle: true,
+  minify: true,
+  banner: { js: `// Build: ${now}` },
+  inject: ["./lib/time-polyfill.js"],
+  sourcemap: false,
+  outfile: "/dist/bilibili.helper.v2.beta.js",
+});
