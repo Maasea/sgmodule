@@ -5,6 +5,8 @@ import {
   handlePlayView,
   handleV1View,
   handleReplyList,
+  handleSearchAll,
+  handleDynAll,
 } from "./src/handler.js";
 
 const url = $request.url;
@@ -26,6 +28,8 @@ const routeHandlers = {
   "v1.PlayURL/PlayView": handlePlayView,
   "v1.View/View": handleV1View,
   "v1.Reply/MainList": handleReplyList,
+  "v1.Search/SearchAll": handleSearchAll,
+  "v2.Dynamic/DynAll": handleDynAll,
 };
 
 for (let route in routeHandlers) {

@@ -1,15 +1,11 @@
 import { DmViewReply } from "../lib/protos/dmView.js";
-import {
-  getCDNHost,
-  modifyBody,
-  replacePlayBaseURL,
-  replaceViewBaseUrl,
-} from "./utils.js";
+import { getCDNHost, modifyBody, replacePlayBaseURL } from "./utils.js";
 import { ModeStatus } from "../lib/protos/modeStatus.js";
 import { PlayView } from "../lib/protos/playerUrl.js";
 import { ViewReply } from "../lib/protos/view.js";
-import URLs from "../lib/urls.js";
 import { MainListReply } from "../lib/protos/mainReply.js";
+import { SearchAll } from "../lib/protos/searchAll.js";
+import { DynAllReply, DynamicType } from "../lib/protos/dynAll.js";
 
 export function handleDMView(grpcBody) {
   const dmMessage = DmViewReply.fromBinary(grpcBody);
@@ -92,4 +88,21 @@ export function handleReplyList(grpcBody) {
   const mainMessage = MainListReply.fromBinary(grpcBody);
   delete mainMessage.cm;
   modifyBody(MainListReply, mainMessage);
+}
+
+export function handleSearchAll(grpcBody) {
+  const searchAllMessage = SearchAll.fromBinary(grpcBody);
+  searchAllMessage.items = searchAllMessage.items.filter(
+    (item) => !item.linktype.endsWith("_ad")
+  );
+  modifyBody(SearchAll, searchAllMessage);
+}
+
+export function handleDynAll(grpcBody) {
+  const dynAllMessage = DynAllReply.fromBinary(grpcBody);
+  delete dynAllMessage.topicList;
+  dynAllMessage.dynamicList.list = dynAllMessage.dynamicList.list.filter(
+    (item) => item.cardType !== DynamicType.ad
+  );
+  modifyBody(DynAllReply, dynAllMessage);
 }
