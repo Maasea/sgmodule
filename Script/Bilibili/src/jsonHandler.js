@@ -22,14 +22,14 @@ export function handleSplash(body) {
   };
 
   if (body.data) {
-    item.forEach((i) => delete obj.data[i]);
+    item.forEach((i) => delete body.data[i]);
 
     Object.entries(staticValues).forEach(([key, value]) => {
-      if (obj.data[key]) obj.data[key] = value;
+      if (body.data[key]) body.data[key] = value;
     });
 
     if (body.data.list) {
-      for (let i of obj.data.list) {
+      for (let i of body.data.list) {
         Object.assign(i, staticListValues);
       }
     }
