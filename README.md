@@ -6,3 +6,7 @@
 2. [Youtube](./YoutubeAds.sgmodule)
 3. [微信阅读](./WeRead.sgmodule)
 4. [bilibili Helper](./Bilibili.Helper.sgmodule)
+
+其他
+
+1. [ComicSubscribe](./ComicSubscribe.sgmodule)
