@@ -163,64 +163,16 @@ class CmIpad$Type extends MessageType {
  */
 export const CmIpad = new CmIpad$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class Relate$Type extends MessageType {
-    constructor() {
-        super("Relate", [
-            { no: 9, name: "uri", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
-        ]);
-    }
-    create(value) {
-        const message = { uri: "" };
-        globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
-        if (value !== undefined)
-            reflectionMergePartial(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader, length, options, target) {
-        let message = target !== null && target !== void 0 ? target : this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* string uri */ 9:
-                    message.uri = reader.string();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message, writer, options) {
-        /* string uri = 9; */
-        if (message.uri !== "")
-            writer.tag(9, WireType.LengthDelimited).string(message.uri);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message Relate
- */
-export const Relate = new Relate$Type();
-// @generated message type with reflection information, may provide speed optimized methods
 class ViewReply$Type extends MessageType {
     constructor() {
         super("ViewReply", [
-            { no: 10, name: "relates", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => Relate },
             { no: 30, name: "cms", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => CM },
             { no: 31, name: "cm_config", kind: "message", T: () => CMConfig },
             { no: 41, name: "cm_ipad", kind: "message", T: () => CmIpad }
         ]);
     }
     create(value) {
-        const message = { relates: [], cms: [] };
+        const message = { cms: [] };
         globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
         if (value !== undefined)
             reflectionMergePartial(this, message, value);
@@ -231,9 +183,6 @@ class ViewReply$Type extends MessageType {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* repeated Relate relates */ 10:
-                    message.relates.push(Relate.internalBinaryRead(reader, reader.uint32(), options));
-                    break;
                 case /* repeated CM cms */ 30:
                     message.cms.push(CM.internalBinaryRead(reader, reader.uint32(), options));
                     break;
@@ -255,9 +204,6 @@ class ViewReply$Type extends MessageType {
         return message;
     }
     internalBinaryWrite(message, writer, options) {
-        /* repeated Relate relates = 10; */
-        for (let i = 0; i < message.relates.length; i++)
-            Relate.internalBinaryWrite(message.relates[i], writer.tag(10, WireType.LengthDelimited).fork(), options).join();
         /* repeated CM cms = 30; */
         for (let i = 0; i < message.cms.length; i++)
             CM.internalBinaryWrite(message.cms[i], writer.tag(30, WireType.LengthDelimited).fork(), options).join();

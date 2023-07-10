@@ -7,10 +7,13 @@ import {
   handleReplyList,
   handleSearchAll,
   handleDynAll,
+  handleViewProgress,
 } from "./src/handler.js";
+import URLs from "./lib/urls.js";
 
 const url = $request.url;
 const body = $response.body;
+const path = new URLs(url).path;
 const decompress =
   typeof $utils === "object" && typeof $utils?.ungzip === "function"
     ? $utils.ungzip
@@ -30,10 +33,11 @@ const routeHandlers = {
   "v1.Reply/MainList": handleReplyList,
   "v1.Search/SearchAll": handleSearchAll,
   "v2.Dynamic/DynAll": handleDynAll,
+  "v1.View/ViewProgress": handleViewProgress,
 };
 
 for (let route in routeHandlers) {
-  if (url.includes(route)) {
+  if (path.endsWith(route)) {
     routeHandlers[route](grpcBody);
     break;
   }

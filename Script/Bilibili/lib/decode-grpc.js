@@ -23,7 +23,7 @@ if (protoc.stderr) {
   console.error(`执行命令时出错：${protoc.stderr}`);
 } else {
   const decodeStr = protoc.stdout.replace(/(\\\d{3})+/g, Octal2Chinese);
-  fs.writeFileSync(`../protobuf/${output}.bin`, decodeStr);
+  fs.writeFileSync(`${path}${output}.bin`, decodeStr);
 }
 
 function Octal2Chinese(str) {

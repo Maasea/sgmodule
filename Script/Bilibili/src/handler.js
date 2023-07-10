@@ -6,6 +6,7 @@ import { ViewReply } from "../lib/protos/view.js";
 import { MainListReply } from "../lib/protos/mainReply.js";
 import { SearchAll } from "../lib/protos/searchAll.js";
 import { DynAllReply, DynamicType } from "../lib/protos/dynAll.js";
+import { ViewProgress } from "../lib/protos/viewProgress.js";
 
 export function handleDMView(grpcBody) {
   const dmMessage = DmViewReply.fromBinary(grpcBody);
@@ -105,4 +106,10 @@ export function handleDynAll(grpcBody) {
     (item) => item.cardType !== DynamicType.ad
   );
   modifyBody(DynAllReply, dynAllMessage);
+}
+
+export function handleViewProgress(grpcBody) {
+  const viewProgressMessage = ViewProgress.fromBinary(grpcBody);
+  delete viewProgressMessage.dm;
+  modifyBody(ViewProgress, viewProgressMessage);
 }

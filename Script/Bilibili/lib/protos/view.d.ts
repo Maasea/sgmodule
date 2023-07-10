@@ -52,27 +52,13 @@ export interface CmIpad {
     aid: bigint;
 }
 /**
- * 相关推荐项
- *
- * @generated from protobuf message Relate
- */
-export interface Relate {
-    /**
-     * @generated from protobuf field: string uri = 9;
-     */
-    uri: string;
-}
-/**
  * 视频页信息-响应
  *
  * @generated from protobuf message ViewReply
  */
 export interface ViewReply {
     /**
-     * @generated from protobuf field: repeated Relate relates = 10;
-     */
-    relates: Relate[];
-    /**
+     *  repeated Relate relates = 10;
      * 广告
      *
      * @generated from protobuf field: repeated CM cms = 30;
@@ -121,16 +107,6 @@ declare class CmIpad$Type extends MessageType<CmIpad> {
  * @generated MessageType for protobuf message CmIpad
  */
 export declare const CmIpad: CmIpad$Type;
-declare class Relate$Type extends MessageType<Relate> {
-    constructor();
-    create(value?: PartialMessage<Relate>): Relate;
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Relate): Relate;
-    internalBinaryWrite(message: Relate, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
-}
-/**
- * @generated MessageType for protobuf message Relate
- */
-export declare const Relate: Relate$Type;
 declare class ViewReply$Type extends MessageType<ViewReply> {
     constructor();
     create(value?: PartialMessage<ViewReply>): ViewReply;
