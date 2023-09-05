@@ -1,13 +1,16 @@
 import { DmViewReply } from "../lib/protos/dmView.js";
-import { getCDNHost, modifyBody, replacePlayBaseURL } from "./utils.js";
+import { modifyBody } from "./utils.js";
 import { ModeStatus } from "../lib/protos/modeStatus.js";
-import { PlayView } from "../lib/protos/playerUrl.js";
 import { ViewReply } from "../lib/protos/view.js";
 import { MainListReply } from "../lib/protos/mainReply.js";
 import { SearchAll } from "../lib/protos/searchAll.js";
 import { DynAllReply, DynamicType } from "../lib/protos/dynAll.js";
 import { ViewProgress } from "../lib/protos/viewProgress.js";
-
+import {
+  ViewUniteReply,
+  ModuleType,
+  RelateCardType,
+} from "../lib/protos/viewUnite.js";
 export function handleDMView(grpcBody) {
   const dmMessage = DmViewReply.fromBinary(grpcBody);
 
@@ -30,19 +33,19 @@ export function handleModeStatus(grpcBody) {
   }
 }
 
-export function handlePlayView(grpcBody) {
-  const replaceHost = getCDNHost();
-  if (!replaceHost) return;
+// export function handlePlayView(grpcBody) {
+//   const replaceHost = getCDNHost();
+//   if (!replaceHost) return;
 
-  const playMessage = PlayView.fromBinary(grpcBody);
-  const videos = playMessage.playURL.videos;
-  const audios = playMessage.playURL.audios;
+//   const playMessage = PlayView.fromBinary(grpcBody);
+//   const videos = playMessage.playURL.videos;
+//   const audios = playMessage.playURL.audios;
 
-  replacePlayBaseURL(videos, replaceHost);
-  replacePlayBaseURL(audios, replaceHost);
+//   replacePlayBaseURL(videos, replaceHost);
+//   replacePlayBaseURL(audios, replaceHost);
 
-  modifyBody(PlayView, playMessage);
-}
+//   modifyBody(PlayView, playMessage);
+// }
 
 export function handleV1View(grpcBody) {
   const viewMessage = ViewReply.fromBinary(grpcBody);
@@ -112,4 +115,24 @@ export function handleViewProgress(grpcBody) {
   const viewProgressMessage = ViewProgress.fromBinary(grpcBody);
   delete viewProgressMessage.dm;
   modifyBody(ViewProgress, viewProgressMessage);
+}
+
+export function handleViewUnite(grpcBody) {
+  const viewUniteMessage = ViewUniteReply.fromBinary(grpcBody);
+  delete viewUniteMessage.cm;
+
+  viewUniteMessage.tab.tabModule.forEach(tabModule => {
+    if (tabModule.tab.oneofKind !== "introduction") return;
+
+    const relateModule = tabModule.tab.introduction.modules.find(
+        module => module.type === ModuleType.RELATED_RECOMMEND
+    );
+
+    if (relateModule?.data?.oneofKind !== "relates" || !relateModule.data.relates.cards) return;
+
+    relateModule.data.relates.cards = relateModule.data.relates.cards.filter(
+        card => card.relateCardType === RelateCardType.AV
+    );
+});
+  modifyBody(ViewUniteReply, viewUniteMessage);
 }

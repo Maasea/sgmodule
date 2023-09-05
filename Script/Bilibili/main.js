@@ -2,12 +2,12 @@ import { gunzipSync } from "fflate";
 import {
   handleDMView,
   handleModeStatus,
-  handlePlayView,
   handleV1View,
   handleReplyList,
   handleSearchAll,
   handleDynAll,
   handleViewProgress,
+  handleViewUnite,
 } from "./src/handler.js";
 import URLs from "./lib/urls.js";
 
@@ -28,7 +28,7 @@ if (grpcHeader[0]) {
 const routeHandlers = {
   "v1.DM/DmView": handleDMView,
   "Teenagers/ModeStatus": handleModeStatus,
-  "v1.PlayURL/PlayView": handlePlayView,
+  "viewunite.v1.View/View":handleViewUnite,
   "v1.View/View": handleV1View,
   "v1.Reply/MainList": handleReplyList,
   "v1.Search/SearchAll": handleSearchAll,
