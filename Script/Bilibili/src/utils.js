@@ -1,5 +1,6 @@
+import Client from "../lib/client.js";
 const originRegex = /^(http|https):\/\/[^/]*/;
-
+const $ = Client.getInstance("Bilibili Helper", { debug: false });
 // Refer to BiliUniverse/ADBlock
 export function newRawBody(body) {
   const checksum = Checksum(body.length);
@@ -69,7 +70,7 @@ export function replacePlayBaseURL(items, replaceHost) {
 
 export function modifyBody(IMessage, message) {
   const binaryBody = IMessage.toBinary(message);
-  $done({ body: newRawBody(binaryBody) });
+  $.done({ bodyBytes: newRawBody(binaryBody) });
 }
 
 export function stringifyBody (body) {
