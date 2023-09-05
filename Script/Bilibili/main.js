@@ -27,13 +27,13 @@ if (grpcHeader[0]) {
 
 const routeHandlers = {
   "v1.DM/DmView": handleDMView,
-  "Teenagers/ModeStatus": handleModeStatus,
-  "viewunite.v1.View/View":handleViewUnite,
-  "v1.View/View": handleV1View,
+  "v1.Teenagers/ModeStatus": handleModeStatus,
   "v1.Reply/MainList": handleReplyList,
   "v1.Search/SearchAll": handleSearchAll,
   "v2.Dynamic/DynAll": handleDynAll,
-  "v1.View/ViewProgress": handleViewProgress,
+  "viewunite.v1.View/View": handleViewUnite,
+  "view.v1.View/ViewProgress": handleViewProgress,
+  "view.v1.View/View": handleV1View,
 };
 
 for (let route in routeHandlers) {

@@ -121,18 +121,22 @@ export function handleViewUnite(grpcBody) {
   const viewUniteMessage = ViewUniteReply.fromBinary(grpcBody);
   delete viewUniteMessage.cm;
 
-  viewUniteMessage.tab.tabModule.forEach(tabModule => {
+  viewUniteMessage.tab.tabModule.forEach((tabModule) => {
     if (tabModule.tab.oneofKind !== "introduction") return;
 
     const relateModule = tabModule.tab.introduction.modules.find(
-        module => module.type === ModuleType.RELATED_RECOMMEND
+      (module) => module.type === ModuleType.RELATED_RECOMMEND
     );
 
-    if (relateModule?.data?.oneofKind !== "relates" || !relateModule.data.relates.cards) return;
+    if (
+      relateModule?.data?.oneofKind !== "relates" ||
+      !relateModule.data.relates.cards
+    )
+      return;
 
     relateModule.data.relates.cards = relateModule.data.relates.cards.filter(
-        card => card.relateCardType === RelateCardType.AV
+      (card) => card.relateCardType === RelateCardType.AV
     );
-});
+  });
   modifyBody(ViewUniteReply, viewUniteMessage);
 }
