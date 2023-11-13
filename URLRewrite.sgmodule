@@ -1,6 +1,9 @@
 #!name=URL Rewrite
 #!desc=Google 地址重定向
 
+[General]
+force-http-engine-hosts = %APPEND% www.google.cn
+
 [URL Rewrite]
 # Redirect Google Search Service
 ^https?:\/\/(www.)?(g|google)\.cn https://www.google.com 302
