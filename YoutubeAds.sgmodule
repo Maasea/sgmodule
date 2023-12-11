@@ -1,14 +1,17 @@
-#!name=去除 Youtube 广告
-#!desc=去除 Youtube 广告 (IOS >= 15)
+#!name=Youtube (Music) Enhance
+#!desc=适用于 Youtube & Youtube Music (IOS >= 15)
 
 # > Feature
-# 删除 瀑布流、视频、搜索中出现的广告和Shorts
-# 删除 Shorts 内的视频广告
-# 删除 底部 上传 按钮
-# 增加 画中画(PIP), 后台播放 (Beta)
-# 增加 自动翻译 (Thanks @VirgilClyne)
+# - 删除 Youtube (Music) 广告
+# - 删除 Youtube 底部 上传 按钮 & Youtube Music 底部选段、升级按钮
+# + 增加 Youtube 画中画(PIP)
+# + 增加 Youtube (Music) 后台播放
+# + 增加 Youtube 自动翻译 (Thanks @VirgilClyne)
 
 # > Note
+# Youtube 画中画和后台播放分别在客户端内关闭
+#   - 设置 -> 通用 -> 画中画
+#   - 设置 -> 后台播放和下载 -> 后台播放
 # 该模块已足够全面，无需其他规则混用，防止重写规则被破坏
 # 不支持 Mock 的客户端可以用 reject-200/reject-img 替代
 
