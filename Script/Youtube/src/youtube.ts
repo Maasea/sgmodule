@@ -94,12 +94,6 @@ export abstract class YouTubeMessage {
     return adFlag
   }
 
-  isUpload (o): boolean {
-    const isUpload = o?.g4F318370163
-    if (isUpload) this.needProcess = true
-    return isUpload
-  }
-
   handleFieldNo (field): boolean {
     const no = field.no
     // 增加白名单直接跳过用于提升性能

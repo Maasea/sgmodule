@@ -205,10 +205,13 @@ export class GuideMessage extends YouTubeMessage {
   }
 
   pure (): this {
+    const blackList = ['FEmusic_immersive', 'SPunlimited', 'FEuploads']
     this.iterate(this.message, 'g3F1', (obj) => {
       for (let i = obj.g3F1.length - 1; i >= 0; i--) {
-        if (this.isUpload(obj.g3F1[i])) {
+        const browseId = obj.g3F1[i]?.iconRender?.browseId || obj.g3F1[i]?.labelRender?.browseId
+        if (blackList.includes(browseId)) {
           obj.g3F1.splice(i, 1)
+          this.needProcess = true
         }
       }
     })

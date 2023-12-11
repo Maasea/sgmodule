@@ -157,10 +157,11 @@ message g2F117866661 {
   repeated g3F1 g3F1 = 1;
 }
 message g3F1 {
-  g4F318370163 g4F318370163 = 318370163;
+  guideEntryRenderer iconRender = 318370163;
+  guideEntryRenderer labelRender = 117501096;
 }
-message g4F318370163 {
-  string f1 = 1;
+message guideEntryRenderer {
+  string browseId  = 1;
 }
 
 message Name {
@@ -176,13 +177,13 @@ message Player {
   Captions captions = 10 [json_name = "captions"];
   message Captions {
     PlayerCaptionsTracklistRenderer playerCaptionsTracklistRenderer = 51621377 [json_name = "playerCaptionsTracklistRenderer"];
-    
+
     message PlayerCaptionsTracklistRenderer {
       repeated CaptionTracks captionTracks = 1 [json_name = "captionTracks"];
       repeated AudioTracks audioTracks = 2 [json_name = "audioTracks"];
       repeated TranslationLanguages translationLanguages = 3 [json_name = "translationLanguages"];
       optional int32 defaultAudioTrackIndex = 4 [json_name = "defaultAudioTrackIndex"];
-      optional int32 defaultCaptionTrackIndex = 6 [json_name = "defaultAudioTrackIndex"];
+      optional int32 defaultCaptionTrackIndex = 6 [json_name = "defaultCaptionTrackIndex"];
 
       message CaptionTracks {
         string baseUrl = 1 [json_name = "baseUrl"];
@@ -204,7 +205,7 @@ message Player {
         optional string audioTrackId = 8 [json_name = "audioTrackId"];
         optional int32 captionsInitialState = 11 [json_name = "captionsInitialState"];
       };
-        
+
       message TranslationLanguages {
         string languageCode = 1 [json_name = "languageCode"];
         Name languageName = 2 [json_name = "languageName"];
