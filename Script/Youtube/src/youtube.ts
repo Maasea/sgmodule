@@ -1,4 +1,4 @@
-import { UnknownFieldHandler } from '@protobuf-ts/runtime'
+import { UnknownFieldHandler, IMessageType } from '@protobuf-ts/runtime'
 import { $ } from '../lib/env'
 
 export abstract class YouTubeMessage {
@@ -9,13 +9,15 @@ export abstract class YouTubeMessage {
   blackNo: number[]
   whiteEml: string[]
   blackEml: string[]
+  msgType: IMessageType<any>
   decoder = new TextDecoder('utf-8', {
     fatal: false,
     ignoreBOM: true
   })
 
-  protected constructor (name: string) {
+  protected constructor (msgType: IMessageType<any>, name: string) {
     $.log(name)
+    this.msgType = msgType
     Object.assign(this, $.getJSON('YouTubeAdvertiseInfo', {
       whiteNo: [],
       blackNo: [],
@@ -24,11 +26,16 @@ export abstract class YouTubeMessage {
     }))
   }
 
-  abstract fromBinary (binaryBody: Uint8Array): this
+  fromBinary (binaryBody: Uint8Array): YouTubeMessage {
+    this.message = this.msgType.fromBinary(binaryBody)
+    return this
+  }
 
   abstract pure (): this
 
-  abstract toBinary (): Uint8Array
+  toBinary (): Uint8Array {
+    return this.msgType.toBinary(this.message)
+  }
 
   save (): void {
     if (this.needSave) {

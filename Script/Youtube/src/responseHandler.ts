@@ -12,13 +12,8 @@ import {
 import { YouTubeMessage } from './youtube'
 
 export class BrowseMessage extends YouTubeMessage {
-  constructor (name: string = 'Browse') {
-    super(name)
-  }
-
-  fromBinary (binaryBody): this {
-    this.message = Browse.fromBinary(binaryBody)
-    return this
+  constructor (msgType: any = Browse, name: string = 'Browse') {
+    super(msgType, name)
   }
 
   pure (): this {
@@ -31,35 +26,17 @@ export class BrowseMessage extends YouTubeMessage {
     })
     return this
   }
-
-  toBinary (): Uint8Array {
-    return Browse.toBinary(this.message)
-  }
 }
 
 export class NextMessage extends BrowseMessage {
-  constructor (name: string = 'Next') {
-    super(name)
-  }
-
-  fromBinary (binaryBody): this {
-    this.message = Next.fromBinary(binaryBody)
-    return this
-  }
-
-  toBinary (): Uint8Array {
-    return Next.toBinary(this.message)
+  constructor (msgType: any = Next, name: string = 'Next') {
+    super(msgType, name)
   }
 }
 
 export class PlayerMessage extends YouTubeMessage {
-  constructor (name: string = 'Player') {
-    super(name)
-  }
-
-  fromBinary (binaryBody): this {
-    this.message = Player.fromBinary(binaryBody)
-    return this
+  constructor (msgType: any = Player, name: string = 'Player') {
+    super(msgType, name)
   }
 
   pure (): this {
@@ -84,7 +61,7 @@ export class PlayerMessage extends YouTubeMessage {
     }
 
     this.iterate(this.message, 'captionTracks', (obj, stack) => {
-      // obj 就是 playerCaptionsTracklistRenderer
+      // obj 就是 playerCaptionsTrackListRenderer
       const captionTracks = obj.captionTracks
       if (Array.isArray(captionTracks)) {
         // 有基础字幕
@@ -145,35 +122,17 @@ export class PlayerMessage extends YouTubeMessage {
     this.needProcess = true
     return this
   }
-
-  toBinary (): Uint8Array {
-    return Player.toBinary(this.message)
-  }
 }
 
 export class SearchMessage extends BrowseMessage {
-  constructor (name: string = 'Search') {
-    super(name)
-  }
-
-  fromBinary (binaryBody): this {
-    this.message = Search.fromBinary(binaryBody)
-    return this
-  }
-
-  toBinary (): Uint8Array {
-    return Search.toBinary(this.message)
+  constructor (msgType: any = Search, name: string = 'Search') {
+    super(msgType, name)
   }
 }
 
 export class ShortsMessage extends YouTubeMessage {
-  constructor (name: string = 'Shorts') {
-    super(name)
-  }
-
-  fromBinary (binaryBody): this {
-    this.message = Shorts.fromBinary(binaryBody)
-    return this
+  constructor (msgType: any = Shorts, name: string = 'Shorts') {
+    super(msgType, name)
   }
 
   pure (): this {
@@ -188,20 +147,11 @@ export class ShortsMessage extends YouTubeMessage {
     }
     return this
   }
-
-  toBinary (): Uint8Array {
-    return Shorts.toBinary(this.message)
-  }
 }
 
 export class GuideMessage extends YouTubeMessage {
-  constructor (name: string = 'Guide') {
-    super(name)
-  }
-
-  fromBinary (binaryBody): this {
-    this.message = Guide.fromBinary(binaryBody)
-    return this
+  constructor (msgType: any = Guide, name: string = 'Guide') {
+    super(msgType, name)
   }
 
   pure (): this {
@@ -217,43 +167,11 @@ export class GuideMessage extends YouTubeMessage {
     })
     return this
   }
-
-  toBinary (): Uint8Array {
-    return Guide.toBinary(this.message)
-  }
 }
 
-// export class LogMessage extends YouTubeMessage {
-//   constructor (name: string = 'Log') {
-//     super( name)
-//   }
-//
-//   fromBinary (binaryBody): void {
-//     this.message = Log.fromBinary(binaryBody)
-//   }
-//
-//   pure (): void {
-//     this.iterate(this.message, 'pip', (obj) => {
-//       if (!obj.pip) {
-//         obj.pip = 1
-//         this.needProcess = true
-//       }
-//     })
-//   }
-//
-//   toBinary (): void {
-//     this.body = Log.toBinary(this.message)
-//   }
-// }
-
 export class SettingMessage extends YouTubeMessage {
-  constructor (name: string = 'Setting') {
-    super(name)
-  }
-
-  fromBinary (binaryBody): this {
-    this.message = Setting.fromBinary(binaryBody)
-    return this
+  constructor (msgType: any = Setting, name: string = 'Setting') {
+    super(msgType, name)
   }
 
   pure (): this {
@@ -320,9 +238,5 @@ export class SettingMessage extends YouTubeMessage {
     this.message.st1F7 = fakeF88478200
     this.needProcess = true
     return this
-  }
-
-  toBinary (): Uint8Array {
-    return Setting.toBinary(this.message)
   }
 }
