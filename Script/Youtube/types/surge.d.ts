@@ -17,6 +17,7 @@ declare interface HttpClientRequest extends Omit<FetchRequest<Uint8Array>, 'meth
 }
 
 declare interface HttpClientResponse extends Omit<FetchResponse<Uint8Array>, 'body' | 'bodyBytes'> {
+  statusCode: number
 }
 
 declare interface SgDone extends BDone<number, SurgeBody> {

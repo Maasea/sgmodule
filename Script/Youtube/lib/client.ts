@@ -54,18 +54,18 @@ export default abstract class Client {
 
   abstract done (done: CDone): void
 
-  protected createProxy<T extends object, C extends object>(target: T): C {
+  protected createProxy<T extends object, C extends object> (target: T): C {
     return new Proxy(target, {
       get: this.getFn,
       set: this.setFn
     }) as unknown as C
   }
 
-  protected getFn<T>(t: T, p: string, r: any): any {
+  protected getFn<T> (t: T, p: string, r: any): any {
     return t[p]
   }
 
-  protected setFn<T>(t: T, p: string, v: any, r: any): boolean {
+  protected setFn<T> (t: T, p: string, v: any, r: any): boolean {
     t[p] = v
     return true
   }
@@ -84,7 +84,8 @@ export default abstract class Client {
     subTitle: string = '',
     desc: string = '',
     url?: string
-  ): void {}
+  ): void {
+  }
 
   log (val: any): void {
     if (this.debug) {
@@ -124,12 +125,12 @@ export class SurgeClient extends Client {
     bodyBytes: 'body'
   }
 
-  protected getFn<T>(t: T, p: string, receiver: any): any {
+  protected getFn<T> (t: T, p: string, receiver: any): any {
     const key = SurgeClient.clientAdapter[p] || p
     return super.getFn(t, key, receiver)
   }
 
-  protected setFn<T>(t: T, p: string, newValue: any, receiver: any): boolean {
+  protected setFn<T> (t: T, p: string, newValue: any, receiver: any): boolean {
     const key = SurgeClient.clientAdapter[p] || p
     return super.setFn(t, key, newValue, receiver)
   }
@@ -166,7 +167,12 @@ export class SurgeClient extends Client {
 
   async fetch (request: CFetchRequest): Promise<CFetchResponse> {
     return await new Promise((resolve, reject) => {
-      const { method, body, bodyBytes, ...httpClientRequest } = request
+      const {
+        method,
+        body,
+        bodyBytes,
+        ...httpClientRequest
+      } = request
       const realBody = bodyBytes ?? body
       const isBinary = realBody instanceof Uint8Array
 
@@ -183,7 +189,7 @@ export class SurgeClient extends Client {
 
           const bodyKey = isBinary ? 'bodyBytes' : 'body'
           resolve({
-            status: response.status,
+            status: response.status || response.statusCode,
             headers: response.headers,
             [bodyKey]: data
           })
@@ -247,7 +253,7 @@ export class QuanXClient extends Client {
     }
   }
 
-  protected getFn<T>(t: T, p: string, receiver: any): any {
+  protected getFn<T> (t: T, p: string, receiver: any): any {
     const key = QuanXClient.clientAdapter[p] || p
     let output = super.getFn(t, key, receiver)
     if (p === 'bodyBytes') {
@@ -256,7 +262,7 @@ export class QuanXClient extends Client {
     return output
   }
 
-  protected setFn<T>(t: T, p: string, newValue: any, receiver: any): boolean {
+  protected setFn<T> (t: T, p: string, newValue: any, receiver: any): boolean {
     const key = QuanXClient.clientAdapter[p] || p
     let output = newValue
     if (p === 'bodyBytes') {
