@@ -3,6 +3,7 @@ import { $ } from '../lib/env'
 
 export abstract class YouTubeMessage {
   needProcess: boolean
+  needTranslate: boolean
   needSave: boolean
   message: any
   whiteNo: number[]
@@ -18,6 +19,7 @@ export abstract class YouTubeMessage {
   protected constructor (msgType: IMessageType<any>, name: string) {
     $.log(name)
     this.msgType = msgType
+    this.needTranslate = $.request.headers.needTranslate === 'true'
     Object.assign(this, $.getJSON('YouTubeAdvertiseInfo', {
       whiteNo: [],
       blackNo: [],
@@ -66,10 +68,12 @@ export abstract class YouTubeMessage {
     })
   }
 
-  doneResponse (bodyBytes: Uint8Array): void {
+  doneResponse (): void {
     this.save()
-    if (this.needProcess) bodyBytes = this.toBinary()
-    $.done({ bodyBytes })
+    if (this.needProcess) {
+      $.done({ bodyBytes: this.toBinary() })
+    }
+    $.exit()
   }
 
   iterate (obj: any = {}, target: string, call: Function, proto?: Function): any {
@@ -156,4 +160,5 @@ export abstract class YouTubeMessage {
     }
     return adFlag
   }
+
 }

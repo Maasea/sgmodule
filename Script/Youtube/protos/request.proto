@@ -2,6 +2,7 @@ syntax = "proto3";
 
 message Request{
   Context context = 1;
+  string browseId = 2;
 }
 message  Context{
   AdSignalsInfo adSignalsInfo = 9;
@@ -13,3 +14,4 @@ message  Params{
   string key = 1;
   string value = 2;
 }
+

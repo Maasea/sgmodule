@@ -6,6 +6,8 @@ message Browse {
 }
 message n1F9 {
   m2F58173949 m2F58173949 = 58173949;
+  n6F153515154 n6F153515154 = 153515154;
+  n2F49399797 n2F49399797 = 49399797;
 }
 message n1F10 {
   n2F49399797 n2F49399797 = 49399797;
@@ -27,6 +29,7 @@ message n2F49399797 {
 message n3F1 {
   n4F50195462 n4F50195462 = 50195462;
   n4F51845067 n4F51845067 = 51845067;
+  n4F221496734 m4F221496734 = 221496734;
 }
 
 message n4F50195462 {
@@ -37,13 +40,24 @@ message n4F51845067 {
   n5F5 n5F5 = 5;
 }
 
+message n4F221496734{
+  n5F3 n5F3 = 3;
+  n5F10 n5F10 = 10;
+}
 message n5F1 {
   n6F153515154 n6F153515154 = 153515154;
+}
+message n5F3{
+  n6F1 n6F1 = 1;
 }
 message n5F5 {
   n6F51431404 n6F51431404 = 51431404;
 }
 
+message n6F1 {
+  string staticLyric = 1;
+
+}
 message n6F153515154 {
   n7F172660663 n7F172660663 = 172660663;
 }
@@ -56,7 +70,9 @@ message n7F172660663 {
   n8F2 n8F2 = 2;
   n8F3 n8F3 = 3;
 }
-
+message n5F10{
+  Origin origin = 1;
+}
 message n8F1 {
   n9F168777401 n9F168777401 = 168777401;
 }
@@ -68,8 +84,12 @@ message n8F3 {
   n8F1 n8F1 = 1;
   n8F2 n8F2 = 2;
 }
+message Origin{
+  string originText = 1;
+}
 message n9F168777401 {
   n10F3 n10F3 = 3;
+  n10F5 n10F5 = 5;
 }
 message n9F183314536 {
   string type = 1;
@@ -77,7 +97,19 @@ message n9F183314536 {
 message n10F3 {
   n11F172035250 n11F172035250 = 172035250;
 }
-
+message n10F5{
+  n11F465160965 n11F465160965 = 465160965;
+}
+message n11F465160965{
+  n12F4 n12F4 = 4;
+}
+message n12F4{
+  repeated n13F1 n13F1 = 1;
+  string originText = 2;
+}
+message n13F1{
+  string f1 = 1;
+}
 message n11F172035250 {
   string type = 1;
 }
@@ -89,10 +121,38 @@ message Next {
 
 message a1F7 {
   a2F51779735 a2F51779735 = 51779735;
+  MusicPlayRender musicPlayRender = 125354411;
 }
 
 message a1F8 {
   n2F49399797 n2F49399797 = 49399797;
+}
+message MusicPlayRender{
+  BottomRender bottomRender = 7;
+}
+
+message BottomRender{
+  SectionTab sectionTab = 91700600;
+}
+
+message SectionTab{
+  repeated Item items = 1;
+}
+
+message Item{
+  Tab tab = 58174010;
+}
+
+message Tab{
+  Info info = 1;
+  string name = 2;
+}
+
+message Info{
+  BrowseInfo BrowseInfo = 48687626;
+}
+message BrowseInfo{
+  string browseId = 2;
 }
 
 message a2F51779735 {
@@ -161,12 +221,12 @@ message g3F1 {
   guideEntryRenderer labelRender = 117501096;
 }
 message guideEntryRenderer {
-  string browseId  = 1;
+  string browseId = 1;
 }
 
 message Name {
   repeated Runs runs = 1 [json_name = "runs"];
-	message Runs {
+  message Runs {
     string text = 1 [json_name = "text"];
   };
 };
@@ -237,30 +297,6 @@ message p3F151635310{
 message p3F64657230{
   int32 backPlay = 1;
 }
-
-//message Log{
-//  l1F1 l1F1 = 1;
-//}
-//
-//message l1F1{
-//  l2F16 l2F16 = 16;
-//}
-//
-//message l2F16{
-//  l3F7 l3F7 = 7;
-//}
-//
-//message l3F7{
-//  l4F138536474 l4F138536474 = 138536474;
-//}
-//
-//message l4F138536474{
-//  l5F1 l5F1 = 1;
-//}
-//
-//message l5F1{
-//  int32 pip = 30;
-//}
 
 message Setting{
   repeated st1F6 st1F6 = 6;

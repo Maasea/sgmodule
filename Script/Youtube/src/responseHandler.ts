@@ -10,6 +10,8 @@ import {
   Setting
 } from '../lib/response'
 import { YouTubeMessage } from './youtube'
+import { $ } from '../lib/env'
+import { translateURL } from '../lib/googleTranslate'
 
 export class BrowseMessage extends YouTubeMessage {
   constructor (msgType: any = Browse, name: string = 'Browse') {
@@ -26,11 +28,86 @@ export class BrowseMessage extends YouTubeMessage {
     })
     return this
   }
+
+  async translate (): Promise<void> {
+    let lyric = ''
+    let tempObj: any
+    let flag = false
+    this.iterate(this.message, 'n13F1', (obj, stack) => {
+      tempObj = obj
+      lyric = obj.n13F1.map(item => item.f1).join('\n')
+      flag = true
+      stack.length = 0
+    })
+    if (!flag) {
+      this.iterate(this.message, 'staticLyric', (obj, stack) => {
+        tempObj = obj
+        lyric = obj.staticLyric
+        stack.length = 0
+        flag = true
+      })
+    }
+
+    if (!flag) return
+
+    const url = translateURL(lyric)
+    const resp = await $.fetch({
+      method: 'GET',
+      url
+    })
+    if (resp.status === 200 && resp.body) {
+      const data = JSON.parse(resp.body)
+      const tips = ' & Translated by Google'
+
+      if (tempObj.staticLyric) {
+        tempObj.staticLyric = data[0].map(item => item[0]).join('\r\n')
+        this.iterate(this.message, 'originText', (ob, stack) => {
+          ob.originText += tips
+          stack.length = 0
+        })
+      } else {
+        for (let i = 0; i < tempObj.n13F1.length; i++) {
+          tempObj.n13F1[i].f1 = data[0][i][0]
+        }
+        tempObj.originText += tips
+      }
+      this.needProcess = true
+    }
+  }
 }
 
 export class NextMessage extends BrowseMessage {
   constructor (msgType: any = Next, name: string = 'Next') {
     super(msgType, name)
+  }
+
+  pure (): this {
+    super.pure()
+    this.addTranslateTab()
+    return this
+  }
+
+  addTranslateTab (): void {
+    this.iterate(this.message?.a1F7?.musicPlayRender, 'items', (obj, stack) => {
+      const item = obj.items.find(item => item.tab.info?.browseInfo?.browseId.startsWith('MPLYt'))
+      if (item) {
+        const name = item.tab.name
+        const translateTab = {
+          tab: {
+            name: name === 'Lyrics' ? 'Lyrics(ZH)' : '歌词(中文)',
+            info: {
+              browseInfo: {
+                browseId: 'translate$' + item.tab.info.browseInfo.browseId
+              }
+            }
+          }
+        }
+
+        obj.items.splice(2, 0, translateTab)
+        this.needProcess = true
+      }
+      stack.length = 0
+    })
   }
 }
 
