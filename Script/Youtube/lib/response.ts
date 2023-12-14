@@ -16,6 +16,10 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface Browse {
     /**
+     * @generated from protobuf field: ResponseContext responseContext = 1;
+     */
+    responseContext?: ResponseContext;
+    /**
      * @generated from protobuf field: n1F9 n1F9 = 9;
      */
     n1F9?: n1F9;
@@ -23,6 +27,41 @@ export interface Browse {
      * @generated from protobuf field: n1F10 n1F10 = 10;
      */
     n1F10?: n1F10;
+}
+/**
+ * @generated from protobuf message ResponseContext
+ */
+export interface ResponseContext {
+    /**
+     * @generated from protobuf field: repeated ServiceTrackingParams serviceTrackingParams = 6;
+     */
+    serviceTrackingParams: ServiceTrackingParams[];
+}
+/**
+ * @generated from protobuf message ServiceTrackingParams
+ */
+export interface ServiceTrackingParams {
+    /**
+     * @generated from protobuf field: int32 service = 1;
+     */
+    service: number;
+    /**
+     * @generated from protobuf field: repeated Params params = 2;
+     */
+    params: Params[];
+}
+/**
+ * @generated from protobuf message Params
+ */
+export interface Params {
+    /**
+     * @generated from protobuf field: string key = 1;
+     */
+    key: string;
+    /**
+     * @generated from protobuf field: string value = 2;
+     */
+    value: string;
 }
 /**
  * @generated from protobuf message n1F9
@@ -824,30 +863,6 @@ export interface p3F64657230 {
      */
     backPlay: number;
 }
-// message Log{
-//  l1F1 l1F1 = 1;
-// }
-// 
-// message l1F1{
-//  l2F16 l2F16 = 16;
-// }
-// 
-// message l2F16{
-//  l3F7 l3F7 = 7;
-// }
-// 
-// message l3F7{
-//  l4F138536474 l4F138536474 = 138536474;
-// }
-// 
-// message l4F138536474{
-//  l5F1 l5F1 = 1;
-// }
-// 
-// message l5F1{
-//  int32 pip = 30;
-// }
-
 /**
  * @generated from protobuf message Setting
  */
@@ -1086,6 +1101,7 @@ export interface st8F1 {
 class Browse$Type extends MessageType<Browse> {
     constructor() {
         super("Browse", [
+            { no: 1, name: "responseContext", kind: "message", T: () => ResponseContext },
             { no: 9, name: "n1F9", kind: "message", T: () => n1F9 },
             { no: 10, name: "n1F10", kind: "message", T: () => n1F10 }
         ]);
@@ -1102,6 +1118,9 @@ class Browse$Type extends MessageType<Browse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
+                case /* ResponseContext responseContext */ 1:
+                    message.responseContext = ResponseContext.internalBinaryRead(reader, reader.uint32(), options, message.responseContext);
+                    break;
                 case /* n1F9 n1F9 */ 9:
                     message.n1F9 = n1F9.internalBinaryRead(reader, reader.uint32(), options, message.n1F9);
                     break;
@@ -1120,6 +1139,9 @@ class Browse$Type extends MessageType<Browse> {
         return message;
     }
     internalBinaryWrite(message: Browse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* ResponseContext responseContext = 1; */
+        if (message.responseContext)
+            ResponseContext.internalBinaryWrite(message.responseContext, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
         /* n1F9 n1F9 = 9; */
         if (message.n1F9)
             n1F9.internalBinaryWrite(message.n1F9, writer.tag(9, WireType.LengthDelimited).fork(), options).join();
@@ -1136,6 +1158,161 @@ class Browse$Type extends MessageType<Browse> {
  * @generated MessageType for protobuf message Browse
  */
 export const Browse = new Browse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class ResponseContext$Type extends MessageType<ResponseContext> {
+    constructor() {
+        super("ResponseContext", [
+            { no: 6, name: "serviceTrackingParams", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => ServiceTrackingParams }
+        ]);
+    }
+    create(value?: PartialMessage<ResponseContext>): ResponseContext {
+        const message = { serviceTrackingParams: [] };
+        globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+        if (value !== undefined)
+            reflectionMergePartial<ResponseContext>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: ResponseContext): ResponseContext {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* repeated ServiceTrackingParams serviceTrackingParams */ 6:
+                    message.serviceTrackingParams.push(ServiceTrackingParams.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: ResponseContext, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* repeated ServiceTrackingParams serviceTrackingParams = 6; */
+        for (let i = 0; i < message.serviceTrackingParams.length; i++)
+            ServiceTrackingParams.internalBinaryWrite(message.serviceTrackingParams[i], writer.tag(6, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message ResponseContext
+ */
+export const ResponseContext = new ResponseContext$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class ServiceTrackingParams$Type extends MessageType<ServiceTrackingParams> {
+    constructor() {
+        super("ServiceTrackingParams", [
+            { no: 1, name: "service", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 2, name: "params", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => Params }
+        ]);
+    }
+    create(value?: PartialMessage<ServiceTrackingParams>): ServiceTrackingParams {
+        const message = { service: 0, params: [] };
+        globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+        if (value !== undefined)
+            reflectionMergePartial<ServiceTrackingParams>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: ServiceTrackingParams): ServiceTrackingParams {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* int32 service */ 1:
+                    message.service = reader.int32();
+                    break;
+                case /* repeated Params params */ 2:
+                    message.params.push(Params.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: ServiceTrackingParams, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* int32 service = 1; */
+        if (message.service !== 0)
+            writer.tag(1, WireType.Varint).int32(message.service);
+        /* repeated Params params = 2; */
+        for (let i = 0; i < message.params.length; i++)
+            Params.internalBinaryWrite(message.params[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message ServiceTrackingParams
+ */
+export const ServiceTrackingParams = new ServiceTrackingParams$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class Params$Type extends MessageType<Params> {
+    constructor() {
+        super("Params", [
+            { no: 1, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "value", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<Params>): Params {
+        const message = { key: "", value: "" };
+        globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+        if (value !== undefined)
+            reflectionMergePartial<Params>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Params): Params {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* string key */ 1:
+                    message.key = reader.string();
+                    break;
+                case /* string value */ 2:
+                    message.value = reader.string();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: Params, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* string key = 1; */
+        if (message.key !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.key);
+        /* string value = 2; */
+        if (message.value !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.value);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message Params
+ */
+export const Params = new Params$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class n1F9$Type extends MessageType<n1F9> {
     constructor() {

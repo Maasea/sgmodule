@@ -14,6 +14,8 @@ import { $ } from '../lib/env'
 import { translateURL } from '../lib/googleTranslate'
 
 export class BrowseMessage extends YouTubeMessage {
+  needTranslate: boolean
+
   constructor (msgType: any = Browse, name: string = 'Browse') {
     super(msgType, name)
   }
@@ -26,7 +28,22 @@ export class BrowseMessage extends YouTubeMessage {
         }
       }
     })
+    const browseId = this.getBrowseId()
+    if (browseId.startsWith('MPLYt')) {
+      this.needTranslate = true
+    }
     return this
+  }
+
+  getBrowseId (): string {
+    let browseId = ''
+    this.iterate(this.message?.responseContext, 'key', (obj, stack) => {
+      if (obj.key === 'browse_id') {
+        browseId = obj.value
+        stack.length = 0
+      }
+    })
+    return browseId
   }
 
   async translate (): Promise<void> {
@@ -35,7 +52,7 @@ export class BrowseMessage extends YouTubeMessage {
     let flag = false
     this.iterate(this.message, 'n13F1', (obj, stack) => {
       tempObj = obj
-      lyric = obj.n13F1.map(item => item.f1).join('\n')
+      lyric = obj.n13F1.map((item) => item.f1).join('\n')
       flag = true
       stack.length = 0
     })
@@ -58,18 +75,21 @@ export class BrowseMessage extends YouTubeMessage {
     if (resp.status === 200 && resp.body) {
       const data = JSON.parse(resp.body)
       const tips = ' & Translated by Google'
+      const isZh = data[2].includes('zh')
 
       if (tempObj.staticLyric) {
-        tempObj.staticLyric = data[0].map(item => item[0]).join('\r\n')
+        tempObj.staticLyric = data[0].map((item) => isZh ? item[0] : item[1] + item[0] || '').join('\r\n')
         this.iterate(this.message, 'originText', (ob, stack) => {
           ob.originText += tips
           stack.length = 0
         })
       } else {
-        for (let i = 0; i < tempObj.n13F1.length; i++) {
-          tempObj.n13F1[i].f1 = data[0][i][0]
+        if (tempObj.n13F1.length <= data[0].length) {
+          tempObj.n13F1.forEach((item, i) => {
+            item.f1 = isZh ? data[0][i][0] : item.f1 + `\n${data[0][i][0] as string}`
+          })
+          tempObj.originText += tips
         }
-        tempObj.originText += tips
       }
       this.needProcess = true
     }
@@ -83,29 +103,33 @@ export class NextMessage extends BrowseMessage {
 
   pure (): this {
     super.pure()
-    this.addTranslateTab()
+    // this.addTranslateTab()
     return this
   }
 
   addTranslateTab (): void {
     this.iterate(this.message?.a1F7?.musicPlayRender, 'items', (obj, stack) => {
-      const item = obj.items.find(item => item.tab.info?.browseInfo?.browseId.startsWith('MPLYt'))
-      if (item) {
-        const name = item.tab.name
-        const translateTab = {
-          tab: {
-            name: name === 'Lyrics' ? 'Lyrics(ZH)' : '歌词(中文)',
-            info: {
-              browseInfo: {
-                browseId: 'translate$' + item.tab.info.browseInfo.browseId
-              }
-            }
-          }
-        }
-
-        obj.items.splice(2, 0, translateTab)
-        this.needProcess = true
-      }
+      const item = obj.items.find((item) =>
+        item.tab.info?.browseInfo?.browseId.startsWith('MPLYt')
+      )
+      if (item) item.tab.name = item.tab.name + '⇄'
+      this.needProcess = true
+      // if (item) {
+      //   const name = item.tab.name
+      //   const translateTab = {
+      //     tab: {
+      //       name: name === 'Lyrics' ? 'Lyrics(ZH)' : '歌词(中文)',
+      //       info: {
+      //         browseInfo: {
+      //           browseId: 'translate$' + item.tab.info.browseInfo.browseId
+      //         }
+      //       }
+      //     }
+      //   }
+      //
+      //   obj.items.splice(2, 0, translateTab)
+      //   this.needProcess = true
+      // }
       stack.length = 0
     })
   }
@@ -235,7 +259,9 @@ export class GuideMessage extends YouTubeMessage {
     const blackList = ['FEmusic_immersive', 'SPunlimited', 'FEuploads']
     this.iterate(this.message, 'g3F1', (obj) => {
       for (let i = obj.g3F1.length - 1; i >= 0; i--) {
-        const browseId = obj.g3F1[i]?.iconRender?.browseId || obj.g3F1[i]?.labelRender?.browseId
+        const browseId =
+          obj.g3F1[i]?.iconRender?.browseId ||
+          obj.g3F1[i]?.labelRender?.browseId
         if (blackList.includes(browseId)) {
           obj.g3F1.splice(i, 1)
           this.needProcess = true

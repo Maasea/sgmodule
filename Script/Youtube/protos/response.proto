@@ -1,8 +1,21 @@
 syntax = "proto3";
 
 message Browse {
+  ResponseContext responseContext = 1;
   n1F9 n1F9 = 9;
   n1F10 n1F10 = 10;
+
+}
+message ResponseContext{
+  repeated  ServiceTrackingParams serviceTrackingParams = 6;
+}
+message ServiceTrackingParams{
+  int32 service = 1;
+  repeated Params params = 2;
+}
+message Params{
+  string key = 1;
+  string value = 2;
 }
 message n1F9 {
   m2F58173949 m2F58173949 = 58173949;

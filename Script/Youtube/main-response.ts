@@ -8,7 +8,7 @@ async function start (): Promise<void> {
     try {
       const body = $.response.bodyBytes as Uint8Array
       responseMsg.fromBinary(body).pure()
-      if (responseMsg.needTranslate && responseMsg instanceof BrowseMessage) {
+      if (responseMsg instanceof BrowseMessage && responseMsg.needTranslate) {
         await responseMsg.translate()
       }
       responseMsg.doneResponse()
