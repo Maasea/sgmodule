@@ -74,23 +74,26 @@ export abstract class YouTubeMessage {
     $.exit()
   }
 
-  iterate (obj: any = {}, target: string, call: Function, proto?: Function): any {
-    const stack: any = []
-    stack.push(obj)
-
+  iterate (obj: any = {}, target: string | symbol, call: Function): any {
+    const stack: any[] = (typeof obj === 'object') ? [obj] : []
     while (stack.length) {
       const item = stack.pop()
       const keys = Object.keys(item)
 
-      while (keys.length) {
-        const key = keys.pop() as any
+      if (typeof target === 'symbol') {
+        for (const s of Object.getOwnPropertySymbols(item)) {
+          if (Symbol.keyFor(s) === Symbol.keyFor(target)) {
+            call(item, stack)
+            break
+          }
+        }
+      }
+
+      for (const key of keys) {
         if (key === target) {
           call(item, stack)
         } else if (typeof item[key] === 'object') {
           stack.push(item[key])
-          if (typeof proto === 'function') {
-            proto(item, stack)
-          }
         }
       }
     }
@@ -135,12 +138,9 @@ export abstract class YouTubeMessage {
     if (!match) {
       this.iterate(
         field,
-        'type',
-        () => {
-        },
+        Symbol.for('protobuf-ts/unknown'),
         (obj, stack) => {
           const unknownFieldArray = UnknownFieldHandler.list(obj)
-
           for (const unknownField of unknownFieldArray) {
             if (unknownField.data.length > 1000) {
               const rawText = this.decoder.decode(unknownField.data)
@@ -158,5 +158,4 @@ export abstract class YouTubeMessage {
     }
     return adFlag
   }
-
 }
