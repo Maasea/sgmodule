@@ -13,7 +13,8 @@ async function start (): Promise<void> {
       }
       responseMsg.doneResponse()
     } catch (e) {
-      $.log(e.toString())
+      console.log(e.toString())
+      $.exit()
     }
   } else {
     $.msg('YouTube Enhance', '脚本需要更新', '外部资源 -> 全部更新')
