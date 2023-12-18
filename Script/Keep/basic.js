@@ -1,14 +1,12 @@
+const blackList = ["home", "entry", "mall"];
 let obj = JSON.parse($response.body);
 
 obj.data.generalConfigs["AD.link.download.source"] = false;
-obj.data.bottomBarControl.defaultTab = "personal";
+// 设置默认开启页面
+obj.data.bottomBarControl.defaultTab = "new_sports";
 
-let bottomBarTabs = obj.data.bottomBarControl.tabs;
-for (let i = bottomBarTabs.length - 1; i >= 0; i--) {
-  let e = bottomBarTabs[i];
-  if (e.tabType == "entry" || e.tabType == "mall") {
-    bottomBarTabs.splice(i--, 1);
-  }
-}
+obj.data.bottomBarControl.tabs = obj.data.bottomBarControl.tabs.filter(
+  (tab) => !blackList.includes(tab.tabType)
+);
 
 $done({ body: JSON.stringify(obj) });

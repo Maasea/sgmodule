@@ -1,5 +1,8 @@
-#!name=Block Keep Advertising
-#!desc=去除 keep 广告
+#!name=去除 keep 广告
+#!desc=可能需要重新安装Keep
+
+[Rule]
+DOMAIN,httpdns.calorietech.com,REJECT
 
 [URL Rewrite]
 ^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v1\/ad _ reject
