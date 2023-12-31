@@ -121,7 +121,7 @@ export function handleViewUnite(grpcBody) {
   const viewUniteMessage = ViewUniteReply.fromBinary(grpcBody);
   delete viewUniteMessage.cm;
 
-  viewUniteMessage.tab.tabModule.forEach((tabModule) => {
+  viewUniteMessage?.tab?.tabModule?.forEach((tabModule) => {
     if (tabModule.tab.oneofKind !== "introduction") return;
 
     const relateModule = tabModule.tab.introduction.modules.find(
