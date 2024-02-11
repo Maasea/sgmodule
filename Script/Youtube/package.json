@@ -3,21 +3,23 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.ts",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node test/test.ts",
     "build": "node build.mjs",
-    "build:res": "protoc --ts_out lib --proto_path protos protos/response.proto",
-    "build:req": "protoc --ts_out lib --proto_path protos protos/request.proto",
-    "build:all": "protoc --ts_out lib --proto_path protos protos/*"
+    "build:res": "protoc --es_out lib --proto_path protos protos/response.proto",
+    "build:req": "protoc --es_out lib --proto_path protos protos/request.proto",
+    "build:all": "protoc --es_out lib --proto_path protos protos/*"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@protobuf-ts/plugin": "^2.8.1",
+    "@bufbuild/protobuf": "^1.7.2",
     "esbuild": "0.16.17"
   },
   "devDependencies": {
+    "@bufbuild/protoc-gen-es": "^1.7.2",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "eslint": "^8.31.0",
     "eslint-config-standard-with-typescript": "^26.0.0",

@@ -1,4 +1,4 @@
-import { Request } from '../lib/request'
+import { Request } from '../lib/request_pb'
 import { YouTubeMessage } from './youtube'
 
 export default class RequestMessage extends YouTubeMessage {

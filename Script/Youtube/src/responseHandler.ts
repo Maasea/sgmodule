@@ -7,8 +7,12 @@ import {
   Search,
   Shorts,
   Guide,
-  Setting
-} from '../lib/response'
+  Setting,
+  BackgroundAbility,
+  TranslationLanguage,
+  SubSetting,
+  SettingItem
+} from '../lib/response_pb'
 import { YouTubeMessage } from './youtube'
 import { $ } from '../lib/env'
 import { translateURL } from '../lib/googleTranslate'
@@ -141,24 +145,21 @@ export class PlayerMessage extends YouTubeMessage {
   }
 
   pure (): this {
-    if (this.message.p1F7?.length) {
-      this.message.p1F7.length = 0
+    if (this.message.adPlacements?.length) {
+      this.message.adPlacements.length = 0
     }
     // 尝试开启PIP
-    const option = this.message?.p1F2?.p2F21?.p3F151635310
-    if (typeof option === 'object') {
-      option.pip = 1
+    const piplayer = this.message?.playabilityStatus?.pipAbility?.piplayer
+    if (typeof piplayer === 'object') {
+      piplayer.active = true
     }
     // 尝试开启后台播放
-    const backPlayFake = {
-      p2F11: {
-        p3F64657230: {
-          backPlay: 1
+    if (typeof this.message.playabilityStatus === 'object') {
+      this.message.playabilityStatus.backgroundAbility = new BackgroundAbility({
+        backgroundPlayer: {
+          active: true
         }
-      }
-    }
-    if (typeof this.message?.p1F2 === 'object') {
-      Object.assign(this.message.p1F2, backPlayFake)
+      })
     }
 
     this.iterate(this.message, 'captionTracks', (obj, stack) => {
@@ -170,52 +171,24 @@ export class PlayerMessage extends YouTubeMessage {
           captionTrack.isTranslatable = true
         }
       }
-      obj.translationLanguages = [
-        {
-          languageCode: 'de',
-          languageName: { runs: [{ text: 'Deutsch' }] }
-        },
-        {
-          languageCode: 'ru',
-          languageName: { runs: [{ text: 'Русский' }] }
-        },
-        {
-          languageCode: 'fr',
-          languageName: { runs: [{ text: 'Français' }] }
-        },
-        {
-          languageCode: 'fil',
-          languageName: { runs: [{ text: 'Filipino' }] }
-        },
-        {
-          languageCode: 'ko',
-          languageName: { runs: [{ text: '한국어' }] }
-        },
-        {
-          languageCode: 'ja',
-          languageName: { runs: [{ text: '日本語' }] }
-        },
-        {
-          languageCode: 'en',
-          languageName: { runs: [{ text: 'English' }] }
-        },
-        {
-          languageCode: 'vi',
-          languageName: { runs: [{ text: 'Tiếng Việt' }] }
-        },
-        {
-          languageCode: 'zh-Hant',
-          languageName: { runs: [{ text: '中文（繁體）' }] }
-        },
-        {
-          languageCode: 'zh-Hans',
-          languageName: { runs: [{ text: '中文（简体）' }] }
-        },
-        {
-          languageCode: 'und',
-          languageName: { runs: [{ text: '@VirgilClyne' }] }
-        }
-      ]
+      const languages = {
+        de: 'Deutsch',
+        ru: 'Русский',
+        fr: 'Français',
+        fil: 'Filipino',
+        ko: '한국어',
+        ja: '日本語',
+        en: 'English',
+        vi: 'Tiếng Việt',
+        'zh-Hant': '中文（繁體）',
+        'zh-Hans': '中文（简体）',
+        und: '@VirgilClyne'
+      }
+      obj.translationLanguages =
+        Object.entries(languages).map(([k, v]) => new TranslationLanguage({
+          languageCode: k,
+          languageName: { runs: [{ text: v }] }
+        }))
 
       if (!obj?.defaultCaptionTrackIndex) obj.defaultCaptionTrackIndex = 0
       stack.length = 0
@@ -237,11 +210,11 @@ export class ShortsMessage extends YouTubeMessage {
   }
 
   pure (): this {
-    const shortsRawLength = this.message.t1F2?.length
+    const shortsRawLength = this.message.entries?.length
     if (shortsRawLength) {
       for (let i = shortsRawLength - 1; i >= 0; i--) {
-        if (!this.message.t1F2[i].n2F1?.n3F139608561?.n4F8) {
-          this.message.t1F2.splice(i, 1)
+        if (!this.message.entries[i].command?.reelWatchEndpoint?.overlay) {
+          this.message.entries.splice(i, 1)
           this.needProcess = true
         }
       }
@@ -257,13 +230,13 @@ export class GuideMessage extends YouTubeMessage {
 
   pure (): this {
     const blackList = ['FEmusic_immersive', 'SPunlimited', 'FEuploads']
-    this.iterate(this.message, 'g3F1', (obj) => {
-      for (let i = obj.g3F1.length - 1; i >= 0; i--) {
+    this.iterate(this.message, 'rendererItems', (obj) => {
+      for (let i = obj.rendererItems.length - 1; i >= 0; i--) {
         const browseId =
-          obj.g3F1[i]?.iconRender?.browseId ||
-          obj.g3F1[i]?.labelRender?.browseId
+          obj.rendererItems[i]?.iconRender?.browseId ||
+          obj.rendererItems[i]?.labelRender?.browseId
         if (blackList.includes(browseId)) {
-          obj.g3F1.splice(i, 1)
+          obj.rendererItems.splice(i, 1)
           this.needProcess = true
         }
       }
@@ -279,52 +252,52 @@ export class SettingMessage extends YouTubeMessage {
 
   pure (): this {
     // 增加 PIP
-    this.iterate(this.message, 'num', (obj) => {
-      if (obj.num === 10005) {
-        const st3F5 = {
+    this.iterate(this.message, 'categoryId', (obj) => {
+      if (obj.categoryId === 10005) {
+        const trackingParams = {
           f1: 135,
           f2: 20434,
           f3: 2,
-          st2F4: this.message.st1F10.st2F4
+          timeInfo: this.message.trackingParams.timeInfo
         }
-        const fakePIP = {
-          st4F61331416: {
-            f15: 0,
-            st5F5: {
-              st3F5,
-              st6F81212182: {
-                st7F1: {
-                  st8F1: { f1: 151 },
-                  f3: 1
+        const fakePIPSetting = new SubSetting({
+          settingBooleanRenderer: {
+            itemId: 0,
+            enableServiceEndpoint: {
+              trackingParams,
+              setClientSettingEndpoint: {
+                settingDatas: {
+                  clientSettingEnum: { item: 151 },
+                  boolValue: true
                 }
               }
             },
-            st5F6: {
-              st3F5,
-              st6F81212182: {
-                st7F1: {
-                  st8F1: { f1: 151 },
-                  f3: 0
+            disableServiceEndpoint: {
+              trackingParams,
+              setClientSettingEndpoint: {
+                settingDatas: {
+                  clientSettingEnum: { item: 151 },
+                  boolValue: false
                 }
               }
             },
-            st3F5
+            clickTrackingParams: trackingParams
           }
-        }
-        obj.st3F3.push(fakePIP)
+        })
+
+        obj.subSettings.push(fakePIPSetting)
       }
     })
     // 增加后台播放
-    const fakeF88478200 = {
-      st2F88478200: {
-        // st3F1: { st4F1: { title: 'Background & downloads' } },
+    const fakePlayBackgroundSetting = new SettingItem({
+      settingCategoryEntryRenderer: {
         f2: 1,
         f3: 1,
-        st3F5: {
+        trackingParams: {
           f1: 2,
           f2: 20020,
           f3: 8,
-          st2F4: this.message.st1F10.st2F4
+          timeInfo: this.message.trackingParams.timeInfo
         },
         f6: 0,
         f7: 1,
@@ -333,12 +306,12 @@ export class SettingMessage extends YouTubeMessage {
         f10: 1,
         f12: 1
       }
-    }
+    })
     // deep copy
-    this.message.st1F6.push(JSON.parse(JSON.stringify(fakeF88478200)))
-    fakeF88478200.st2F88478200.st3F5.f1 = 1
-    fakeF88478200.st2F88478200.st3F5.f3 = 9
-    this.message.st1F7 = fakeF88478200
+    this.message.settingItems.push(fakePlayBackgroundSetting)
+    // fakeF88478200.st2F88478200.st3F5.f1 = 1
+    // fakeF88478200.st2F88478200.st3F5.f3 = 9
+    // this.message.st1F7 = fakeF88478200
     this.needProcess = true
     return this
   }

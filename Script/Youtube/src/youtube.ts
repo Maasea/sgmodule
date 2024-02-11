@@ -1,4 +1,4 @@
-import { UnknownFieldHandler, IMessageType } from '@protobuf-ts/runtime'
+import { Message, WireType } from '@bufbuild/protobuf'
 import { $ } from '../lib/env'
 
 export abstract class YouTubeMessage {
@@ -9,13 +9,13 @@ export abstract class YouTubeMessage {
   blackNo: number[]
   whiteEml: string[]
   blackEml: string[]
-  msgType: IMessageType<any>
+  msgType: Message<any>
   decoder = new TextDecoder('utf-8', {
     fatal: false,
     ignoreBOM: true
   })
 
-  protected constructor (msgType: IMessageType<any>, name: string) {
+  protected constructor (msgType: Message<any>, name: string) {
     $.log(name)
     this.msgType = msgType
     Object.assign(this, $.getJSON('YouTubeAdvertiseInfo', {
@@ -34,7 +34,11 @@ export abstract class YouTubeMessage {
   abstract pure (): this
 
   toBinary (): Uint8Array {
-    return this.msgType.toBinary(this.message)
+    return this.message.toBinary()
+  }
+
+  listUnknownFields (msg: Message<any>): ReadonlyArray<{ no: number, wireType: WireType, data: Uint8Array }> {
+    return msg.getType().runtime.bin.listUnknownFields(msg)
   }
 
   save (): void {
@@ -82,7 +86,7 @@ export abstract class YouTubeMessage {
 
       if (typeof target === 'symbol') {
         for (const s of Object.getOwnPropertySymbols(item)) {
-          if (Symbol.keyFor(s) === Symbol.keyFor(target)) {
+          if (s.description === target.description) {
             call(item, stack)
             break
           }
@@ -99,8 +103,8 @@ export abstract class YouTubeMessage {
     }
   }
 
-  isAdvertise (o): boolean {
-    const filed = UnknownFieldHandler.list(o)[0]
+  isAdvertise (o: Message<any>): boolean {
+    const filed = this.listUnknownFields(o)[0]
     const adFlag = filed ? this.handleFieldNo(filed) : this.handleFieldEml(o)
     if (adFlag) this.needProcess = true
     return adFlag
@@ -133,14 +137,14 @@ export abstract class YouTubeMessage {
       } else {
         match = false
       }
-      if (match) stack.length = 0
+      stack.length = 0
     })
     if (!match) {
       this.iterate(
         field,
-        Symbol.for('protobuf-ts/unknown'),
+        Symbol.for('@bufbuild/protobuf/unknown-fields'),
         (obj, stack) => {
-          const unknownFieldArray = UnknownFieldHandler.list(obj)
+          const unknownFieldArray = this.listUnknownFields(obj)
           for (const unknownField of unknownFieldArray) {
             if (unknownField.data.length > 1000) {
               const rawText = this.decoder.decode(unknownField.data)
