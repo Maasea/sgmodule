@@ -191,51 +191,110 @@ message s1F7 {
 }
 
 message Shorts {
-  repeated t1F2 t1F2 = 2;
+  repeated Entry entries = 2;
 }
 
-message t1F2 {
-  n2F1 n2F1 = 1;
+message Entry {
+  Command command = 1;
 }
 
-message n2F1 {
-  n3F139608561 n3F139608561 = 139608561;
+message Command {
+  ReelWatchEndpoint reelWatchEndpoint = 139608561;
 }
 
-message n3F139608561 {
-  n4F8 n4F8 = 8;
+message ReelWatchEndpoint {
+  Overlay overlay = 8;
 }
 
-message n4F8 {
-  n4F139970731 n4F139970731 = 139970731;
+message Overlay {
+  ReelPlayerOverlayRenderer reelPlayerOverlayRenderer = 139970731;
 }
 
-message n4F139970731{
-  int32 f1 = 12;
+message ReelPlayerOverlayRenderer{
+  int32 style = 12;
 }
+
 
 message Guide {
-  repeated g1F4 g1F4 = 4;
-  repeated g1F6 g1F6 = 6;
+  repeated GuideItem guideItem4 = 4;
+  repeated GuideItem guideItem6 = 6;
 }
-message g1F4 {
-  g2F117866661 g2F117866661 = 117866661;
+message GuideItem {
+  GuideSectionRenderer guideSectionRenderer = 117866661;
 }
-
-message g1F6 {
-  g2F117866661 g2F117866661 = 117866661;
+message GuideSectionRenderer {
+  repeated RendererItem rendererItems = 1;
 }
-
-message g2F117866661 {
-  repeated g3F1 g3F1 = 1;
-}
-message g3F1 {
+message RendererItem {
   guideEntryRenderer iconRender = 318370163;
   guideEntryRenderer labelRender = 117501096;
 }
 message guideEntryRenderer {
   string browseId = 1;
 }
+
+message Player {
+  repeated AdPlacement adPlacements = 7;
+  PlayabilityStatus playabilityStatus = 2;
+  Captions captions = 10 [json_name = "captions"];
+}
+message AdPlacement {
+  AdPlacementRenderer adPlacementRenderer = 84813246;
+}
+message AdPlacementRenderer {
+  string params = 4;
+}
+message PlayabilityStatus{
+  PIPAbility pipAbility = 21;
+  BackgroundAbility backgroundAbility = 11;
+}
+message PIPAbility{
+  PIPlayer piplayer = 151635310;
+}
+message  BackgroundAbility{
+  BackgroundPlayer backgroundPlayer = 64657230;
+}
+message PIPlayer{
+  bool active = 1;
+}
+message BackgroundPlayer{
+  bool active = 1;
+}
+message Captions {
+  PlayerCaptionsTracklistRenderer playerCaptionsTracklistRenderer = 51621377 [json_name = "playerCaptionsTracklistRenderer"];
+};
+message PlayerCaptionsTracklistRenderer {
+  repeated CaptionTrack captionTracks = 1 [json_name = "captionTracks"];
+  repeated AudioTrack audioTracks = 2 [json_name = "audioTracks"];
+  repeated TranslationLanguage translationLanguages = 3 [json_name = "translationLanguages"];
+  optional int32 defaultAudioTrackIndex = 4 [json_name = "defaultAudioTrackIndex"];
+  optional int32 defaultCaptionTrackIndex = 6 [json_name = "defaultCaptionTrackIndex"];
+};
+message CaptionTrack {
+  string baseUrl = 1 [json_name = "baseUrl"];
+  Name name = 2 [json_name = "name"];
+  string vssId = 3 [json_name = "vssId"];
+  string languageCode = 4 [json_name = "languageCode"];
+  optional string kind = 5 [json_name = "kind"];
+  optional bool rtl = 6 [json_name = "rtl"];
+  bool isTranslatable = 7 [json_name = "isTranslatable"];
+};
+
+message AudioTrack {
+  repeated int32 captionTrackIndices = 2 [json_name = "captionTrackIndices", packed = false];
+  optional int32 defaultCaptionTrackIndex = 3 [json_name = "defaultCaptionTrackIndex"];
+  optional int32 forcedCaptionTrackIndex = 4 [json_name = "forcedCaptionTrackIndex"];
+  optional int32 visibility = 5 [json_name = "visibility"];
+  optional bool hasDefaultTrack = 6 [json_name = "hasDefaultTrack"];
+  optional bool hasForcedTrack = 7 [json_name = "hasForcedTrack"];
+  optional string audioTrackId = 8 [json_name = "audioTrackId"];
+  optional int32 captionsInitialState = 11 [json_name = "captionsInitialState"];
+};
+
+message TranslationLanguage {
+  string languageCode = 1 [json_name = "languageCode"];
+  Name languageName = 2 [json_name = "languageName"];
+};
 
 message Name {
   repeated Runs runs = 1 [json_name = "runs"];
@@ -244,100 +303,35 @@ message Name {
   };
 };
 
-message Player {
-  repeated p1F7 p1F7 = 7;
-  p1F2 p1F2 = 2;
-  Captions captions = 10 [json_name = "captions"];
-  message Captions {
-    PlayerCaptionsTracklistRenderer playerCaptionsTracklistRenderer = 51621377 [json_name = "playerCaptionsTracklistRenderer"];
-
-    message PlayerCaptionsTracklistRenderer {
-      repeated CaptionTracks captionTracks = 1 [json_name = "captionTracks"];
-      repeated AudioTracks audioTracks = 2 [json_name = "audioTracks"];
-      repeated TranslationLanguages translationLanguages = 3 [json_name = "translationLanguages"];
-      optional int32 defaultAudioTrackIndex = 4 [json_name = "defaultAudioTrackIndex"];
-      optional int32 defaultCaptionTrackIndex = 6 [json_name = "defaultCaptionTrackIndex"];
-
-      message CaptionTracks {
-        string baseUrl = 1 [json_name = "baseUrl"];
-        Name name = 2 [json_name = "name"];
-        string vssId = 3 [json_name = "vssId"];
-        string languageCode = 4 [json_name = "languageCode"];
-        optional string kind = 5 [json_name = "kind"];
-        optional bool rtl = 6 [json_name = "rtl"];
-        bool isTranslatable = 7 [json_name = "isTranslatable"];
-      };
-
-      message AudioTracks {
-        repeated int32 captionTrackIndices = 2 [json_name = "captionTrackIndices", packed = false];
-        optional int32 defaultCaptionTrackIndex = 3 [json_name = "defaultCaptionTrackIndex"];
-        optional int32 forcedCaptionTrackIndex = 4 [json_name = "forcedCaptionTrackIndex"];
-        optional int32 visibility = 5 [json_name = "visibility"];
-        optional bool hasDefaultTrack = 6 [json_name = "hasDefaultTrack"];
-        optional bool hasForcedTrack = 7 [json_name = "hasForcedTrack"];
-        optional string audioTrackId = 8 [json_name = "audioTrackId"];
-        optional int32 captionsInitialState = 11 [json_name = "captionsInitialState"];
-      };
-
-      message TranslationLanguages {
-        string languageCode = 1 [json_name = "languageCode"];
-        Name languageName = 2 [json_name = "languageName"];
-        //??? ??? = 3 [json_name = "???"];
-      };
-    };
-  };
-}
-
-message p1F2{
-  p2F21 p2F21 = 21;
-  p2F11 p2F11 = 11;
-}
-message p1F7 {
-  p2F84813246 p2F84813246 = 84813246;
-}
-message p2F84813246 {
-  int32 v = 3;
-}
-message p2F21 {
-  p3F151635310 p3F151635310 = 151635310;
-}
-message  p2F11{
-  p3F64657230 p3F64657230 = 64657230;
-}
-message p3F151635310{
-  int32 pip = 1;
-}
-message p3F64657230{
-  int32 backPlay = 1;
-}
-
 message Setting{
-  repeated st1F6 st1F6 = 6;
-  st1F7 st1F7 = 7;
-  st1F10 st1F10 = 10;
+  repeated SettingItem settingItems = 6;
+//  St1F7 st1F7 = 7;
+  TrackingParams trackingParams = 10;
 }
 
-message st1F6{
-  st2F88478200 st2F88478200 = 88478200;
-  st2F66930374 st2F66930374 = 66930374;
+message SettingItem{
+  SettingCategoryEntryRenderer settingCategoryEntryRenderer = 88478200;
+  SettingCategoryCollectionRenderer settingCategoryCollectionRenderer = 66930374;
 }
-message  st1F7{
-  st2F88478200 st2F88478200 = 88478200;
-}
-message st1F10{
-  st2F4 st2F4 = 4;
+//message  St1F7{
+//  SettingCategoryEntryRenderer settingCategoryEntryRenderer = 88478200;
+//}
+message TrackingParams{
+  int32 f1 = 1;
+  int32 f2 = 2;
+  int32 f3 = 3;
+  TimeInfo timeInfo = 4;
 }
 
-message st2F4 {
-  uint64 f1 = 1 [jstype = JS_STRING];
+message TimeInfo{
+  uint64 timestamp = 1 [jstype = JS_STRING];
   fixed32 f2 = 2;
   fixed32 f3 = 3;
 }
-message st2F88478200{
-  //  st3F1 st3F1 = 1;
+message SettingCategoryEntryRenderer{
   int32 f2 = 2;
   int32 f3 = 3;
-  st3F5 st3F5 = 5;
+  TrackingParams trackingParams = 5;
   int32 f6 = 6;
   int32 f7 = 7;
   int32 f8 = 8;
@@ -345,43 +339,33 @@ message st2F88478200{
   int32 f10 = 10;
   int32 f12 = 12;
 }
-message st2F66930374{
-  repeated st3F3 st3F3 = 3;
-  int32 num = 4;
+message SettingCategoryCollectionRenderer{
+  repeated SubSetting subSettings = 3;
+  int32 categoryId = 4;
 }
 
-message st3F1{
-  st4F1 st4F1 = 1;
+
+message SubSetting{
+  SettingBooleanRenderer settingBooleanRenderer = 61331416;
 }
-message st3F3{
-  st4F61331416 st4F61331416 = 61331416;
+
+message SettingBooleanRenderer{
+  ServiceEndpoint enableServiceEndpoint = 5;
+  ServiceEndpoint disableServiceEndpoint = 6;
+  TrackingParams clickTrackingParams = 13;
+  int32 itemId = 15;
 }
-message st3F5{
-  int32 f1 = 1;
-  int32 f2 = 2;
-  int32 f3 = 3;
-  st2F4 st2F4 = 4;
+message ServiceEndpoint{
+  TrackingParams trackingParams = 2;
+  SetClientSettingEndpoint setClientSettingEndpoint = 81212182;
 }
-message st4F1{
-  string title = 1;
+message SetClientSettingEndpoint{
+  SettingDatas settingDatas = 1;
 }
-message st4F61331416{
-  st5F5 st5F5 = 5;
-  st5F5 st5F6 = 6;
-  st3F5 st3F5 = 13;
-  int32 f15 = 15;
+message SettingDatas{
+  ClientSettingEnum clientSettingEnum = 1;
+  bool boolValue = 3;
 }
-message st5F5{
-  st3F5 st3F5 = 2;
-  st6F81212182 st6F81212182 = 81212182;
-}
-message st6F81212182{
-  st7F1 st7F1 = 1;
-}
-message st7F1{
-  st8F1 st8F1 = 1;
-  int32 f3 = 3;
-}
-message st8F1{
-  int32 f1 = 1;
+message ClientSettingEnum{
+  int32 item = 1;
 }
