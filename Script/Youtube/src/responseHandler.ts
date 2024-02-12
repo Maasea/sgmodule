@@ -1,18 +1,13 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import {
-  Browse,
-  Next,
-  Player,
-  Search,
-  Shorts,
-  Guide,
-  Setting,
-  BackgroundAbility,
-  TranslationLanguage,
-  SubSetting,
-  SettingItem
-} from '../lib/response_pb'
+import { Browse } from '../lib/protobuf/response/browse_pb'
+import { Next } from '../lib/protobuf/response/next_pb'
+import { Search } from '../lib/protobuf/response/search_pb'
+import { Shorts } from '../lib/protobuf/response/shorts_pb'
+import { Guide } from '../lib/protobuf/response/guide_pb'
+import { Player, BackgroundAbility, TranslationLanguage } from '../lib/protobuf/response/player_pb'
+import { Setting, SubSetting, SettingItem } from '../lib/protobuf/response/setting_pb'
+
 import { YouTubeMessage } from './youtube'
 import { $ } from '../lib/env'
 import { translateURL } from '../lib/googleTranslate'
@@ -25,16 +20,32 @@ export class BrowseMessage extends YouTubeMessage {
   }
 
   pure (): this {
-    this.iterate(this.message, 'n5F1', (obj) => {
-      for (let i = obj.n5F1?.length - 1; i >= 0; i--) {
-        if (this.isAdvertise(obj.n5F1[i])) {
-          obj.n5F1.splice(i, 1)
+    this.iterate(this.message, 'richGridContents', (obj) => {
+      for (let i = obj.richGridContents.length - 1; i >= 0; i--) {
+        const content = obj.richGridContents[i]
+        const richItemContent = content?.richItemRenderer?.richItemContent
+        for (let i = richItemContent?.length - 1; i >= 0; i--) {
+          if (this.isAdvertise(richItemContent[i])) {
+            richItemContent.splice(i, 1)
+          }
+        }
+        const richSectionRenderer = content?.richSectionRenderer
+        if (richSectionRenderer) {
+          const richSectionItems = richSectionRenderer?.richSectionContent?.reelShelfRenderer?.richItemContent
+          for (let i = richSectionItems?.length - 1; i >= 0; i--) {
+            if (this.isShorts(richSectionItems[i])) {
+              obj.richGridContents.splice(i, 1)
+              break
+            }
+          }
         }
       }
     })
-    const browseId = this.getBrowseId()
-    if (browseId.startsWith('MPLYt')) {
-      this.needTranslate = true
+    if (this.name === 'Browse') {
+      const browseId = this.getBrowseId()
+      if (browseId.startsWith('MPLYt')) {
+        this.needTranslate = true
+      }
     }
     return this
   }
@@ -54,16 +65,16 @@ export class BrowseMessage extends YouTubeMessage {
     let lyric = ''
     let tempObj: any
     let flag = false
-    this.iterate(this.message, 'n13F1', (obj, stack) => {
-      tempObj = obj
-      lyric = obj.n13F1.map((item) => item.f1).join('\n')
+    this.iterate(this.message, 'timedLyricsContent', (obj, stack) => {
+      tempObj = obj.timedLyricsContent
+      lyric = obj.timedLyricsContent.runs.map((item) => item.text).join('\n')
       flag = true
       stack.length = 0
     })
     if (!flag) {
-      this.iterate(this.message, 'staticLyric', (obj, stack) => {
-        tempObj = obj
-        lyric = obj.staticLyric
+      this.iterate(this.message, 'description', (obj, stack) => {
+        tempObj = obj.description.runs[0]
+        lyric = obj.description.runs[0].text
         stack.length = 0
         flag = true
       })
@@ -81,18 +92,18 @@ export class BrowseMessage extends YouTubeMessage {
       const tips = ' & Translated by Google'
       const isZh = data[2].includes('zh')
 
-      if (tempObj.staticLyric) {
-        tempObj.staticLyric = data[0].map((item) => isZh ? item[0] : item[1] + item[0] || '').join('\r\n')
-        this.iterate(this.message, 'originText', (ob, stack) => {
-          ob.originText += tips
+      if (tempObj.text) {
+        tempObj.text = data[0].map((item) => isZh ? item[0] : item[1] + item[0] || '').join('\r\n')
+        this.iterate(this.message, 'footer', (ob, stack) => {
+          ob.footer.runs[0].text += tips
           stack.length = 0
         })
       } else {
-        if (tempObj.n13F1.length <= data[0].length) {
-          tempObj.n13F1.forEach((item, i) => {
-            item.f1 = isZh ? data[0][i][0] : item.f1 + `\n${data[0][i][0] as string}`
+        if (tempObj.runs.length <= data[0].length) {
+          tempObj.runs.forEach((item, i) => {
+            item.text = isZh ? data[0][i][0] : item.text + `\n${data[0][i][0] as string}`
           })
-          tempObj.originText += tips
+          tempObj.footerLabel += tips
         }
       }
       this.needProcess = true

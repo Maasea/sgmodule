@@ -13,7 +13,7 @@ esbuild.buildSync({
   sourcemap: false,
   define: { 'DEBUG': `${debug}` },
   target: 'es2020',
-  outfile: './dist/youtube.response.beta.js',
+  outfile: './dist/youtube.response.preview.js',
 })
 
 esbuild.buildSync({
@@ -25,5 +25,5 @@ esbuild.buildSync({
   sourcemap: false,
   define: { 'DEBUG': `${debug}` },
   target: 'es2020',
-  outfile: './dist/youtube.request.beta.js',
+  outfile: './dist/youtube.request.preview.js',
 })
