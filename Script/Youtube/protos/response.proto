@@ -1,4 +1,6 @@
 syntax = "proto3";
+package youtube.response;
+import "request.proto";
 
 message Browse {
   ResponseContext responseContext = 1;
@@ -11,12 +13,9 @@ message ResponseContext{
 }
 message ServiceTrackingParams{
   int32 service = 1;
-  repeated Params params = 2;
+  repeated youtube.request.Params params = 2;
 }
-message Params{
-  string key = 1;
-  string value = 2;
-}
+
 message n1F9 {
   m2F58173949 m2F58173949 = 58173949;
   n6F153515154 n6F153515154 = 153515154;
@@ -305,7 +304,7 @@ message Name {
 
 message Setting{
   repeated SettingItem settingItems = 6;
-//  St1F7 st1F7 = 7;
+  //  St1F7 st1F7 = 7;
   TrackingParams trackingParams = 10;
 }
 
