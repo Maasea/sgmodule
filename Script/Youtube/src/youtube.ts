@@ -39,8 +39,11 @@ export abstract class YouTubeMessage {
     return this.message.toBinary()
   }
 
-  listUnknownFields (msg: Message<any>): ReadonlyArray<{ no: number, wireType: WireType, data: Uint8Array }> {
-    return msg.getType().runtime.bin.listUnknownFields(msg)
+  listUnknownFields (msg: any): ReadonlyArray<{ no: number, wireType: WireType, data: Uint8Array }> {
+    if (msg instanceof Message) {
+      return msg.getType().runtime.bin.listUnknownFields(msg)
+    }
+    return []
   }
 
   save (): void {
@@ -107,9 +110,7 @@ export abstract class YouTubeMessage {
 
   isAdvertise (o: Message<any>): boolean {
     const filed = this.listUnknownFields(o)[0]
-    const adFlag = filed ? this.handleFieldNo(filed) : this.handleFieldEml(o)
-    if (adFlag) this.needProcess = true
-    return adFlag
+    return filed ? this.handleFieldNo(filed) : this.handleFieldEml(o)
   }
 
   handleFieldNo (field): boolean {
@@ -128,45 +129,25 @@ export abstract class YouTubeMessage {
 
   handleFieldEml (field): boolean {
     let adFlag = false
-    let type = ''
+    let eml = ''
     this.iterate(field, 'renderInfo', (obj, stack) => {
-      type = obj.renderInfo.layoutRender.eml.split('|')[0]
-      if (this.whiteEml.includes(type)) {
+      eml = obj.renderInfo.layoutRender.eml.split('|')[0]
+      if (this.whiteEml.includes(eml)) {
         adFlag = false
-      } else if (this.blackEml.includes(type)) {
+      } else if (this.blackEml.includes(eml) || /shorts(?!_pivot_item)/.test(eml)) {
         adFlag = true
       } else {
-        const videoContent = obj.videoInfo.videoContext.videoContent
-        const unknownField = this.listUnknownFields(videoContent)[0]
-        const rawText = this.decoder.decode(unknownField.data)
-        adFlag = rawText.includes('pagead')
-        adFlag ? this.blackEml.push(type) : this.whiteEml.push(type)
-        this.needSave = true
+        const videoContent = obj?.videoInfo?.videoContext?.videoContent
+        if (videoContent) {
+          const unknownField = this.listUnknownFields(videoContent)[0]
+          const rawText = this.decoder.decode(unknownField.data)
+          adFlag = rawText.includes('pagead')
+          adFlag ? this.blackEml.push(eml) : this.whiteEml.push(eml)
+          this.needSave = true
+        }
       }
       stack.length = 0
     })
-
-    // if (!match) {
-    //   this.iterate(
-    //     field,
-    //     Symbol.for('@bufbuild/protobuf/unknown-fields'),
-    //     (obj, stack) => {
-    //       const unknownFieldArray = this.listUnknownFields(obj)
-    //       for (const unknownField of unknownFieldArray) {
-    //         if (unknownField.data.length > 1000) {
-    //           const rawText = this.decoder.decode(unknownField.data)
-    //           adFlag = rawText.includes('pagead')
-    //           if (adFlag) {
-    //             stack.length = 0
-    //             break
-    //           }
-    //         }
-    //       }
-    //     }
-    //   )
-    //   adFlag ? this.blackEml.push(type) : this.whiteEml.push(type)
-    //   this.needSave = true
-    // }
     return adFlag
   }
 

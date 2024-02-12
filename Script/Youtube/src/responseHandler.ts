@@ -24,20 +24,16 @@ export class BrowseMessage extends YouTubeMessage {
       for (let i = obj.richGridContents.length - 1; i >= 0; i--) {
         const content = obj.richGridContents[i]
         const richItemContent = content?.richItemRenderer?.richItemContent
-        for (let i = richItemContent?.length - 1; i >= 0; i--) {
-          if (this.isAdvertise(richItemContent[i])) {
-            richItemContent.splice(i, 1)
+        for (let j = richItemContent?.length - 1; j >= 0; j--) {
+          if (this.isAdvertise(richItemContent[j])) {
+            richItemContent.splice(j, 1)
+            this.needProcess = true
           }
         }
         const richSectionRenderer = content?.richSectionRenderer
-        if (richSectionRenderer) {
-          const richSectionItems = richSectionRenderer?.richSectionContent?.reelShelfRenderer?.richItemContent
-          for (let i = richSectionItems?.length - 1; i >= 0; i--) {
-            if (this.isShorts(richSectionItems[i])) {
-              obj.richGridContents.splice(i, 1)
-              break
-            }
-          }
+        if (this.isShorts(richSectionRenderer)) {
+          obj.richGridContents.splice(i, 1)
+          this.needProcess = true
         }
       }
     })
