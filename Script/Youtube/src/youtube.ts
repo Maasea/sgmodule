@@ -2,6 +2,7 @@ import { Message, WireType } from '@bufbuild/protobuf'
 import { $ } from '../lib/env'
 
 export abstract class YouTubeMessage {
+  name: string
   needProcess: boolean
   needSave: boolean
   message: any
@@ -17,6 +18,7 @@ export abstract class YouTubeMessage {
 
   protected constructor (msgType: Message<any>, name: string) {
     $.log(name)
+    this.name = name
     this.msgType = msgType
     Object.assign(this, $.getJSON('YouTubeAdvertiseInfo', {
       whiteNo: [],
@@ -126,40 +128,54 @@ export abstract class YouTubeMessage {
 
   handleFieldEml (field): boolean {
     let adFlag = false
-    let match = true
     let type = ''
-    this.iterate(field, 'type', (obj, stack) => {
-      type = obj.type.split('|')[0]
+    this.iterate(field, 'renderInfo', (obj, stack) => {
+      type = obj.renderInfo.layoutRender.eml.split('|')[0]
       if (this.whiteEml.includes(type)) {
         adFlag = false
-      } else if (this.blackEml.includes(type) || /shorts(?!_pivot_item)/.test(type)) {
+      } else if (this.blackEml.includes(type)) {
         adFlag = true
       } else {
-        match = false
+        const videoContent = obj.videoInfo.videoContext.videoContent
+        const unknownField = this.listUnknownFields(videoContent)[0]
+        const rawText = this.decoder.decode(unknownField.data)
+        adFlag = rawText.includes('pagead')
+        adFlag ? this.blackEml.push(type) : this.whiteEml.push(type)
+        this.needSave = true
       }
       stack.length = 0
     })
-    if (!match) {
-      this.iterate(
-        field,
-        Symbol.for('@bufbuild/protobuf/unknown-fields'),
-        (obj, stack) => {
-          const unknownFieldArray = this.listUnknownFields(obj)
-          for (const unknownField of unknownFieldArray) {
-            if (unknownField.data.length > 1000) {
-              const rawText = this.decoder.decode(unknownField.data)
-              adFlag = rawText.includes('pagead')
-              if (adFlag) {
-                stack.length = 0
-                break
-              }
-            }
-          }
-        }
-      )
-      adFlag ? this.blackEml.push(type) : this.whiteEml.push(type)
-      this.needSave = true
-    }
+
+    // if (!match) {
+    //   this.iterate(
+    //     field,
+    //     Symbol.for('@bufbuild/protobuf/unknown-fields'),
+    //     (obj, stack) => {
+    //       const unknownFieldArray = this.listUnknownFields(obj)
+    //       for (const unknownField of unknownFieldArray) {
+    //         if (unknownField.data.length > 1000) {
+    //           const rawText = this.decoder.decode(unknownField.data)
+    //           adFlag = rawText.includes('pagead')
+    //           if (adFlag) {
+    //             stack.length = 0
+    //             break
+    //           }
+    //         }
+    //       }
+    //     }
+    //   )
+    //   adFlag ? this.blackEml.push(type) : this.whiteEml.push(type)
+    //   this.needSave = true
+    // }
     return adFlag
+  }
+
+  isShorts (field): boolean {
+    let flag = false
+    this.iterate(field, 'eml', (obj, stack) => {
+      flag = /shorts(?!_pivot_item)/.test(obj.eml)
+      stack.length = 0
+    })
+    return flag
   }
 }

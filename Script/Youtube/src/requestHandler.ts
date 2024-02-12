@@ -1,4 +1,4 @@
-import { Request } from '../lib/request_pb'
+import { Request } from '../lib/protobuf/request/common_pb'
 import { YouTubeMessage } from './youtube'
 
 export default class RequestMessage extends YouTubeMessage {

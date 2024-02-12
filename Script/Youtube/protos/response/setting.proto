@@ -1,0 +1,69 @@
+syntax = "proto3";
+package youtube.response.setting;
+
+message Setting{
+  repeated SettingItem settingItems = 6;
+  //  St1F7 st1F7 = 7;
+  TrackingParams trackingParams = 10;
+}
+
+message SettingItem{
+  SettingCategoryEntryRenderer settingCategoryEntryRenderer = 88478200;
+  SettingCategoryCollectionRenderer settingCategoryCollectionRenderer = 66930374;
+}
+//message  St1F7{
+//  SettingCategoryEntryRenderer settingCategoryEntryRenderer = 88478200;
+//}
+message TrackingParams{
+  int32 f1 = 1;
+  int32 f2 = 2;
+  int32 f3 = 3;
+  TimeInfo timeInfo = 4;
+}
+
+message TimeInfo{
+  uint64 timestamp = 1 [jstype = JS_STRING];
+  fixed32 f2 = 2;
+  fixed32 f3 = 3;
+}
+message SettingCategoryEntryRenderer{
+  int32 f2 = 2;
+  int32 f3 = 3;
+  TrackingParams trackingParams = 5;
+  int32 f6 = 6;
+  int32 f7 = 7;
+  int32 f8 = 8;
+  int32 f9 = 9;
+  int32 f10 = 10;
+  int32 f12 = 12;
+}
+message SettingCategoryCollectionRenderer{
+  repeated SubSetting subSettings = 3;
+  int32 categoryId = 4;
+}
+
+
+message SubSetting{
+  SettingBooleanRenderer settingBooleanRenderer = 61331416;
+}
+
+message SettingBooleanRenderer{
+  ServiceEndpoint enableServiceEndpoint = 5;
+  ServiceEndpoint disableServiceEndpoint = 6;
+  TrackingParams clickTrackingParams = 13;
+  int32 itemId = 15;
+}
+message ServiceEndpoint{
+  TrackingParams trackingParams = 2;
+  SetClientSettingEndpoint setClientSettingEndpoint = 81212182;
+}
+message SetClientSettingEndpoint{
+  SettingDatas settingDatas = 1;
+}
+message SettingDatas{
+  ClientSettingEnum clientSettingEnum = 1;
+  bool boolValue = 3;
+}
+message ClientSettingEnum{
+  int32 item = 1;
+}

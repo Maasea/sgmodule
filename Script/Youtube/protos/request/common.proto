@@ -1,5 +1,5 @@
 syntax = "proto3";
-package youtube.request;
+package youtube.request.common;
 
 message Request{
   Context context = 1;
