@@ -13,37 +13,38 @@ import { $ } from '../lib/env'
 import { translateURL } from '../lib/googleTranslate'
 
 export class BrowseMessage extends YouTubeMessage {
-  needTranslate: boolean
-
   constructor (msgType: any = Browse, name: string = 'Browse') {
     super(msgType, name)
   }
 
-  pure (): this {
+  async pure (): Promise<this> {
     this.iterate(this.message, 'richGridContents', (obj) => {
       for (let i = obj.richGridContents.length - 1; i >= 0; i--) {
-        const content = obj.richGridContents[i]
-        const richItemContent = content?.richItemRenderer?.richItemContent
-        for (let j = richItemContent?.length - 1; j >= 0; j--) {
-          if (this.isAdvertise(richItemContent[j])) {
-            richItemContent.splice(j, 1)
-            this.needProcess = true
-          }
-        }
-        const richSectionRenderer = content?.richSectionRenderer
-        if (this.isShorts(richSectionRenderer)) {
-          obj.richGridContents.splice(i, 1)
-          this.needProcess = true
-        }
+        this.removeCommonAD(obj, i)
+        this.removeShorts(obj, i)
       }
     })
-    if (this.name === 'Browse') {
-      const browseId = this.getBrowseId()
-      if (browseId.startsWith('MPLYt')) {
-        this.needTranslate = true
+    await this.translate()
+    return this
+  }
+
+  removeCommonAD (obj: any, index: number): void {
+    const content = obj.richGridContents[index]
+    const richItemContent = content?.richItemRenderer?.richItemContent
+    for (let j = richItemContent?.length - 1; j >= 0; j--) {
+      if (this.isAdvertise(richItemContent[j])) {
+        richItemContent.splice(j, 1)
+        this.needProcess = true
       }
     }
-    return this
+  }
+
+  removeShorts (obj: any, index: number): void {
+    const richSectionRenderer = obj.richGridContents[index]?.richSectionRenderer
+    if (this.isShorts(richSectionRenderer)) {
+      obj.richGridContents.splice(index, 1)
+      this.needProcess = true
+    }
   }
 
   getBrowseId (): string {
@@ -58,6 +59,7 @@ export class BrowseMessage extends YouTubeMessage {
   }
 
   async translate (): Promise<void> {
+    if (!(this.name === 'Browse' && this.getBrowseId().startsWith('MPLYt'))) return
     let lyric = ''
     let tempObj: any
     let flag = false
@@ -75,10 +77,10 @@ export class BrowseMessage extends YouTubeMessage {
         flag = true
       })
     }
-
     if (!flag) return
-
-    const url = translateURL(lyric)
+    const target = this.argument[0]?.trim()
+    const origin = target.split('-')[0]
+    const url = translateURL(lyric, target)
     const resp = await $.fetch({
       method: 'GET',
       url
@@ -86,10 +88,10 @@ export class BrowseMessage extends YouTubeMessage {
     if (resp.status === 200 && resp.body) {
       const data = JSON.parse(resp.body)
       const tips = ' & Translated by Google'
-      const isZh = data[2].includes('zh')
+      const isOrigin = data[2].includes(origin)
 
       if (tempObj.text) {
-        tempObj.text = data[0].map((item) => isZh ? item[0] : item[1] + item[0] || '').join('\r\n')
+        tempObj.text = data[0].map((item) => isOrigin ? item[0] : item[1] + item[0] || '').join('\r\n')
         this.iterate(this.message, 'footer', (ob, stack) => {
           ob.footer.runs[0].text += tips
           stack.length = 0
@@ -97,7 +99,7 @@ export class BrowseMessage extends YouTubeMessage {
       } else {
         if (tempObj.runs.length <= data[0].length) {
           tempObj.runs.forEach((item, i) => {
-            item.text = isZh ? data[0][i][0] : item.text + `\n${data[0][i][0] as string}`
+            item.text = isOrigin ? data[0][i][0] : item.text + `\n${data[0][i][0] as string}`
           })
           tempObj.footerLabel += tips
         }
@@ -110,12 +112,6 @@ export class BrowseMessage extends YouTubeMessage {
 export class NextMessage extends BrowseMessage {
   constructor (msgType: any = Next, name: string = 'Next') {
     super(msgType, name)
-  }
-
-  pure (): this {
-    super.pure()
-    // this.addTranslateTab()
-    return this
   }
 
   addTranslateTab (): void {

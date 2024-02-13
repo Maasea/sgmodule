@@ -11,6 +11,7 @@ export abstract class YouTubeMessage {
   whiteEml: string[]
   blackEml: string[]
   msgType: Message<any>
+  argument: string[]
   decoder = new TextDecoder('utf-8', {
     fatal: false,
     ignoreBOM: true
@@ -24,8 +25,9 @@ export abstract class YouTubeMessage {
       whiteNo: [],
       blackNo: [],
       whiteEml: [],
-      blackEml: ['cell_divider.eml']
+      blackEml: []
     }))
+    this.argument = typeof $argument === 'string' && !$argument.includes('{') ? $argument.split(',') : ['zh-CN']
   }
 
   fromBinary (binaryBody: Uint8Array): YouTubeMessage {
@@ -33,7 +35,16 @@ export abstract class YouTubeMessage {
     return this
   }
 
-  abstract pure (): this
+  abstract pure (): Promise<YouTubeMessage> | YouTubeMessage
+
+  async modify (): Promise<YouTubeMessage> {
+    const pureMessage = this.pure()
+    if (pureMessage instanceof Promise) {
+      return await pureMessage
+    } else {
+      return pureMessage
+    }
+  }
 
   toBinary (): Uint8Array {
     return this.message.toBinary()
@@ -118,7 +129,9 @@ export abstract class YouTubeMessage {
     // 增加白名单直接跳过用于提升性能
     if (this.whiteNo.includes(no)) {
       return false
-    } else if (this.blackNo.includes(no)) return true
+    } else if (this.blackNo.includes(no)) {
+      return true
+    }
     // 包含 pagead 字符则判定为广告
     const rawText = this.decoder.decode(field.data)
     const adFlag = rawText.includes('pagead')

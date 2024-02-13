@@ -1,5 +1,6 @@
 // tslint:disable
 /* eslint-disable */
+
 // https://github.com/windingwind/zotero-pdf-translate/blob/main/src/modules/services/google.ts
 function TL (a: any) {
   const b = 406644
@@ -50,6 +51,6 @@ function RL (a: any, b: any) {
   return a
 }
 
-export function translateURL (lyric): string {
-  return `https://translate.google.com/translate_a/single?client=gtx&sl=auto&tl=zh-CN&hl=zh-CN&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&source=bh&ssel=0&tsel=0&kc=1&tk=${TL(lyric)}&q=${encodeURIComponent(lyric)}`
+export function translateURL (lyric, target): string {
+  return `https://translate.google.com/translate_a/single?client=gtx&sl=auto&tl=${target}&hl=zh-CN&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&source=bh&ssel=0&tsel=0&kc=1&tk=${TL(lyric)}&q=${encodeURIComponent(lyric)}`
 }
