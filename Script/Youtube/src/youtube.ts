@@ -11,7 +11,7 @@ export abstract class YouTubeMessage {
   whiteEml: string[]
   blackEml: string[]
   msgType: Message<any>
-  argument: string[]
+  argument: Record<string, any>
   decoder = new TextDecoder('utf-8', {
     fatal: false,
     ignoreBOM: true
@@ -27,7 +27,16 @@ export abstract class YouTubeMessage {
       whiteEml: [],
       blackEml: []
     }))
-    this.argument = typeof $argument === 'string' && !$argument.includes('{') ? $argument.split(',') : ['zh-CN']
+    this.argument = this.decodeArgument()
+  }
+
+  decodeArgument (): Record<string, any> {
+    const defaultArgument = {
+      targetLang: 'zh-CN',
+      blockUpload: true,
+      immersive: true
+    }
+    return typeof $argument === 'string' && !$argument.includes('{{{') ? JSON.parse($argument) : defaultArgument
   }
 
   fromBinary (binaryBody: Uint8Array): YouTubeMessage {
