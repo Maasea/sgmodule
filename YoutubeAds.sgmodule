@@ -1,13 +1,13 @@
 #!name=Youtube (Music) Enhance
 #!desc=适用于 Youtube & Youtube Music (IOS >= 15)
 #!arguments=屏蔽上传按钮:true,屏蔽选段按钮:true,字幕翻译语言:zh-Hans,歌词翻译语言:zh-Hans
-
+#!arguments-desc=- 屏蔽参数：[true, false] \n- 翻译参数：[语言代码, off]\n\n# 语言代码遵循 Google Translate Languages Codes, 当填入 off 时关闭翻译
 
 # > Note
 # Youtube 画中画和后台播放分别在客户端内关闭
 #   - 设置 -> 通用 -> 画中画
 #   - 设置 -> 后台播放和下载 -> 后台播放
-# 翻译参数使用 Dyspatch Language Code Standards, 当填入 off 时关闭翻译
+
 
 [Rule]
 AND,((DOMAIN-SUFFIX,googlevideo.com), (PROTOCOL,UDP)),REJECT
