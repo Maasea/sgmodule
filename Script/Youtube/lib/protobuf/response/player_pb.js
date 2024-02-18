@@ -43,38 +43,18 @@ export const AdPlacementRenderer = proto3.makeMessageType(
 export const PlayabilityStatus = proto3.makeMessageType(
   "youtube.response.player.PlayabilityStatus",
   () => [
-    { no: 21, name: "pipAbility", kind: "message", T: PIPAbility },
-    { no: 11, name: "backgroundAbility", kind: "message", T: BackgroundAbility },
+    { no: 21, name: "miniPlayer", kind: "message", T: MiniPlayer },
+    { no: 11, name: "backgroundPlayer", kind: "message", T: BackgroundPlayer },
   ],
 );
 
 /**
- * @generated from message youtube.response.player.PIPAbility
+ * @generated from message youtube.response.player.MiniPlayer
  */
-export const PIPAbility = proto3.makeMessageType(
-  "youtube.response.player.PIPAbility",
+export const MiniPlayer = proto3.makeMessageType(
+  "youtube.response.player.MiniPlayer",
   () => [
-    { no: 151635310, name: "piplayer", kind: "message", T: PIPlayer },
-  ],
-);
-
-/**
- * @generated from message youtube.response.player.BackgroundAbility
- */
-export const BackgroundAbility = proto3.makeMessageType(
-  "youtube.response.player.BackgroundAbility",
-  () => [
-    { no: 64657230, name: "backgroundPlayer", kind: "message", T: BackgroundPlayer },
-  ],
-);
-
-/**
- * @generated from message youtube.response.player.PIPlayer
- */
-export const PIPlayer = proto3.makeMessageType(
-  "youtube.response.player.PIPlayer",
-  () => [
-    { no: 1, name: "active", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 151635310, name: "miniPlayerRender", kind: "message", T: MiniPlayerRender },
   ],
 );
 
@@ -83,6 +63,26 @@ export const PIPlayer = proto3.makeMessageType(
  */
 export const BackgroundPlayer = proto3.makeMessageType(
   "youtube.response.player.BackgroundPlayer",
+  () => [
+    { no: 64657230, name: "backgroundPlayerRender", kind: "message", T: BackgroundPlayerRender },
+  ],
+);
+
+/**
+ * @generated from message youtube.response.player.MiniPlayerRender
+ */
+export const MiniPlayerRender = proto3.makeMessageType(
+  "youtube.response.player.MiniPlayerRender",
+  () => [
+    { no: 1, name: "active", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ],
+);
+
+/**
+ * @generated from message youtube.response.player.BackgroundPlayerRender
+ */
+export const BackgroundPlayerRender = proto3.makeMessageType(
+  "youtube.response.player.BackgroundPlayerRender",
   () => [
     { no: 1, name: "active", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ],
@@ -94,18 +94,18 @@ export const BackgroundPlayer = proto3.makeMessageType(
 export const Captions = proto3.makeMessageType(
   "youtube.response.player.Captions",
   () => [
-    { no: 51621377, name: "playerCaptionsTracklistRenderer", kind: "message", T: PlayerCaptionsTracklistRenderer },
+    { no: 51621377, name: "playerCaptionsTrackListRenderer", jsonName: "playerCaptionsTracklistRenderer", kind: "message", T: PlayerCaptionsTrackListRenderer },
   ],
 );
 
 /**
- * @generated from message youtube.response.player.PlayerCaptionsTracklistRenderer
+ * @generated from message youtube.response.player.PlayerCaptionsTrackListRenderer
  */
-export const PlayerCaptionsTracklistRenderer = proto3.makeMessageType(
-  "youtube.response.player.PlayerCaptionsTracklistRenderer",
+export const PlayerCaptionsTrackListRenderer = proto3.makeMessageType(
+  "youtube.response.player.PlayerCaptionsTrackListRenderer",
   () => [
-    { no: 1, name: "captionTracks", kind: "message", T: CaptionTracks, repeated: true },
-    { no: 2, name: "audioTracks", kind: "message", T: AudioTracks, repeated: true },
+    { no: 1, name: "captionTracks", kind: "message", T: CaptionTrack, repeated: true },
+    { no: 2, name: "audioTracks", kind: "message", T: AudioTrack, repeated: true },
     { no: 3, name: "translationLanguages", kind: "message", T: TranslationLanguage, repeated: true },
     { no: 4, name: "defaultAudioTrackIndex", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
     { no: 6, name: "defaultCaptionTrackIndex", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
@@ -113,10 +113,10 @@ export const PlayerCaptionsTracklistRenderer = proto3.makeMessageType(
 );
 
 /**
- * @generated from message youtube.response.player.CaptionTracks
+ * @generated from message youtube.response.player.CaptionTrack
  */
-export const CaptionTracks = proto3.makeMessageType(
-  "youtube.response.player.CaptionTracks",
+export const CaptionTrack = proto3.makeMessageType(
+  "youtube.response.player.CaptionTrack",
   () => [
     { no: 1, name: "baseUrl", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "name", kind: "message", T: Name },
@@ -129,10 +129,10 @@ export const CaptionTracks = proto3.makeMessageType(
 );
 
 /**
- * @generated from message youtube.response.player.AudioTracks
+ * @generated from message youtube.response.player.AudioTrack
  */
-export const AudioTracks = proto3.makeMessageType(
-  "youtube.response.player.AudioTracks",
+export const AudioTrack = proto3.makeMessageType(
+  "youtube.response.player.AudioTrack",
   () => [
     { no: 2, name: "captionTrackIndices", kind: "scalar", T: 5 /* ScalarType.INT32 */, repeated: true, packed: false },
     { no: 3, name: "defaultCaptionTrackIndex", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
@@ -162,18 +162,18 @@ export const TranslationLanguage = proto3.makeMessageType(
 export const Name = proto3.makeMessageType(
   "youtube.response.player.Name",
   () => [
-    { no: 1, name: "runs", kind: "message", T: Name_Runs, repeated: true },
+    { no: 1, name: "runs", kind: "message", T: Name_Run, repeated: true },
   ],
 );
 
 /**
- * @generated from message youtube.response.player.Name.Runs
+ * @generated from message youtube.response.player.Name.Run
  */
-export const Name_Runs = proto3.makeMessageType(
-  "youtube.response.player.Name.Runs",
+export const Name_Run = proto3.makeMessageType(
+  "youtube.response.player.Name.Run",
   () => [
     { no: 1, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ],
-  {localName: "Name_Runs"},
+  {localName: "Name_Run"},
 );
 

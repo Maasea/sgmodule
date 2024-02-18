@@ -93,14 +93,14 @@ export declare class AdPlacementRenderer extends Message<AdPlacementRenderer> {
  */
 export declare class PlayabilityStatus extends Message<PlayabilityStatus> {
   /**
-   * @generated from field: youtube.response.player.PIPAbility pipAbility = 21;
+   * @generated from field: youtube.response.player.MiniPlayer miniPlayer = 21;
    */
-  pipAbility?: PIPAbility;
+  miniPlayer?: MiniPlayer;
 
   /**
-   * @generated from field: youtube.response.player.BackgroundAbility backgroundAbility = 11;
+   * @generated from field: youtube.response.player.BackgroundPlayer backgroundPlayer = 11;
    */
-  backgroundAbility?: BackgroundAbility;
+  backgroundPlayer?: BackgroundPlayer;
 
   constructor(data?: PartialMessage<PlayabilityStatus>);
 
@@ -118,75 +118,27 @@ export declare class PlayabilityStatus extends Message<PlayabilityStatus> {
 }
 
 /**
- * @generated from message youtube.response.player.PIPAbility
+ * @generated from message youtube.response.player.MiniPlayer
  */
-export declare class PIPAbility extends Message<PIPAbility> {
+export declare class MiniPlayer extends Message<MiniPlayer> {
   /**
-   * @generated from field: youtube.response.player.PIPlayer piplayer = 151635310;
+   * @generated from field: youtube.response.player.MiniPlayerRender miniPlayerRender = 151635310;
    */
-  piplayer?: PIPlayer;
+  miniPlayerRender?: MiniPlayerRender;
 
-  constructor(data?: PartialMessage<PIPAbility>);
+  constructor(data?: PartialMessage<MiniPlayer>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "youtube.response.player.PIPAbility";
+  static readonly typeName = "youtube.response.player.MiniPlayer";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PIPAbility;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MiniPlayer;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PIPAbility;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MiniPlayer;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PIPAbility;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MiniPlayer;
 
-  static equals(a: PIPAbility | PlainMessage<PIPAbility> | undefined, b: PIPAbility | PlainMessage<PIPAbility> | undefined): boolean;
-}
-
-/**
- * @generated from message youtube.response.player.BackgroundAbility
- */
-export declare class BackgroundAbility extends Message<BackgroundAbility> {
-  /**
-   * @generated from field: youtube.response.player.BackgroundPlayer backgroundPlayer = 64657230;
-   */
-  backgroundPlayer?: BackgroundPlayer;
-
-  constructor(data?: PartialMessage<BackgroundAbility>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "youtube.response.player.BackgroundAbility";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BackgroundAbility;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BackgroundAbility;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BackgroundAbility;
-
-  static equals(a: BackgroundAbility | PlainMessage<BackgroundAbility> | undefined, b: BackgroundAbility | PlainMessage<BackgroundAbility> | undefined): boolean;
-}
-
-/**
- * @generated from message youtube.response.player.PIPlayer
- */
-export declare class PIPlayer extends Message<PIPlayer> {
-  /**
-   * @generated from field: bool active = 1;
-   */
-  active: boolean;
-
-  constructor(data?: PartialMessage<PIPlayer>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "youtube.response.player.PIPlayer";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PIPlayer;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PIPlayer;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PIPlayer;
-
-  static equals(a: PIPlayer | PlainMessage<PIPlayer> | undefined, b: PIPlayer | PlainMessage<PIPlayer> | undefined): boolean;
+  static equals(a: MiniPlayer | PlainMessage<MiniPlayer> | undefined, b: MiniPlayer | PlainMessage<MiniPlayer> | undefined): boolean;
 }
 
 /**
@@ -194,9 +146,9 @@ export declare class PIPlayer extends Message<PIPlayer> {
  */
 export declare class BackgroundPlayer extends Message<BackgroundPlayer> {
   /**
-   * @generated from field: bool active = 1;
+   * @generated from field: youtube.response.player.BackgroundPlayerRender backgroundPlayerRender = 64657230;
    */
-  active: boolean;
+  backgroundPlayerRender?: BackgroundPlayerRender;
 
   constructor(data?: PartialMessage<BackgroundPlayer>);
 
@@ -214,13 +166,61 @@ export declare class BackgroundPlayer extends Message<BackgroundPlayer> {
 }
 
 /**
+ * @generated from message youtube.response.player.MiniPlayerRender
+ */
+export declare class MiniPlayerRender extends Message<MiniPlayerRender> {
+  /**
+   * @generated from field: bool active = 1;
+   */
+  active: boolean;
+
+  constructor(data?: PartialMessage<MiniPlayerRender>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "youtube.response.player.MiniPlayerRender";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MiniPlayerRender;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MiniPlayerRender;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MiniPlayerRender;
+
+  static equals(a: MiniPlayerRender | PlainMessage<MiniPlayerRender> | undefined, b: MiniPlayerRender | PlainMessage<MiniPlayerRender> | undefined): boolean;
+}
+
+/**
+ * @generated from message youtube.response.player.BackgroundPlayerRender
+ */
+export declare class BackgroundPlayerRender extends Message<BackgroundPlayerRender> {
+  /**
+   * @generated from field: bool active = 1;
+   */
+  active: boolean;
+
+  constructor(data?: PartialMessage<BackgroundPlayerRender>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "youtube.response.player.BackgroundPlayerRender";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BackgroundPlayerRender;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BackgroundPlayerRender;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BackgroundPlayerRender;
+
+  static equals(a: BackgroundPlayerRender | PlainMessage<BackgroundPlayerRender> | undefined, b: BackgroundPlayerRender | PlainMessage<BackgroundPlayerRender> | undefined): boolean;
+}
+
+/**
  * @generated from message youtube.response.player.Captions
  */
 export declare class Captions extends Message<Captions> {
   /**
-   * @generated from field: youtube.response.player.PlayerCaptionsTracklistRenderer playerCaptionsTracklistRenderer = 51621377;
+   * @generated from field: youtube.response.player.PlayerCaptionsTrackListRenderer playerCaptionsTrackListRenderer = 51621377 [json_name = "playerCaptionsTracklistRenderer"];
    */
-  playerCaptionsTracklistRenderer?: PlayerCaptionsTracklistRenderer;
+  playerCaptionsTrackListRenderer?: PlayerCaptionsTrackListRenderer;
 
   constructor(data?: PartialMessage<Captions>);
 
@@ -238,18 +238,18 @@ export declare class Captions extends Message<Captions> {
 }
 
 /**
- * @generated from message youtube.response.player.PlayerCaptionsTracklistRenderer
+ * @generated from message youtube.response.player.PlayerCaptionsTrackListRenderer
  */
-export declare class PlayerCaptionsTracklistRenderer extends Message<PlayerCaptionsTracklistRenderer> {
+export declare class PlayerCaptionsTrackListRenderer extends Message<PlayerCaptionsTrackListRenderer> {
   /**
-   * @generated from field: repeated youtube.response.player.CaptionTracks captionTracks = 1;
+   * @generated from field: repeated youtube.response.player.CaptionTrack captionTracks = 1;
    */
-  captionTracks: CaptionTracks[];
+  captionTracks: CaptionTrack[];
 
   /**
-   * @generated from field: repeated youtube.response.player.AudioTracks audioTracks = 2;
+   * @generated from field: repeated youtube.response.player.AudioTrack audioTracks = 2;
    */
-  audioTracks: AudioTracks[];
+  audioTracks: AudioTrack[];
 
   /**
    * @generated from field: repeated youtube.response.player.TranslationLanguage translationLanguages = 3;
@@ -266,25 +266,25 @@ export declare class PlayerCaptionsTracklistRenderer extends Message<PlayerCapti
    */
   defaultCaptionTrackIndex?: number;
 
-  constructor(data?: PartialMessage<PlayerCaptionsTracklistRenderer>);
+  constructor(data?: PartialMessage<PlayerCaptionsTrackListRenderer>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "youtube.response.player.PlayerCaptionsTracklistRenderer";
+  static readonly typeName = "youtube.response.player.PlayerCaptionsTrackListRenderer";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerCaptionsTracklistRenderer;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerCaptionsTrackListRenderer;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerCaptionsTracklistRenderer;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerCaptionsTrackListRenderer;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerCaptionsTracklistRenderer;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerCaptionsTrackListRenderer;
 
-  static equals(a: PlayerCaptionsTracklistRenderer | PlainMessage<PlayerCaptionsTracklistRenderer> | undefined, b: PlayerCaptionsTracklistRenderer | PlainMessage<PlayerCaptionsTracklistRenderer> | undefined): boolean;
+  static equals(a: PlayerCaptionsTrackListRenderer | PlainMessage<PlayerCaptionsTrackListRenderer> | undefined, b: PlayerCaptionsTrackListRenderer | PlainMessage<PlayerCaptionsTrackListRenderer> | undefined): boolean;
 }
 
 /**
- * @generated from message youtube.response.player.CaptionTracks
+ * @generated from message youtube.response.player.CaptionTrack
  */
-export declare class CaptionTracks extends Message<CaptionTracks> {
+export declare class CaptionTrack extends Message<CaptionTrack> {
   /**
    * @generated from field: string baseUrl = 1;
    */
@@ -320,25 +320,25 @@ export declare class CaptionTracks extends Message<CaptionTracks> {
    */
   isTranslatable: boolean;
 
-  constructor(data?: PartialMessage<CaptionTracks>);
+  constructor(data?: PartialMessage<CaptionTrack>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "youtube.response.player.CaptionTracks";
+  static readonly typeName = "youtube.response.player.CaptionTrack";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CaptionTracks;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CaptionTrack;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CaptionTracks;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CaptionTrack;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CaptionTracks;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CaptionTrack;
 
-  static equals(a: CaptionTracks | PlainMessage<CaptionTracks> | undefined, b: CaptionTracks | PlainMessage<CaptionTracks> | undefined): boolean;
+  static equals(a: CaptionTrack | PlainMessage<CaptionTrack> | undefined, b: CaptionTrack | PlainMessage<CaptionTrack> | undefined): boolean;
 }
 
 /**
- * @generated from message youtube.response.player.AudioTracks
+ * @generated from message youtube.response.player.AudioTrack
  */
-export declare class AudioTracks extends Message<AudioTracks> {
+export declare class AudioTrack extends Message<AudioTrack> {
   /**
    * @generated from field: repeated int32 captionTrackIndices = 2 [packed = false];
    */
@@ -379,19 +379,19 @@ export declare class AudioTracks extends Message<AudioTracks> {
    */
   captionsInitialState?: number;
 
-  constructor(data?: PartialMessage<AudioTracks>);
+  constructor(data?: PartialMessage<AudioTrack>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "youtube.response.player.AudioTracks";
+  static readonly typeName = "youtube.response.player.AudioTrack";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AudioTracks;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AudioTrack;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AudioTracks;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AudioTrack;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AudioTracks;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AudioTrack;
 
-  static equals(a: AudioTracks | PlainMessage<AudioTracks> | undefined, b: AudioTracks | PlainMessage<AudioTracks> | undefined): boolean;
+  static equals(a: AudioTrack | PlainMessage<AudioTrack> | undefined, b: AudioTrack | PlainMessage<AudioTrack> | undefined): boolean;
 }
 
 /**
@@ -428,9 +428,9 @@ export declare class TranslationLanguage extends Message<TranslationLanguage> {
  */
 export declare class Name extends Message<Name> {
   /**
-   * @generated from field: repeated youtube.response.player.Name.Runs runs = 1;
+   * @generated from field: repeated youtube.response.player.Name.Run runs = 1;
    */
-  runs: Name_Runs[];
+  runs: Name_Run[];
 
   constructor(data?: PartialMessage<Name>);
 
@@ -448,26 +448,26 @@ export declare class Name extends Message<Name> {
 }
 
 /**
- * @generated from message youtube.response.player.Name.Runs
+ * @generated from message youtube.response.player.Name.Run
  */
-export declare class Name_Runs extends Message<Name_Runs> {
+export declare class Name_Run extends Message<Name_Run> {
   /**
    * @generated from field: string text = 1;
    */
   text: string;
 
-  constructor(data?: PartialMessage<Name_Runs>);
+  constructor(data?: PartialMessage<Name_Run>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "youtube.response.player.Name.Runs";
+  static readonly typeName = "youtube.response.player.Name.Run";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Name_Runs;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Name_Run;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Name_Runs;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Name_Run;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Name_Runs;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Name_Run;
 
-  static equals(a: Name_Runs | PlainMessage<Name_Runs> | undefined, b: Name_Runs | PlainMessage<Name_Runs> | undefined): boolean;
+  static equals(a: Name_Run | PlainMessage<Name_Run> | undefined, b: Name_Run | PlainMessage<Name_Run> | undefined): boolean;
 }
 

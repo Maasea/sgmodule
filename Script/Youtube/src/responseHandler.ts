@@ -5,7 +5,7 @@ import { Next } from '../lib/protobuf/response/next_pb'
 import { Search } from '../lib/protobuf/response/search_pb'
 import { Shorts } from '../lib/protobuf/response/shorts_pb'
 import { Guide } from '../lib/protobuf/response/guide_pb'
-import { Player, BackgroundAbility, TranslationLanguage } from '../lib/protobuf/response/player_pb'
+import { Player, BackgroundPlayer, TranslationLanguage, CaptionTrack } from '../lib/protobuf/response/player_pb'
 import { Setting, SubSetting, SettingItem } from '../lib/protobuf/response/setting_pb'
 
 import { YouTubeMessage } from './youtube'
@@ -59,7 +59,8 @@ export class BrowseMessage extends YouTubeMessage {
   }
 
   async translate (): Promise<void> {
-    if (!(this.name === 'Browse' && this.getBrowseId().startsWith('MPLYt'))) return
+    const lyricTargetLang = this.argument.lyricLang?.trim()
+    if (!(this.name === 'Browse' && this.getBrowseId().startsWith('MPLYt')) || lyricTargetLang === 'off') return
     let lyric = ''
     let tempObj: any
     let flag = false
@@ -78,9 +79,9 @@ export class BrowseMessage extends YouTubeMessage {
       })
     }
     if (!flag) return
-    const target = this.argument.targetLang?.trim()
-    const origin = target.split('-')[0]
-    const url = translateURL(lyric, target)
+
+    const origin = lyricTargetLang.split('-')[0]
+    const url = translateURL(lyric, lyricTargetLang)
     const resp = await $.fetch({
       method: 'GET',
       url
@@ -148,32 +149,79 @@ export class PlayerMessage extends YouTubeMessage {
   }
 
   pure (): this {
+    // 去除广告
     if (this.message.adPlacements?.length) {
       this.message.adPlacements.length = 0
     }
-    // 尝试开启PIP
-    const piplayer = this.message?.playabilityStatus?.pipAbility?.piplayer
-    if (typeof piplayer === 'object') {
-      piplayer.active = true
+    this.addPlayAbility()
+    this.addTranslateCaption()
+    this.needProcess = true
+    return this
+  }
+
+  addPlayAbility (): void {
+    // 开启画中画
+    const miniPlayerRender = this.message?.playabilityStatus?.miniPlayer?.miniPlayerRender
+    if (typeof miniPlayerRender === 'object') {
+      miniPlayerRender.active = true
     }
-    // 尝试开启后台播放
+    // 开启后台播放
     if (typeof this.message.playabilityStatus === 'object') {
-      this.message.playabilityStatus.backgroundAbility = new BackgroundAbility({
-        backgroundPlayer: {
+      this.message.playabilityStatus.backgroundPlayer = new BackgroundPlayer({
+        backgroundPlayerRender: {
           active: true
         }
       })
     }
+  }
+
+  addTranslateCaption (): void {
+    const captionTargetLang = this.argument.captionLang as string
+    if (captionTargetLang === 'off') return
 
     this.iterate(this.message, 'captionTracks', (obj, stack) => {
-      // obj 就是 playerCaptionsTrackListRenderer
       const captionTracks = obj.captionTracks
+      const audioTracks = obj.audioTracks
+
+      // 添加默认翻译语言
       if (Array.isArray(captionTracks)) {
-        // 有基础字幕
-        for (const captionTrack of captionTracks) {
+        const captionPriority = {
+          ['.' + captionTargetLang]: 2,
+          '.en': 1,
+          'a.en': 0
+        }
+        let priority = -1
+        let targetIndex = 0
+
+        for (let i = 0; i < captionTracks.length; i++) {
+          const captionTrack = captionTracks[i]
+          const currentPriority = captionPriority[captionTrack.vssId]
+          if (currentPriority && (currentPriority > priority)) {
+            priority = currentPriority
+            targetIndex = i
+          }
           captionTrack.isTranslatable = true
         }
+
+        const newCaption = new CaptionTrack({
+          baseUrl: captionTracks[targetIndex].baseUrl + `&tlang=${captionTargetLang}`,
+          name: { runs: [{ text: `Enhance (${captionTargetLang})` }] },
+          vssId: `.${captionTargetLang}`,
+          languageCode: captionTargetLang
+        })
+        captionTracks.push(newCaption)
       }
+
+      // 开启默认翻译语言
+      if (Array.isArray(audioTracks)) {
+        const lastIndex = captionTracks.length - 1
+        for (const audioTrack of audioTracks) {
+          audioTrack.captionTrackIndices.push(lastIndex)
+          audioTrack.defaultCaptionTrackIndex = lastIndex
+          audioTrack.captionsInitialState = 3
+        }
+      }
+      // 重建自动翻译
       const languages = {
         de: 'Deutsch',
         ru: 'Русский',
@@ -192,12 +240,8 @@ export class PlayerMessage extends YouTubeMessage {
           languageCode: k,
           languageName: { runs: [{ text: v }] }
         }))
-
-      if (!obj?.defaultCaptionTrackIndex) obj.defaultCaptionTrackIndex = 0
       stack.length = 0
     })
-    this.needProcess = true
-    return this
   }
 }
 

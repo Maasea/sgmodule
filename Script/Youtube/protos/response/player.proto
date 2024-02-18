@@ -13,32 +13,32 @@ message AdPlacementRenderer {
   string params = 4;
 }
 message PlayabilityStatus{
-  PIPAbility pipAbility = 21;
-  BackgroundAbility backgroundAbility = 11;
+  MiniPlayer miniPlayer = 21;
+  BackgroundPlayer backgroundPlayer = 11;
 }
-message PIPAbility{
-  PIPlayer piplayer = 151635310;
+message MiniPlayer{
+  MiniPlayerRender miniPlayerRender = 151635310;
 }
-message  BackgroundAbility{
-  BackgroundPlayer backgroundPlayer = 64657230;
+message  BackgroundPlayer{
+  BackgroundPlayerRender backgroundPlayerRender = 64657230;
 }
-message PIPlayer{
+message MiniPlayerRender{
   bool active = 1;
 }
-message BackgroundPlayer{
+message BackgroundPlayerRender {
   bool active = 1;
 }
 message Captions {
-  PlayerCaptionsTracklistRenderer playerCaptionsTracklistRenderer = 51621377 [json_name = "playerCaptionsTracklistRenderer"];
+  PlayerCaptionsTrackListRenderer playerCaptionsTrackListRenderer = 51621377 [json_name = "playerCaptionsTracklistRenderer"];
 };
-message PlayerCaptionsTracklistRenderer {
-  repeated CaptionTracks captionTracks = 1 [json_name = "captionTracks"];
-  repeated AudioTracks audioTracks = 2 [json_name = "audioTracks"];
+message PlayerCaptionsTrackListRenderer {
+  repeated CaptionTrack captionTracks = 1 [json_name = "captionTracks"];
+  repeated AudioTrack audioTracks = 2 [json_name = "audioTracks"];
   repeated TranslationLanguage translationLanguages = 3 [json_name = "translationLanguages"];
   optional int32 defaultAudioTrackIndex = 4 [json_name = "defaultAudioTrackIndex"];
   optional int32 defaultCaptionTrackIndex = 6 [json_name = "defaultCaptionTrackIndex"];
 };
-message CaptionTracks {
+message CaptionTrack {
   string baseUrl = 1 [json_name = "baseUrl"];
   Name name = 2 [json_name = "name"];
   string vssId = 3 [json_name = "vssId"];
@@ -48,7 +48,7 @@ message CaptionTracks {
   bool isTranslatable = 7 [json_name = "isTranslatable"];
 };
 
-message AudioTracks {
+message AudioTrack {
   repeated int32 captionTrackIndices = 2 [json_name = "captionTrackIndices", packed = false];
   optional int32 defaultCaptionTrackIndex = 3 [json_name = "defaultCaptionTrackIndex"];
   optional int32 forcedCaptionTrackIndex = 4 [json_name = "forcedCaptionTrackIndex"];
@@ -65,8 +65,8 @@ message TranslationLanguage {
 };
 
 message Name {
-  repeated Runs runs = 1 [json_name = "runs"];
-  message Runs {
+  repeated Run runs = 1 [json_name = "runs"];
+  message Run {
     string text = 1 [json_name = "text"];
   };
 };
