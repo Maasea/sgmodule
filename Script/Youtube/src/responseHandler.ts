@@ -203,24 +203,29 @@ export class PlayerMessage extends YouTubeMessage {
           captionTrack.isTranslatable = true
         }
 
-        const newCaption = new CaptionTrack({
-          baseUrl: captionTracks[targetIndex].baseUrl + `&tlang=${captionTargetLang}`,
-          name: { runs: [{ text: `Enhance (${captionTargetLang})` }] },
-          vssId: `.${captionTargetLang}`,
-          languageCode: captionTargetLang
-        })
-        captionTracks.push(newCaption)
-      }
+        if (priority !== 2) {
+          const newCaption = new CaptionTrack({
+            baseUrl: captionTracks[targetIndex].baseUrl + `&tlang=${captionTargetLang}`,
+            name: { runs: [{ text: `@Enhance (${captionTargetLang})` }] },
+            vssId: `.${captionTargetLang}`,
+            languageCode: captionTargetLang
+          })
+          captionTracks.push(newCaption)
+        }
 
-      // 开启默认翻译语言
-      if (Array.isArray(audioTracks)) {
-        const lastIndex = captionTracks.length - 1
-        for (const audioTrack of audioTracks) {
-          audioTrack.captionTrackIndices.push(lastIndex)
-          audioTrack.defaultCaptionTrackIndex = lastIndex
-          audioTrack.captionsInitialState = 3
+        // 开启默认字幕
+        if (Array.isArray(audioTracks)) {
+          const trackIndex = priority === 2 ? targetIndex : captionTracks.length - 1
+          for (const audioTrack of audioTracks) {
+            if (!audioTrack.captionTrackIndices?.includes(trackIndex)) {
+              audioTrack.captionTrackIndices.push(trackIndex)
+            }
+            audioTrack.defaultCaptionTrackIndex = trackIndex
+            audioTrack.captionsInitialState = 3
+          }
         }
       }
+
       // 重建自动翻译
       const languages = {
         de: 'Deutsch',
