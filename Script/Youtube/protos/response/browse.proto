@@ -1,6 +1,5 @@
 syntax = "proto3";
 package youtube.response.browse;
-import "request/common.proto";
 
 message Browse{
   ResponseContext responseContext = 1;
