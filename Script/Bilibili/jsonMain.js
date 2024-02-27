@@ -1,5 +1,5 @@
 import { handleSearch, handleIndex, handleSplash } from "./src/jsonHandler.js";
-
+try{
 const url = $request.url;
 let body = $response.body;
 if (!body) $done({});
@@ -18,5 +18,9 @@ for (let route in routeHandlers) {
     break;
   }
 }
+}catch(e){
+  console.log(e)
+}finally{
+  $done({});
+}
 
-$done({});

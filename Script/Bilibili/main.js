@@ -11,8 +11,8 @@ import {
 } from "./src/handler.js";
 import URLs from "./lib/urls.js";
 import Client from "./lib/client.js";
-
 const $ = Client.getInstance("Bilibili Helper", { debug: false });
+
 const url = $.request.url;
 const body = $.response.bodyBytes;
 const path = new URLs(url).path;
@@ -45,4 +45,4 @@ for (let route in routeHandlers) {
   }
 }
 
-$.exit();
+$.exit()

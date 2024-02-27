@@ -5,7 +5,7 @@ const now = new Date().toLocaleString();
 esbuild.buildSync({
   entryPoints: ["main.js"],
   bundle: true,
-  minify: true,
+  minify: false,
   banner: { js: `// Build: ${now}` },
   inject: ["./lib/time-polyfill.js", "./lib/text-polyfill.js"],
   sourcemap: false,

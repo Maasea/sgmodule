@@ -1,3 +1,3 @@
 import Client from './client'
 
-export const $ = Client.getInstance('YouTube', { debug: DEBUG })
+export const $ = Client.getInstance('YouTube')

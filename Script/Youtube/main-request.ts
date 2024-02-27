@@ -1,13 +1,10 @@
 import RequestMessage from './src/requestHandler'
 import { $ } from './lib/env'
 
-const requestMsg = new RequestMessage()
-
 try {
-  const bodyBytes = requestMsg.fromBinary($.request.bodyBytes as Uint8Array).pure().toBinary()
-  $.done({
-    bodyBytes
-  })
+  const requestMsg = new RequestMessage()
+  const bodyBytes = (requestMsg.fromBinary($.request.bodyBytes).pure() as RequestMessage).toBinary()
+  $.done({ bodyBytes })
 } catch (e) {
   $.log(e.toString())
   $.exit()

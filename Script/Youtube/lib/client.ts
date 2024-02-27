@@ -1,6 +1,6 @@
 export default abstract class Client {
   private static instances: Record<string, Client> = {}
-  private _times: Map<string, number> = new Map()
+  private readonly _times: Map<string, number> = new Map()
   protected static readonly classNames = {
     QuanX: (name?: string, className?: string, options?: { debug?: boolean }) =>
       new QuanXClient(name, className, options),
@@ -9,7 +9,7 @@ export default abstract class Client {
   }
 
   protected name: string
-  protected debug: boolean
+  isDebug: boolean
   readonly className: string
   request: CRequest
   response: CResponse
@@ -20,9 +20,9 @@ export default abstract class Client {
     options?: { debug?: boolean }
   ) {
     this.name = name ?? ''
-    this.debug = options?.debug ?? false
+    this.isDebug = options?.debug ?? false
     if (name) {
-      this.log(`${name} Start`)
+      this.debug(`${name} Start`)
     }
     this.className = className ?? ''
     this.init()
@@ -87,8 +87,8 @@ export default abstract class Client {
   ): void {
   }
 
-  log (val: any): void {
-    if (this.debug) {
+  debug (val: any): void {
+    if (this.isDebug) {
       if (typeof val === 'object') {
         val = JSON.stringify(val)
       }
@@ -96,18 +96,25 @@ export default abstract class Client {
     }
   }
 
+  log (val: any): void {
+    if (typeof val === 'object') {
+      val = JSON.stringify(val)
+    }
+    console.log(val)
+  }
+
   timeStart (label: string): void {
-    this._times = this._times || {}
-    this._times[label] = Date.now()
+    this._times.set(label, Date.now())
   }
 
   timeEnd (label: string): void {
-    if (this._times?.has(label)) {
-      const timeElapsed = Date.now() - this._times[label]
-      this.log(`${label}: ${timeElapsed}ms`)
+    if (this._times.has(label)) {
+      const now = this._times.get(label) ?? 0
+      const timeElapsed = Date.now() - now
+      this.debug(`${label}: ${timeElapsed}ms`)
       this._times.delete(label)
     } else {
-      this.log(`Timer with label ${label} does not exist.`)
+      this.debug(`Timer with label ${label} does not exist.`)
     }
   }
 
@@ -144,7 +151,7 @@ export class SurgeClient extends Client {
         $response as SgResponse
       )
     } catch (e) {
-      this.log(e.toString())
+      this.debug(e.toString())
     }
   }
 
@@ -249,7 +256,7 @@ export class QuanXClient extends Client {
         $response as QxResponse
       )
     } catch (e) {
-      this.log(e.toString())
+      this.debug(e.toString())
     }
   }
 

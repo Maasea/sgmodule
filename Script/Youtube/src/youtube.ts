@@ -18,7 +18,6 @@ export abstract class YouTubeMessage {
   })
 
   protected constructor (msgType: Message<any>, name: string) {
-    $.log(name)
     this.name = name
     this.msgType = msgType
     Object.assign(this, $.getJSON('YouTubeAdvertiseInfo', {
@@ -28,6 +27,7 @@ export abstract class YouTubeMessage {
       blackEml: []
     }))
     this.argument = this.decodeArgument()
+    $.isDebug = Boolean(this.argument.debug)
   }
 
   decodeArgument (): Record<string, any> {
@@ -35,13 +35,19 @@ export abstract class YouTubeMessage {
       lyricLang: 'zh-Hans',
       captionLang: 'zh-Hans',
       blockUpload: true,
-      immersive: true
+      immersive: true,
+      debug: false
     }
     return typeof $argument === 'string' && !$argument.includes('{{{') ? JSON.parse($argument) : defaultArgument
   }
 
-  fromBinary (binaryBody: Uint8Array): YouTubeMessage {
-    this.message = this.msgType.fromBinary(binaryBody)
+  fromBinary (binaryBody: Uint8Array | undefined | string): YouTubeMessage {
+    if (binaryBody instanceof Uint8Array) {
+      this.message = this.msgType.fromBinary(binaryBody)
+      return this
+    }
+    $.log('YouTube can not get binaryBody')
+    $.exit()
     return this
   }
 
@@ -69,7 +75,7 @@ export abstract class YouTubeMessage {
 
   save (): void {
     if (this.needSave) {
-      $.log('Update Config')
+      $.debug('Update Config')
       const YouTubeAdvertiseInfo = {
         whiteNo: this.whiteNo,
         blackNo: this.blackNo,

@@ -1,6 +1,6 @@
 import createMessage from './lib/factory'
 import { $ } from './lib/env'
-
+$.timeStart('Script Execute')
 async function start (): Promise<void> {
   try {
     const responseMsg = createMessage($.request.url)
@@ -11,11 +11,16 @@ async function start (): Promise<void> {
       return
     }
 
-    const body = $.response.bodyBytes as Uint8Array
-    await responseMsg.fromBinary(body).modify()
+    const body = $.response.bodyBytes
+    $.timeStart('fromBinary')
+    responseMsg.fromBinary(body)
+    $.timeEnd('fromBinary')
+    $.timeStart('modify')
+    await responseMsg.modify()
+    $.timeEnd('modify')
     responseMsg.doneResponse()
   } catch (e) {
-    console.log(e.toString())
+    $.log(e.toString())
     $.exit()
   }
 }

@@ -11,8 +11,7 @@ esbuild.buildSync({
   banner: { js: `// Author: Maasea Build: ${now}` },
   inject: ['./lib/text-polyfill.mjs'],
   sourcemap: false,
-  define: { 'DEBUG': `${debug}` },
-  target: 'es2020',
+  // define: { 'DEBUG': `${debug}` },
   outfile: './dist/youtube.response.preview.js',
 })
 
@@ -23,7 +22,6 @@ esbuild.buildSync({
   banner: { js: `// Author: Maasea Build: ${now}` },
   inject: ['./lib/text-polyfill.mjs'],
   sourcemap: false,
-  define: { 'DEBUG': `${debug}` },
-  target: 'es2020',
+  // define: { 'DEBUG': `${debug}` },
   outfile: './dist/youtube.request.preview.js',
 })
