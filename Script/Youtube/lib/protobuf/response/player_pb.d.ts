@@ -21,6 +21,11 @@ export declare class Player extends Message<Player> {
   playabilityStatus?: PlayabilityStatus;
 
   /**
+   * @generated from field: youtube.response.player.PlaybackTracking playbackTracking = 9;
+   */
+  playbackTracking?: PlaybackTracking;
+
+  /**
    * @generated from field: youtube.response.player.Captions captions = 10;
    */
   captions?: Captions;
@@ -211,6 +216,89 @@ export declare class BackgroundPlayerRender extends Message<BackgroundPlayerRend
   static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BackgroundPlayerRender;
 
   static equals(a: BackgroundPlayerRender | PlainMessage<BackgroundPlayerRender> | undefined, b: BackgroundPlayerRender | PlainMessage<BackgroundPlayerRender> | undefined): boolean;
+}
+
+/**
+ * @generated from message youtube.response.player.PlaybackTracking
+ */
+export declare class PlaybackTracking extends Message<PlaybackTracking> {
+  /**
+   * @generated from field: youtube.response.player.Tracking videostatsPlaybackUrl = 1;
+   */
+  videostatsPlaybackUrl?: Tracking;
+
+  /**
+   * @generated from field: youtube.response.player.Tracking videostatsDelayplayUrl = 2;
+   */
+  videostatsDelayplayUrl?: Tracking;
+
+  /**
+   * @generated from field: youtube.response.player.Tracking videostatsWatchtimeUrl = 3;
+   */
+  videostatsWatchtimeUrl?: Tracking;
+
+  /**
+   * @generated from field: youtube.response.player.Tracking ptrackingUrl = 4;
+   */
+  ptrackingUrl?: Tracking;
+
+  /**
+   * @generated from field: youtube.response.player.Tracking qoeUrl = 5;
+   */
+  qoeUrl?: Tracking;
+
+  /**
+   * @generated from field: youtube.response.player.Tracking atrUrl = 13;
+   */
+  atrUrl?: Tracking;
+
+  /**
+   * @generated from field: youtube.response.player.Tracking videostatsEngageUrl = 15;
+   */
+  videostatsEngageUrl?: Tracking;
+
+  /**
+   * @generated from field: youtube.response.player.Tracking pageadViewthroughconversion = 18;
+   */
+  pageadViewthroughconversion?: Tracking;
+
+  constructor(data?: PartialMessage<PlaybackTracking>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "youtube.response.player.PlaybackTracking";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlaybackTracking;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlaybackTracking;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlaybackTracking;
+
+  static equals(a: PlaybackTracking | PlainMessage<PlaybackTracking> | undefined, b: PlaybackTracking | PlainMessage<PlaybackTracking> | undefined): boolean;
+}
+
+/**
+ * @generated from message youtube.response.player.Tracking
+ */
+export declare class Tracking extends Message<Tracking> {
+  /**
+   * @generated from field: string baseUrl = 1;
+   */
+  baseUrl: string;
+
+  constructor(data?: PartialMessage<Tracking>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "youtube.response.player.Tracking";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Tracking;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Tracking;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Tracking;
+
+  static equals(a: Tracking | PlainMessage<Tracking> | undefined, b: Tracking | PlainMessage<Tracking> | undefined): boolean;
 }
 
 /**

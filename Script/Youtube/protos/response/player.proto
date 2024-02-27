@@ -4,6 +4,7 @@ package youtube.response.player;
 message Player {
   repeated AdPlacement adPlacements = 7;
   PlayabilityStatus playabilityStatus = 2;
+  PlaybackTracking playbackTracking = 9;
   Captions captions = 10 [json_name = "captions"];
 }
 message AdPlacement {
@@ -27,6 +28,19 @@ message MiniPlayerRender{
 }
 message BackgroundPlayerRender {
   bool active = 1;
+}
+message PlaybackTracking{
+  Tracking videostatsPlaybackUrl = 1;
+  Tracking videostatsDelayplayUrl = 2;
+  Tracking videostatsWatchtimeUrl = 3;
+  Tracking ptrackingUrl = 4;
+  Tracking qoeUrl = 5;
+  Tracking atrUrl = 13;
+  Tracking videostatsEngageUrl = 15;
+  Tracking pageadViewthroughconversion = 18;
+}
+message Tracking{
+  string baseUrl = 1;
 }
 message Captions {
   PlayerCaptionsTrackListRenderer playerCaptionsTrackListRenderer = 51621377 [json_name = "playerCaptionsTracklistRenderer"];

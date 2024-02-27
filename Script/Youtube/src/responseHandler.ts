@@ -153,6 +153,9 @@ export class PlayerMessage extends YouTubeMessage {
     if (this.message.adPlacements?.length) {
       this.message.adPlacements.length = 0
     }
+    // 去除广告追踪
+    delete this.message.playbackTracking.pageadViewthroughconversion
+    // 增加 premium 特性
     this.addPlayAbility()
     this.addTranslateCaption()
     this.needProcess = true
@@ -360,11 +363,7 @@ export class SettingMessage extends YouTubeMessage {
         f12: 1
       }
     })
-    // deep copy
     this.message.settingItems.push(fakePlayBackgroundSetting)
-    // fakeF88478200.st2F88478200.st3F5.f1 = 1
-    // fakeF88478200.st2F88478200.st3F5.f3 = 9
-    // this.message.st1F7 = fakeF88478200
     this.needProcess = true
     return this
   }

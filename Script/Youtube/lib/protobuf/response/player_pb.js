@@ -13,6 +13,7 @@ export const Player = proto3.makeMessageType(
   () => [
     { no: 7, name: "adPlacements", kind: "message", T: AdPlacement, repeated: true },
     { no: 2, name: "playabilityStatus", kind: "message", T: PlayabilityStatus },
+    { no: 9, name: "playbackTracking", kind: "message", T: PlaybackTracking },
     { no: 10, name: "captions", kind: "message", T: Captions },
   ],
 );
@@ -85,6 +86,33 @@ export const BackgroundPlayerRender = proto3.makeMessageType(
   "youtube.response.player.BackgroundPlayerRender",
   () => [
     { no: 1, name: "active", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ],
+);
+
+/**
+ * @generated from message youtube.response.player.PlaybackTracking
+ */
+export const PlaybackTracking = proto3.makeMessageType(
+  "youtube.response.player.PlaybackTracking",
+  () => [
+    { no: 1, name: "videostatsPlaybackUrl", kind: "message", T: Tracking },
+    { no: 2, name: "videostatsDelayplayUrl", kind: "message", T: Tracking },
+    { no: 3, name: "videostatsWatchtimeUrl", kind: "message", T: Tracking },
+    { no: 4, name: "ptrackingUrl", kind: "message", T: Tracking },
+    { no: 5, name: "qoeUrl", kind: "message", T: Tracking },
+    { no: 13, name: "atrUrl", kind: "message", T: Tracking },
+    { no: 15, name: "videostatsEngageUrl", kind: "message", T: Tracking },
+    { no: 18, name: "pageadViewthroughconversion", kind: "message", T: Tracking },
+  ],
+);
+
+/**
+ * @generated from message youtube.response.player.Tracking
+ */
+export const Tracking = proto3.makeMessageType(
+  "youtube.response.player.Tracking",
+  () => [
+    { no: 1, name: "baseUrl", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ],
 );
 
