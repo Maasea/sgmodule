@@ -10,7 +10,7 @@
 
 ## 可用模块
 
-### [YouTube Enhance](./YoutubeAds.sgmodule?raw=true)
+### [YouTube Enhance](./YouTube.Enhance.sgmodule?raw=true)
 
 - 删除 YouTube（Music）广告
 - 删除 YouTube 底部 上传 按钮 & YouTube Music 底部选段、升级按钮
