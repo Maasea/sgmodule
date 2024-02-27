@@ -19,7 +19,7 @@ for (let route in routeHandlers) {
   }
 }
 }catch(e){
-  console.log(e)
+  console.log(e.toString())
 }finally{
   $done({});
 }
