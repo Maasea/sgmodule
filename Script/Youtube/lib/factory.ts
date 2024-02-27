@@ -9,7 +9,7 @@ import {
 } from '../src/responseHandler'
 import { YouTubeMessage } from '../src/youtube'
 
-const messages = new Map([
+const messages = new Map<string, new () => YouTubeMessage>([
   ['browse', BrowseMessage],
   ['next', NextMessage],
   ['player', PlayerMessage],

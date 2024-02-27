@@ -1,11 +1,14 @@
 import RequestMessage from './src/requestHandler'
 import { $ } from './lib/env'
 
-try {
+async function run (): Promise<void> {
   const requestMsg = new RequestMessage()
-  const bodyBytes = (requestMsg.fromBinary($.request.bodyBytes).pure() as RequestMessage).toBinary()
-  $.done({ bodyBytes })
-} catch (e) {
-  $.log(e.toString())
-  $.exit()
+  await requestMsg.fromBinary($.request.bodyBytes).pure()
+  requestMsg.done()
 }
+
+run().catch(e => {
+  $.log(e.toString())
+}).finally(() => {
+  $.exit()
+})

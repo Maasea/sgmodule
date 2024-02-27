@@ -28,6 +28,7 @@ export abstract class YouTubeMessage {
     }))
     this.argument = this.decodeArgument()
     $.isDebug = Boolean(this.argument.debug)
+    $.debug(this.name)
   }
 
   decodeArgument (): Record<string, any> {
@@ -44,6 +45,7 @@ export abstract class YouTubeMessage {
   fromBinary (binaryBody: Uint8Array | undefined | string): YouTubeMessage {
     if (binaryBody instanceof Uint8Array) {
       this.message = this.msgType.fromBinary(binaryBody)
+      $.debug(`raw: ${Math.floor(binaryBody.length / 1024)} kb`)
       return this
     }
     $.log('YouTube can not get binaryBody')
@@ -86,27 +88,32 @@ export abstract class YouTubeMessage {
     }
   }
 
-  done (response: CFetchResponse): void {
-    this.save()
-    let body = response.bodyBytes
-    if (this.needProcess) body = this.toBinary()
+  // done (response: CFetchResponse): void {
+  //   this.save()
+  //   let body = response.bodyBytes
+  //   if (this.needProcess) body = this.toBinary()
+  //
+  //   response.headers['Content-Encoding'] = 'identity'
+  //   response.headers['Content-Length'] = (body?.length ?? 0)?.toString()
+  //
+  //   $.done({
+  //     response: {
+  //       ...response,
+  //       bodyBytes: body
+  //     }
+  //   })
+  // }
 
-    response.headers['Content-Encoding'] = 'identity'
-    response.headers['Content-Length'] = (body?.length ?? 0)?.toString()
-
-    $.done({
-      response: {
-        ...response,
-        bodyBytes: body
-      }
-    })
-  }
-
-  doneResponse (): void {
+  done (): void {
     this.save()
     if (this.needProcess) {
-      $.done({ bodyBytes: this.toBinary() })
+      $.timeStart('toBinary')
+      const bodyBytes = this.toBinary()
+      $.timeEnd('toBinary')
+      $.debug(`modify: ${Math.floor(bodyBytes.length / 1024)} kb`)
+      $.done({ bodyBytes })
     }
+    $.debug('use $done({})')
     $.exit()
   }
 
