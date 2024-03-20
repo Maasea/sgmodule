@@ -154,7 +154,7 @@ export class PlayerMessage extends YouTubeMessage {
       this.message.adPlacements.length = 0
     }
     // 去除广告追踪
-    delete this.message.playbackTracking.pageadViewthroughconversion
+    delete this.message?.playbackTracking?.pageadViewthroughconversion
     // 增加 premium 特性
     this.addPlayAbility()
     this.addTranslateCaption()
