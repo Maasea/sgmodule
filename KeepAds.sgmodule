@@ -2,7 +2,7 @@
 #!desc=可能需要重新安装Keep
 
 [Rule]
-DOMAIN,httpdns.calorietech.com,REJECT
+DOMAIN,httpdns.calorietech.com,REJECT,extended-matching
 
 [URL Rewrite]
 ^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v1\/ad _ reject
