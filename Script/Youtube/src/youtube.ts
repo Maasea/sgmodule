@@ -20,26 +20,33 @@ export abstract class YouTubeMessage {
   protected constructor (msgType: Message<any>, name: string) {
     this.name = name
     this.msgType = msgType
+    this.argument = this.decodeArgument()
+    $.isDebug = Boolean(this.argument.debug)
+    $.debug(this.name)
     Object.assign(this, $.getJSON('YouTubeAdvertiseInfo', {
       whiteNo: [],
       blackNo: [],
       whiteEml: [],
       blackEml: []
     }))
-    this.argument = this.decodeArgument()
-    $.isDebug = Boolean(this.argument.debug)
-    $.debug(this.name)
   }
 
   decodeArgument (): Record<string, any> {
-    const defaultArgument = {
+    const tag = {
+      lyricLang: '歌词翻译语言',
+      captionLang: '字幕翻译语言',
+      blockUpload: '屏蔽上传按钮',
+      blockImmersive: '屏蔽选段按钮',
+      debug: '启动调试模式'
+    }
+    const args = {
       lyricLang: 'zh-Hans',
       captionLang: 'zh-Hans',
       blockUpload: true,
-      immersive: true,
+      blockImmersive: true,
       debug: false
     }
-    return typeof $argument === 'string' && !$argument.includes('{{{') ? JSON.parse($argument) : defaultArgument
+    return $.decodeParams(args, tag)
   }
 
   fromBinary (binaryBody: Uint8Array | undefined | string): YouTubeMessage {

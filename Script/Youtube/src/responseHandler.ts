@@ -285,7 +285,7 @@ export class GuideMessage extends YouTubeMessage {
   pure (): this {
     const blackList = ['SPunlimited']
     if (this.argument.blockUpload) blackList.push('FEuploads')
-    if (this.argument.immersive) blackList.push('FEmusic_immersive')
+    if (this.argument.blockImmersive) blackList.push('FEmusic_immersive')
     this.iterate(this.message, 'rendererItems', (obj) => {
       for (let i = obj.rendererItems.length - 1; i >= 0; i--) {
         const browseId =

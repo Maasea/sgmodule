@@ -5,7 +5,9 @@ export default abstract class Client {
     QuanX: (name?: string, className?: string, options?: { debug?: boolean }) =>
       new QuanXClient(name, className, options),
     Surge: (name?: string, className?: string, options?: { debug?: boolean }) =>
-      new SurgeClient(name, className, options)
+      new SurgeClient(name, className, options),
+    Loon: (name?: string, className?: string, options?: { debug?: boolean }) =>
+      new LoonClient(name, className, options)
   }
 
   protected name: string
@@ -28,12 +30,13 @@ export default abstract class Client {
     this.init()
   }
 
-  public static getInstance (
-    name?: string,
-    options?: { debug?: boolean }
-  ): Client {
-    const className = typeof $task !== 'undefined' ? 'QuanX' : 'Surge'
-
+  public static getInstance (name?: string, options?: { debug?: boolean }): Client {
+    let className = 'Surge'
+    if (typeof $loon !== 'undefined') {
+      className = 'Loon'
+    } else if (typeof $task !== 'undefined') {
+      className = 'QuanX'
+    }
     if (!Client.instances[className]) {
       Client.instances[className] = Client.classNames[className](
         name,
@@ -124,6 +127,10 @@ export default abstract class Client {
 
   reject (): void {
     $done()
+  }
+
+  decodeParams (params: Record<string, any>, tag?: Record<string, string>): Record<string, any> {
+    return params
   }
 }
 
@@ -221,6 +228,13 @@ export class SurgeClient extends Client {
     }
 
     $done(sgDone)
+  }
+
+  decodeParams (params: Record<string, any>, tag?: Record<string, string>): Record<string, any> {
+    if (typeof $argument === 'string' && !$argument.includes('{{{')) {
+      Object.assign(params, JSON.parse($argument))
+    }
+    return params
   }
 }
 
@@ -358,5 +372,29 @@ export class QuanXClient extends Client {
       }
     }
     $done(qxDone)
+  }
+}
+
+export class LoonClient extends SurgeClient {
+  decodeParams (params: Record<string, any>, tag?: Record<string, string>): Record<string, any> {
+    const temp = {}
+    for (const [k, v] of Object.entries(params)) {
+      const realKey = tag?.[k] ?? k
+      const value = this.getVal(realKey)
+      if (value) {
+        temp[k] = this.transferType(v, value)
+      }
+    }
+    Object.assign(params, temp)
+    return params
+  }
+
+  transferType (dst: any, src: any): any {
+    if (typeof dst === 'boolean') {
+      return src === 'true'
+    } else if (typeof dst === 'number') {
+      return Number(src)
+    }
+    return src
   }
 }
