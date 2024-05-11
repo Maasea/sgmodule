@@ -3,7 +3,6 @@ package youtube.request.common;
 
 message Request{
   Context context = 1;
-  string browseId = 2;
 }
 message  Context{
   AdSignalsInfo adSignalsInfo = 9;

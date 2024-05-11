@@ -5,7 +5,8 @@ import {
   SearchMessage,
   ShortsMessage,
   GuideMessage,
-  SettingMessage
+  SettingMessage,
+  WatchMessage
 } from '../src/responseHandler'
 import { YouTubeMessage } from '../src/youtube'
 
@@ -16,7 +17,8 @@ const messages = new Map<string, new () => YouTubeMessage>([
   ['search', SearchMessage],
   ['reel_watch_sequence', ShortsMessage],
   ['guide', GuideMessage],
-  ['get_setting', SettingMessage]
+  ['get_setting', SettingMessage],
+  ['get_watch', WatchMessage]
 ])
 
 export default function createMessage (url): YouTubeMessage | null {

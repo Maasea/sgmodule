@@ -15,11 +15,6 @@ export declare class Request extends Message<Request> {
    */
   context?: Context;
 
-  /**
-   * @generated from field: string browseId = 2;
-   */
-  browseId: string;
-
   constructor(data?: PartialMessage<Request>);
 
   static readonly runtime: typeof proto3;

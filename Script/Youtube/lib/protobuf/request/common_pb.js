@@ -12,7 +12,6 @@ export const Request = proto3.makeMessageType(
   "youtube.request.common.Request",
   () => [
     { no: 1, name: "context", kind: "message", T: Context },
-    { no: 2, name: "browseId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ],
 );
 
