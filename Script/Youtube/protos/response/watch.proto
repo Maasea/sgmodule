@@ -1,0 +1,11 @@
+syntax = "proto3";
+package youtube.response.watch;
+import "response/player.proto";
+
+message Watch{
+  Content content = 1;
+}
+
+message Content{
+  youtube.response.player.Player player = 2;
+}

@@ -7,6 +7,7 @@ import { Shorts } from '../lib/protobuf/response/shorts_pb'
 import { Guide } from '../lib/protobuf/response/guide_pb'
 import { Player, BackgroundPlayer, TranslationLanguage, CaptionTrack } from '../lib/protobuf/response/player_pb'
 import { Setting, SubSetting, SettingItem } from '../lib/protobuf/response/setting_pb'
+import { Watch } from '../lib/protobuf/response/watch_pb'
 
 import { YouTubeMessage } from './youtube'
 import { $ } from '../lib/env'
@@ -365,6 +366,20 @@ export class SettingMessage extends YouTubeMessage {
     })
     this.message.settingItems.push(fakePlayBackgroundSetting)
     this.needProcess = true
+    return this
+  }
+}
+
+export class WatchMessage extends PlayerMessage {
+  constructor (msgType: any = Watch, name: string = 'Watch') {
+    super(msgType, name)
+  }
+
+  pure (): this {
+    const tempMsg = this.message
+    this.message = this.message.content.player
+    super.pure()
+    this.message = tempMsg
     return this
   }
 }
