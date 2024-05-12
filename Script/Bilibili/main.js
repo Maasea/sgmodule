@@ -11,10 +11,14 @@ import {
 } from "./src/handler.js";
 import URLs from "./lib/urls.js";
 import Client from "./lib/client.js";
+
 const $ = Client.getInstance("Bilibili Helper", { debug: false });
 
 const url = $.request.url;
 const body = $.response.bodyBytes;
+if (!body) {
+  $.exit();
+}
 const path = new URLs(url).path;
 const decompress =
   typeof $utils === "object" && typeof $utils?.ungzip === "function"
@@ -45,4 +49,4 @@ for (let route in routeHandlers) {
   }
 }
 
-$.exit()
+$.exit();
