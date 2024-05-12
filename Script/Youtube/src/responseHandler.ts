@@ -377,7 +377,10 @@ export class WatchMessage extends PlayerMessage {
 
   pure (): this {
     const tempMsg = this.message
-    this.message = this.message.content.player
+    this.iterate(this.message, 'player', (obj, stack) => {
+      this.message = obj.player
+      stack.length = 0
+    })
     super.pure()
     this.message = tempMsg
     return this

@@ -12,9 +12,9 @@ import type { Player } from "./player_pb.js";
  */
 export declare class Watch extends Message<Watch> {
   /**
-   * @generated from field: youtube.response.watch.Content content = 1;
+   * @generated from field: repeated youtube.response.watch.Content content = 1;
    */
-  content?: Content;
+  content: Content[];
 
   constructor(data?: PartialMessage<Watch>);
 

@@ -3,7 +3,7 @@ package youtube.response.watch;
 import "response/player.proto";
 
 message Watch{
-  Content content = 1;
+  repeated Content content = 1;
 }
 
 message Content{

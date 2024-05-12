@@ -12,7 +12,7 @@ import { Player } from "./player_pb.js";
 export const Watch = proto3.makeMessageType(
   "youtube.response.watch.Watch",
   () => [
-    { no: 1, name: "content", kind: "message", T: Content },
+    { no: 1, name: "content", kind: "message", T: Content, repeated: true },
   ],
 );
 
