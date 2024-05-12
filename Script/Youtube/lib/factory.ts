@@ -22,7 +22,6 @@ const messages = new Map<string, new () => YouTubeMessage>([
 ])
 
 export default function createMessage (url): YouTubeMessage | null {
-  console.log(url)
   for (const [path, MessageClass] of messages.entries()) {
     if (url.includes(path)) {
       return new MessageClass()
