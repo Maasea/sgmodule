@@ -6,15 +6,16 @@
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
 import type { Player } from "./player_pb.js";
+import type { Next } from "./next_pb.js";
 
 /**
  * @generated from message youtube.response.watch.Watch
  */
 export declare class Watch extends Message<Watch> {
   /**
-   * @generated from field: repeated youtube.response.watch.Content content = 1;
+   * @generated from field: repeated youtube.response.watch.Content contents = 1;
    */
-  content: Content[];
+  contents: Content[];
 
   constructor(data?: PartialMessage<Watch>);
 
@@ -39,6 +40,11 @@ export declare class Content extends Message<Content> {
    * @generated from field: youtube.response.player.Player player = 2;
    */
   player?: Player;
+
+  /**
+   * @generated from field: youtube.response.next.Next next = 3;
+   */
+  next?: Next;
 
   constructor(data?: PartialMessage<Content>);
 

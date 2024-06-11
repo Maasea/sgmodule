@@ -6,7 +6,7 @@ export default class RequestMessage extends YouTubeMessage {
     super(msgType, name)
   }
 
-  pure (): this {
+  pure (): YouTubeMessage {
     this.message.context.adSignalsInfo.params.length = 0
     this.needProcess = true
     return this
