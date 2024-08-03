@@ -6,6 +6,7 @@
 
 - [YouTube Enhance](#youtube-enhance)
 - [Bilibili Helper](#bilibili-helper)
+- [Aliyun DoH JSON API](#Aliyun-DoH-JSON-API)
 - [Keep](#keep)
 
 ## 可用模块
@@ -28,6 +29,12 @@
 - 去除广告
 
 [<img src="./assets/button.svg" alt="一键安装"  height="35"/>](https://intradeus.github.io/http-protocol-redirector?r=surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FMaasea%2Fsgmodule%2Fmaster%2FBilibili.Helper.sgmodule)
+
+### [Aliyun DoH JSON API](./Alidns.sgmodule?raw=true)
+
+- 适配阿里DoH JSON API鉴权接口
+
+[<img src="./assets/button.svg" alt="一键安装"  height="35"/>](https://intradeus.github.io/http-protocol-redirector?r=surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FMaasea%2Fsgmodule%2Fmaster%2FAlidns.sgmodule)
 
 ### [Keep](./KeepAds.sgmodule?raw=true)
 
