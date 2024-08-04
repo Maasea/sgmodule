@@ -1,6 +1,6 @@
 #!name=阿里 DNS
 #!desc=适配阿里 DoH JSON API
-#!arguments=阿里DNS:223.5.5.5,请求域名:*,请求类型:1,设备ID:IOS,账户ID,AccessID,Secret
+#!arguments=阿里DNS:223.5.5.5,请求域名:*,请求类型:1,Device ID:IOS,Account ID,AccessKey ID,AccessKey Secret
 #!arguments-desc=相关参数说明查阅 阿里云DoH JSON API 文档
 
 
@@ -8,5 +8,5 @@
 {{{请求域名}}}= script:Alidns
 
 [Script]
-Alidns = type=dns,engine=jsc,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Tools/alidns.js,argument="{"HOST":"{{{阿里DNS}}}","UID":"{{{账户ID}}}","ID":"{{{AccessID}}}","SECRET":"{{{Secret}}}","DID":"{{{设备ID}}}","TYPE":"{{{请求类型}}}"}"
+Alidns = type=dns,engine=jsc,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Tools/alidns.js,argument="{"HOST":"{{{阿里DNS}}}","UID":"{{{Account ID}}}","ID":"{{{AccessKey ID}}}","SECRET":"{{{AccessKey Secret}}}","DID":"{{{Device ID}}}","TYPE":"{{{请求类型}}}"}"
 
