@@ -1,6 +1,6 @@
 #!name=阿里 DNS
 #!desc=适配阿里 DoH JSON API
-#!arguments=阿里DNS:223.5.5.5,请求域名:*,请求类型:1,设备ID,账户ID,AccessID,Secret
+#!arguments=阿里DNS:223.5.5.5,请求域名:*,请求类型:1,设备ID:IOS,账户ID,AccessID,Secret
 #!arguments-desc=相关参数说明查阅 阿里云DoH JSON API 文档
 
 
