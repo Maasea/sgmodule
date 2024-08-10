@@ -36,6 +36,12 @@
 
 [<img src="./assets/button.svg" alt="一键安装"  height="35"/>](https://intradeus.github.io/http-protocol-redirector?r=surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FMaasea%2Fsgmodule%2Fmaster%2FAlidns.sgmodule)
 
+> 考虑到频繁调用JS带来的性能消耗，提供另一种使用快捷指令动态更新鉴权DNS的方式，加密算法来源[官方文档](https://help.aliyun.com/zh/dns/adguard-home-how-to-set-up-alibaba-public-dns-server)。
+
+**使用前务必查看快捷指令中的注释**
+
+[快捷指令-更新鉴权DNS](https://www.icloud.com/shortcuts/019f2ee88b544c3ab9bed1706053d7c5) 
+
 ### [Keep](./KeepAds.sgmodule?raw=true)
 
 - 去除应用内广告
