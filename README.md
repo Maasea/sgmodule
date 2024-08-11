@@ -40,7 +40,7 @@
 
 **使用前务必查看快捷指令中的注释**
 
-[快捷指令-更新鉴权DNS](https://www.icloud.com/shortcuts/019f2ee88b544c3ab9bed1706053d7c5) 
+[快捷指令-更新鉴权DNS](https://www.icloud.com/shortcuts/d94224c9df9f4e7ebe7ef2124f5e0180) 
 
 ### [Keep](./KeepAds.sgmodule?raw=true)
 
