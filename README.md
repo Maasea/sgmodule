@@ -27,6 +27,7 @@
 - 去除交互式弹幕
 - 去除针对未成年人的弹窗消息
 - 去除广告
+- 阻止 P2P 连接
 
 [<img src="./assets/button.svg" alt="一键安装"  height="35"/>](https://intradeus.github.io/http-protocol-redirector?r=surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FMaasea%2Fsgmodule%2Fmaster%2FBilibili.Helper.sgmodule)
 
