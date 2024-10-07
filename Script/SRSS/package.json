@@ -1,0 +1,16 @@
+{
+  "name": "SRSS",
+  "version": "1.0.0",
+  "description": "A module to convert x to RSS",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node build.js"
+  },
+  "author": "Maasea",
+  "license": "ISC",
+  "dependencies": {
+    "esbuild": "^0.17.19"
+  }
+}

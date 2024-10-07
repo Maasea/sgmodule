@@ -1,0 +1,14 @@
+#!name=SRSS
+#!desc=将X用户/列表转换成RSS订阅
+
+[General]
+# 需要使用浏览器登录x以获取账户信息
+# 订阅用户：http://s.rss/x/user/@elonmusk
+# 订阅列表：http://s.rss/x/list/<listName>
+
+[Script]
+SRSS.account = type=http-request,pattern=^https?:\/\/api\.x\.com\/1\.1\/account\/settings\.json,requires-body=0,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/SRSS/dist/srss.js
+SRSS.handler = type=http-request,pattern=^http:\/\/s.rss\/x\/.*,requires-body=0,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/SRSS/dist/srss.js
+
+[MITM]
+hostname = %APPEND% api.x.com

@@ -1,0 +1,41 @@
+syntax = "proto3";
+// 按钮组件
+message Button {
+  // 按钮文本
+  string text = 1;
+  // 按钮跳转链接
+  string link = 2;
+  // 埋点上报相关
+  map<string, string> report_params = 3;
+}
+
+// Toast信息
+message Toast {
+  // toast文案
+  string text = 1;
+  // toast按钮
+  Button button = 2;
+}
+
+message QnTrialInfo {
+  // 能否试看高画质
+  bool trial_able = 1;
+  //
+  int32 remaining_times = 2;
+  //
+  int32 start = 3;
+  //
+  int32 time_length = 4;
+  //
+  Toast start_toast = 5;
+  //
+  Toast end_toast = 6;
+  //
+  Button quality_open_tip_btn = 8;
+}
+
+message PlayerUnite{
+  QnTrialInfo qn_trial_info = 7;
+}
+
+
