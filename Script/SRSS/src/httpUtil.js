@@ -60,7 +60,7 @@ export function parseTweetResponse(instructions) {
         if (entry.entryId.startsWith("profile-conversation-")) {
             temp.items = convertProfileConversation(entry.content.items)
         } else if (entry.entryId.startsWith("tweet-")) {
-            temp.items.push(convertItemContent(entry.content.itemContent))
+            temp.items.push(convertItemContent(entry.content.itemContent.tweet_results.result))
         }
 
         if (temp.items.length === 0) {
@@ -79,23 +79,25 @@ export function getHeaderIgnoreCase(headers, key) {
 function convertProfileConversation(items) {
     const finalItems = []
     for (let item of items) {
-        const template = convertItemContent(item.item.itemContent)
+        const template = convertItemContent(item.item.itemContent.tweet_results.result)
         finalItems.push(template)
     }
     return finalItems
 }
 
-function convertItemContent(itemContent) {
+function convertItemContent(tweetResult) {
     const template = {}
-    const tweetResult = itemContent.tweet_results.result
     template.user = convertUserResult(tweetResult)
     template.tweet = convertTweetResult(tweetResult)
     // 引用
     if (tweetResult?.quoted_status_result?.result) {
         const quoteResult = tweetResult.quoted_status_result.result
-        template.quoted = {}
-        template.quoted.user = convertUserResult(quoteResult)
-        template.quoted.tweet = convertTweetResult(quoteResult)
+        template.quoted = convertItemContent(quoteResult)
+    }
+    // 转发
+    if (tweetResult?.legacy?.retweeted_status_result?.result) {
+        const reTweetResult = tweetResult.legacy.retweeted_status_result.result
+        template.reTweet = convertItemContent(reTweetResult)
     }
     return template
 }

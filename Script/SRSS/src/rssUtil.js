@@ -25,11 +25,15 @@ function generateItemContent(items) {
         if (nonFirst(index)) {
             content += "<hr>"
         }
-        content += convertItem(item, nonFirst(index))
+        if (item.reTweet) {
+            content += `<strong>RT</strong>${convertItem(item.reTweet)}`
+            item = item.reTweet
+        } else {
+            content += convertItem(item, nonFirst(index))
+        }
         if (item.quoted) {
             content += `<blockquote>${convertItem(item.quoted)}</blockquote>`
         }
-
         index++
     }
     return content;
@@ -42,7 +46,7 @@ function convertItem(item, header = true) {
     }
     let content = ""
     if (header) {
-        const originTweet = `https://x.com/${item.user.username}/status/${item.tweet.tweetId}`
+        const originTweet = `https://x.com/${item.user.screenName}/status/${item.tweet.tweetId}`
         const pubDate = new Date(item.tweet.createDate)
         const dateStr = `${pubDate.getFullYear()}年${pubDate.getMonth() + 1}月${pubDate.getDate()}日`
         content += `<H4><a href="${originTweet}">${item.user.name}</H4>`
