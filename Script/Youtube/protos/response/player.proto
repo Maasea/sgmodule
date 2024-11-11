@@ -6,6 +6,7 @@ message Player {
   PlayabilityStatus playabilityStatus = 2;
   PlaybackTracking playbackTracking = 9;
   Captions captions = 10 [json_name = "captions"];
+  repeated AdSlot adSlots = 68;
 }
 message AdPlacement {
   AdPlacementRenderer adPlacementRenderer = 84813246;
@@ -84,3 +85,8 @@ message Name {
     string text = 1 [json_name = "text"];
   };
 };
+
+message AdSlot{
+  Render render = 424701016;
+  message Render{}
+}

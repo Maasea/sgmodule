@@ -30,6 +30,11 @@ export declare class Player extends Message<Player> {
    */
   captions?: Captions;
 
+  /**
+   * @generated from field: repeated youtube.response.player.AdSlot adSlots = 68;
+   */
+  adSlots: AdSlot[];
+
   constructor(data?: PartialMessage<Player>);
 
   static readonly runtime: typeof proto3;
@@ -557,5 +562,48 @@ export declare class Name_Run extends Message<Name_Run> {
   static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Name_Run;
 
   static equals(a: Name_Run | PlainMessage<Name_Run> | undefined, b: Name_Run | PlainMessage<Name_Run> | undefined): boolean;
+}
+
+/**
+ * @generated from message youtube.response.player.AdSlot
+ */
+export declare class AdSlot extends Message<AdSlot> {
+  /**
+   * @generated from field: youtube.response.player.AdSlot.Render render = 424701016;
+   */
+  render?: AdSlot_Render;
+
+  constructor(data?: PartialMessage<AdSlot>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "youtube.response.player.AdSlot";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AdSlot;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AdSlot;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AdSlot;
+
+  static equals(a: AdSlot | PlainMessage<AdSlot> | undefined, b: AdSlot | PlainMessage<AdSlot> | undefined): boolean;
+}
+
+/**
+ * @generated from message youtube.response.player.AdSlot.Render
+ */
+export declare class AdSlot_Render extends Message<AdSlot_Render> {
+  constructor(data?: PartialMessage<AdSlot_Render>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "youtube.response.player.AdSlot.Render";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AdSlot_Render;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AdSlot_Render;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AdSlot_Render;
+
+  static equals(a: AdSlot_Render | PlainMessage<AdSlot_Render> | undefined, b: AdSlot_Render | PlainMessage<AdSlot_Render> | undefined): boolean;
 }
 

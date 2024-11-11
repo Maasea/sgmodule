@@ -154,6 +154,9 @@ export class PlayerMessage extends YouTubeMessage {
     if (this.message.adPlacements?.length) {
       this.message.adPlacements.length = 0
     }
+    if (this.message.adSlots?.length) {
+      this.message.adSlots.length = 0
+    }
     // 去除广告追踪
     delete this.message?.playbackTracking?.pageadViewthroughconversion
     // 增加 premium 特性

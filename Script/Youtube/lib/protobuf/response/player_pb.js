@@ -15,6 +15,7 @@ export const Player = proto3.makeMessageType(
     { no: 2, name: "playabilityStatus", kind: "message", T: PlayabilityStatus },
     { no: 9, name: "playbackTracking", kind: "message", T: PlaybackTracking },
     { no: 10, name: "captions", kind: "message", T: Captions },
+    { no: 68, name: "adSlots", kind: "message", T: AdSlot, repeated: true },
   ],
 );
 
@@ -203,5 +204,24 @@ export const Name_Run = proto3.makeMessageType(
     { no: 1, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ],
   {localName: "Name_Run"},
+);
+
+/**
+ * @generated from message youtube.response.player.AdSlot
+ */
+export const AdSlot = proto3.makeMessageType(
+  "youtube.response.player.AdSlot",
+  () => [
+    { no: 424701016, name: "render", kind: "message", T: AdSlot_Render },
+  ],
+);
+
+/**
+ * @generated from message youtube.response.player.AdSlot.Render
+ */
+export const AdSlot_Render = proto3.makeMessageType(
+  "youtube.response.player.AdSlot.Render",
+  [],
+  {localName: "AdSlot_Render"},
 );
 
