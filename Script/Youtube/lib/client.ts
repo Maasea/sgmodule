@@ -129,7 +129,7 @@ export default abstract class Client {
     $done()
   }
 
-  decodeParams (params: Record<string, any>, tag?: Record<string, string>): Record<string, any> {
+  decodeParams (params: Record<string, any>): Record<string, any> {
     return params
   }
 }
@@ -230,7 +230,7 @@ export class SurgeClient extends Client {
     $done(sgDone)
   }
 
-  decodeParams (params: Record<string, any>, tag?: Record<string, string>): Record<string, any> {
+  decodeParams (params: Record<string, any>): Record<string, any> {
     if (typeof $argument === 'string' && !$argument.includes('{{{')) {
       Object.assign(params, JSON.parse($argument))
     }
@@ -376,25 +376,13 @@ export class QuanXClient extends Client {
 }
 
 export class LoonClient extends SurgeClient {
-  decodeParams (params: Record<string, any>, tag?: Record<string, string>): Record<string, any> {
-    const temp = {}
-    for (const [k, v] of Object.entries(params)) {
-      const realKey = tag?.[k] ?? k
-      const value = this.getVal(realKey)
-      if (value) {
-        temp[k] = this.transferType(v, value)
+  decodeParams (params: Record<string, any>): Record<string, any> {
+    for (const k of Object.keys(params)) {
+      const customValue = $argument?.[k]
+      if (customValue !== undefined) {
+        params[k] = customValue
       }
     }
-    Object.assign(params, temp)
     return params
-  }
-
-  transferType (dst: any, src: any): any {
-    if (typeof dst === 'boolean') {
-      return src === 'true'
-    } else if (typeof dst === 'number') {
-      return Number(src)
-    }
-    return src
   }
 }
