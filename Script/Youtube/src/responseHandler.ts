@@ -25,6 +25,7 @@ export class BrowseMessage extends YouTubeMessage {
         this.removeShorts(obj, i)
       }
     })
+    this.removeFrameworkUpdateAd()
     await this.translate()
     return this
   }
@@ -109,38 +110,25 @@ export class BrowseMessage extends YouTubeMessage {
       this.needProcess = true
     }
   }
+
+  removeFrameworkUpdateAd (): void {
+    const mutations = this.message?.frameworkUpdateTransport?.entityBatchUpdate?.mutations
+    if (!mutations) return
+
+    for (let j = mutations.length - 1; j >= 0; j--) {
+      const mutation = mutations[j]
+      const unknown = this.listUnknownFields(mutation?.payload)?.[0]
+      if (this.checkBufferIsAd(unknown)) {
+        mutations.splice(j, 1)
+        this.needProcess = true
+      }
+    }
+  }
 }
 
 export class NextMessage extends BrowseMessage {
   constructor (msgType: any = Next, name: string = 'Next') {
     super(msgType, name)
-  }
-
-  addTranslateTab (): void {
-    this.iterate(this.message?.a1F7?.musicPlayRender, 'items', (obj, stack) => {
-      const item = obj.items.find((item) =>
-        item.tab.info?.browseInfo?.browseId.startsWith('MPLYt')
-      )
-      if (item) item.tab.name = item.tab.name + '⇄'
-      this.needProcess = true
-      // if (item) {
-      //   const name = item.tab.name
-      //   const translateTab = {
-      //     tab: {
-      //       name: name === 'Lyrics' ? 'Lyrics(ZH)' : '歌词(中文)',
-      //       info: {
-      //         browseInfo: {
-      //           browseId: 'translate$' + item.tab.info.browseInfo.browseId
-      //         }
-      //       }
-      //     }
-      //   }
-      //
-      //   obj.items.splice(2, 0, translateTab)
-      //   this.needProcess = true
-      // }
-      stack.length = 0
-    })
   }
 }
 

@@ -32,13 +32,6 @@ export abstract class YouTubeMessage {
   }
 
   decodeArgument (): Record<string, any> {
-    const tag = {
-      lyricLang: '歌词翻译语言',
-      captionLang: '字幕翻译语言',
-      blockUpload: '屏蔽上传按钮',
-      blockImmersive: '屏蔽选段按钮',
-      debug: '启动调试模式'
-    }
     const args = {
       lyricLang: 'zh-Hans',
       captionLang: 'zh-Hans',
@@ -46,7 +39,7 @@ export abstract class YouTubeMessage {
       blockImmersive: true,
       debug: false
     }
-    return $.decodeParams(args, tag)
+    return $.decodeParams(args)
   }
 
   fromBinary (binaryBody: Uint8Array | undefined | string): YouTubeMessage {
@@ -95,22 +88,6 @@ export abstract class YouTubeMessage {
     }
   }
 
-  // done (response: CFetchResponse): void {
-  //   this.save()
-  //   let body = response.bodyBytes
-  //   if (this.needProcess) body = this.toBinary()
-  //
-  //   response.headers['Content-Encoding'] = 'identity'
-  //   response.headers['Content-Length'] = (body?.length ?? 0)?.toString()
-  //
-  //   $.done({
-  //     response: {
-  //       ...response,
-  //       bodyBytes: body
-  //     }
-  //   })
-  // }
-
   done (): void {
     this.save()
     if (this.needProcess) {
@@ -124,20 +101,11 @@ export abstract class YouTubeMessage {
     $.exit()
   }
 
-  iterate (obj: any = {}, target: string | symbol, call: Function): any {
+  iterate (obj: any = {}, target: string, call: Function): any {
     const stack: any[] = (typeof obj === 'object') ? [obj] : []
     while (stack.length) {
       const item = stack.pop()
       const keys = Object.keys(item)
-
-      if (typeof target === 'symbol') {
-        for (const s of Object.getOwnPropertySymbols(item)) {
-          if (s.description === target.description) {
-            call(item, stack)
-            break
-          }
-        }
-      }
 
       for (const key of keys) {
         if (key === target) {
@@ -162,9 +130,7 @@ export abstract class YouTubeMessage {
     } else if (this.blackNo.includes(no)) {
       return true
     }
-    // 包含 pagead 字符则判定为广告
-    const rawText = this.decoder.decode(field.data)
-    const adFlag = rawText.includes('pagead')
+    const adFlag = this.checkBufferIsAd(field)
     adFlag ? this.blackNo.push(no) : this.whiteNo.push(no)
     this.needSave = true
     return adFlag
@@ -183,8 +149,7 @@ export abstract class YouTubeMessage {
         const videoContent = obj?.videoInfo?.videoContext?.videoContent
         if (videoContent) {
           const unknownField = this.listUnknownFields(videoContent)[0]
-          const rawText = this.decoder.decode(unknownField.data)
-          adFlag = rawText.includes('pagead')
+          adFlag = this.checkBufferIsAd(unknownField)
           adFlag ? this.blackEml.push(eml) : this.whiteEml.push(eml)
           this.needSave = true
         }
@@ -192,6 +157,13 @@ export abstract class YouTubeMessage {
       stack.length = 0
     })
     return adFlag
+  }
+
+  // 包含 pagead 字符则判定为广告
+  checkBufferIsAd (filed): boolean {
+    if (!filed || filed.data.length < 1000) return false
+    const rawText = this.decoder.decode(filed.data)
+    return rawText.includes('pagead')
   }
 
   isShorts (field): boolean {

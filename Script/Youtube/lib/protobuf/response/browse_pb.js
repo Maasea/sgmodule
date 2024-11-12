@@ -4,6 +4,7 @@
 // @ts-nocheck
 
 import { proto3 } from "@bufbuild/protobuf";
+import { FrameworkUpdateTransport } from "./frameworkUpdate_pb.js";
 
 /**
  * @generated from message youtube.response.browse.Browse
@@ -14,6 +15,7 @@ export const Browse = proto3.makeMessageType(
     { no: 1, name: "responseContext", kind: "message", T: ResponseContext },
     { no: 9, name: "contents", kind: "message", T: Contents },
     { no: 10, name: "onResponseReceivedActions", kind: "message", T: Contents },
+    { no: 777, name: "frameworkUpdateTransport", kind: "message", T: FrameworkUpdateTransport },
   ],
 );
 

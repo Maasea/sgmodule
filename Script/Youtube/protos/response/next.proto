@@ -1,10 +1,12 @@
 syntax = "proto3";
 package youtube.response.next;
 import "response/browse.proto";
+import "response/frameworkUpdate.proto";
 
 message Next{
   Contents Contents = 7;
   youtube.response.browse.Contents onResponseReceivedActions = 8;
+  youtube.response.frameworkUpdate.FrameworkUpdateTransport frameworkUpdateTransport = 777;
 }
 message Contents{
   NextResults NextResults = 51779735;

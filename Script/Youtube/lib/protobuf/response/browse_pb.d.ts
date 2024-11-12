@@ -5,6 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
+import type { FrameworkUpdateTransport } from "./frameworkUpdate_pb.js";
 
 /**
  * @generated from message youtube.response.browse.Browse
@@ -24,6 +25,11 @@ export declare class Browse extends Message<Browse> {
    * @generated from field: youtube.response.browse.Contents onResponseReceivedActions = 10;
    */
   onResponseReceivedActions?: Contents;
+
+  /**
+   * @generated from field: youtube.response.frameworkUpdate.FrameworkUpdateTransport frameworkUpdateTransport = 777;
+   */
+  frameworkUpdateTransport?: FrameworkUpdateTransport;
 
   constructor(data?: PartialMessage<Browse>);
 

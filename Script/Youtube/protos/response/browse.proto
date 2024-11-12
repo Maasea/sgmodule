@@ -1,10 +1,12 @@
 syntax = "proto3";
 package youtube.response.browse;
+import "response/frameworkUpdate.proto";
 
 message Browse{
   ResponseContext responseContext = 1;
   Contents contents = 9;
   Contents onResponseReceivedActions = 10;
+  youtube.response.frameworkUpdate.FrameworkUpdateTransport frameworkUpdateTransport = 777;
 }
 message ResponseContext{
   repeated ServiceTrackingParams serviceTrackingParams = 6;

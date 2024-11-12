@@ -5,6 +5,7 @@
 
 import { proto3 } from "@bufbuild/protobuf";
 import { Contents as Contents$1 } from "./browse_pb.js";
+import { FrameworkUpdateTransport } from "./frameworkUpdate_pb.js";
 
 /**
  * @generated from message youtube.response.next.Next
@@ -14,6 +15,7 @@ export const Next = proto3.makeMessageType(
   () => [
     { no: 7, name: "Contents", kind: "message", T: Contents },
     { no: 8, name: "onResponseReceivedActions", kind: "message", T: Contents$1 },
+    { no: 777, name: "frameworkUpdateTransport", kind: "message", T: FrameworkUpdateTransport },
   ],
 );
 
