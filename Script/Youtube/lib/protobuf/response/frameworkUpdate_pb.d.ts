@@ -107,3 +107,37 @@ export declare class Payload extends Message<Payload> {
   static equals(a: Payload | PlainMessage<Payload> | undefined, b: Payload | PlainMessage<Payload> | undefined): boolean;
 }
 
+/**
+ * @generated from message youtube.response.frameworkUpdate.Entity
+ */
+export declare class Entity extends Message<Entity> {
+  /**
+   * @generated from field: string name = 2;
+   */
+  name: string;
+
+  /**
+   * @generated from field: int32 targetNo = 4;
+   */
+  targetNo: number;
+
+  /**
+   * @generated from field: int32 type = 5;
+   */
+  type: number;
+
+  constructor(data?: PartialMessage<Entity>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "youtube.response.frameworkUpdate.Entity";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Entity;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Entity;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Entity;
+
+  static equals(a: Entity | PlainMessage<Entity> | undefined, b: Entity | PlainMessage<Entity> | undefined): boolean;
+}
+

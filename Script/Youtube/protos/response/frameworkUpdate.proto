@@ -15,3 +15,8 @@ message Mutation{
 message Payload{
 
 }
+message Entity{
+  string name = 2;
+  int32 targetNo = 4;
+  int32 type = 5;
+}

@@ -45,3 +45,15 @@ export const Payload = proto3.makeMessageType(
   [],
 );
 
+/**
+ * @generated from message youtube.response.frameworkUpdate.Entity
+ */
+export const Entity = proto3.makeMessageType(
+  "youtube.response.frameworkUpdate.Entity",
+  () => [
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "targetNo", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 5, name: "type", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ],
+);
+

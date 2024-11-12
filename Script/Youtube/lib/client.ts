@@ -377,10 +377,12 @@ export class QuanXClient extends Client {
 
 export class LoonClient extends SurgeClient {
   decodeParams (params: Record<string, any>): Record<string, any> {
-    for (const k of Object.keys(params)) {
-      const customValue = $argument?.[k]
-      if (customValue !== undefined) {
-        params[k] = customValue
+    if (typeof $argument !== 'undefined') {
+      for (const k of Object.keys(params)) {
+        const customValue = $argument?.[k]
+        if (customValue !== undefined) {
+          params[k] = customValue
+        }
       }
     }
     return params

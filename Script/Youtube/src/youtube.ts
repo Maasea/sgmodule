@@ -6,10 +6,11 @@ export abstract class YouTubeMessage {
   needProcess: boolean
   needSave: boolean
   message: any
-  whiteNo: number[]
-  blackNo: number[]
-  whiteEml: string[]
-  blackEml: string[]
+  version: string = '1.0'
+  whiteNo: number[] = []
+  blackNo: number[] = []
+  whiteEml: string[] = []
+  blackEml: string[] = ['inline_injection_entrypoint_layout.eml']
   msgType: Message<any>
   argument: Record<string, any>
   decoder = new TextDecoder('utf-8', {
@@ -23,12 +24,13 @@ export abstract class YouTubeMessage {
     this.argument = this.decodeArgument()
     $.isDebug = Boolean(this.argument.debug)
     $.debug(this.name)
-    Object.assign(this, $.getJSON('YouTubeAdvertiseInfo', {
-      whiteNo: [],
-      blackNo: [],
-      whiteEml: [],
-      blackEml: []
-    }))
+
+    const storedData: Record<string, any> = $.getJSON('YouTubeAdvertiseInfo')
+    $.debug(`currentVersion:  ${this.version}`)
+    $.debug(`storedVersion:  ${storedData.version as string}`)
+    if (storedData?.version === this.version) {
+      Object.assign(this, storedData)
+    }
   }
 
   decodeArgument (): Record<string, any> {
@@ -79,11 +81,13 @@ export abstract class YouTubeMessage {
     if (this.needSave) {
       $.debug('Update Config')
       const YouTubeAdvertiseInfo = {
+        version: this.version,
         whiteNo: this.whiteNo,
         blackNo: this.blackNo,
         whiteEml: this.whiteEml,
         blackEml: this.blackEml
       }
+      $.debug(YouTubeAdvertiseInfo)
       $.setJSON(YouTubeAdvertiseInfo, 'YouTubeAdvertiseInfo')
     }
   }
@@ -148,8 +152,7 @@ export abstract class YouTubeMessage {
       } else {
         const videoContent = obj?.videoInfo?.videoContext?.videoContent
         if (videoContent) {
-          const unknownField = this.listUnknownFields(videoContent)[0]
-          adFlag = this.checkBufferIsAd(unknownField)
+          adFlag = this.checkUnknownFiled(videoContent)
           adFlag ? this.blackEml.push(eml) : this.whiteEml.push(eml)
           this.needSave = true
         }
@@ -164,6 +167,12 @@ export abstract class YouTubeMessage {
     if (!filed || filed.data.length < 1000) return false
     const rawText = this.decoder.decode(filed.data)
     return rawText.includes('pagead')
+  }
+
+  checkUnknownFiled (unknown): boolean {
+    if (!unknown) return false
+    const unknownFields = this.listUnknownFields(unknown)
+    return unknownFields?.some(field => this.checkBufferIsAd(field)) ?? false
   }
 
   isShorts (field): boolean {

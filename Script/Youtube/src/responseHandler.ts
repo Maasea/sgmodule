@@ -12,6 +12,8 @@ import { Watch } from '../lib/protobuf/response/watch_pb'
 import { YouTubeMessage } from './youtube'
 import { $ } from '../lib/env'
 import { translateURL } from '../lib/googleTranslate'
+import { Entity } from '../lib/protobuf/response/frameworkUpdate_pb'
+import { protoBase64 } from '@bufbuild/protobuf'
 
 export class BrowseMessage extends YouTubeMessage {
   constructor (msgType: any = Browse, name: string = 'Browse') {
@@ -25,7 +27,7 @@ export class BrowseMessage extends YouTubeMessage {
         this.removeShorts(obj, i)
       }
     })
-    this.removeFrameworkUpdateAd()
+    // this.removeFrameworkUpdateAd()
     await this.translate()
     return this
   }
@@ -117,8 +119,14 @@ export class BrowseMessage extends YouTubeMessage {
 
     for (let j = mutations.length - 1; j >= 0; j--) {
       const mutation = mutations[j]
-      const unknown = this.listUnknownFields(mutation?.payload)?.[0]
-      if (this.checkBufferIsAd(unknown)) {
+      const entity = Entity.fromBinary(protoBase64.dec(decodeURIComponent(mutation.entityKey)))
+      let adFlag = this.blackEml.includes(entity.name)
+      if (!adFlag && this.checkUnknownFiled(mutation?.payload)) {
+        adFlag = true
+        this.blackEml.push(entity.name)
+        this.needSave = true
+      }
+      if (adFlag) {
         mutations.splice(j, 1)
         this.needProcess = true
       }
