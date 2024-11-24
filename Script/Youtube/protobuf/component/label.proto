@@ -1,0 +1,9 @@
+syntax = "proto3";
+package youtube.component;
+
+message Label{
+  repeated Run runs = 1;
+}
+message Run{
+  string text = 1;
+}

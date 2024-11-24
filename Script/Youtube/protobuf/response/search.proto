@@ -1,0 +1,14 @@
+syntax = "proto3";
+package youtube.response.search;
+import "protobuf/response/browse.proto";
+
+message Search{
+  youtube.response.browse.Content content = 4;
+  OnResponseReceivedCommand onResponseReceivedCommand = 7;
+}
+
+message OnResponseReceivedCommand {
+  youtube.response.browse.ItemSectionRenderer itemSectionRenderer = 50195462;;
+  youtube.response.browse.SectionListRenderer appendContinuationItemsAction = 49399797;
+}
+

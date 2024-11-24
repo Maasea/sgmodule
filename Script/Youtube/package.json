@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node test/test.ts",
     "build": "node build.mjs",
-    "build:proto": "npx buf generate protos"
+    "build:proto": "npx buf generate"
   },
   "author": "",
   "license": "ISC",

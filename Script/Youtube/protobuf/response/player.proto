@@ -1,5 +1,6 @@
 syntax = "proto3";
 package youtube.response.player;
+import "protobuf/component/label.proto";
 
 message Player {
   repeated AdPlacement adPlacements = 7;
@@ -55,7 +56,7 @@ message PlayerCaptionsTrackListRenderer {
 };
 message CaptionTrack {
   string baseUrl = 1 [json_name = "baseUrl"];
-  Name name = 2 [json_name = "name"];
+  youtube.component.Label name = 2 [json_name = "name"];
   string vssId = 3 [json_name = "vssId"];
   string languageCode = 4 [json_name = "languageCode"];
   optional string kind = 5 [json_name = "kind"];
@@ -76,14 +77,7 @@ message AudioTrack {
 
 message TranslationLanguage {
   string languageCode = 1 [json_name = "languageCode"];
-  Name languageName = 2 [json_name = "languageName"];
-};
-
-message Name {
-  repeated Run runs = 1 [json_name = "runs"];
-  message Run {
-    string text = 1 [json_name = "text"];
-  };
+  youtube.component.Label languageName = 2 [json_name = "languageName"];
 };
 
 message AdSlot{

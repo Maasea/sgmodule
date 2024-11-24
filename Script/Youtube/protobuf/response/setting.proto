@@ -1,66 +1,56 @@
 syntax = "proto3";
 package youtube.response.setting;
+import "protobuf/component/label.proto";
 
 message Setting{
   repeated SettingItem settingItems = 6;
-  //  St1F7 st1F7 = 7;
-  TrackingParams trackingParams = 10;
+  repeated SettingItem CollectionItems = 7;
 }
 
 message SettingItem{
-  SettingCategoryEntryRenderer settingCategoryEntryRenderer = 88478200;
+  BackgroundPlayBackSettingRenderer backgroundPlayBackSettingRenderer = 88478200;
   SettingCategoryCollectionRenderer settingCategoryCollectionRenderer = 66930374;
 }
-//message  St1F7{
-//  SettingCategoryEntryRenderer settingCategoryEntryRenderer = 88478200;
-//}
-message TrackingParams{
-  int32 f1 = 1;
-  int32 f2 = 2;
-  int32 f3 = 3;
-  TimeInfo timeInfo = 4;
+
+message BackgroundPlayBackSettingRenderer{
+  youtube.component.Label name = 1;
+  bool backgroundPlayback = 2;
+  bool download = 3;
+  bytes trackingParams = 5;
+  bool downloadQualitySelection = 9;
+  bool smartDownload = 10;
+  Icon icon = 14;
 }
 
-message TimeInfo{
-  uint64 timestamp = 1 [jstype = JS_STRING];
-  fixed32 f2 = 2;
-  fixed32 f3 = 3;
-}
-message SettingCategoryEntryRenderer{
-  int32 f2 = 2;
-  int32 f3 = 3;
-  TrackingParams trackingParams = 5;
-  int32 f6 = 6;
-  int32 f7 = 7;
-  int32 f8 = 8;
-  int32 f9 = 9;
-  int32 f10 = 10;
-  int32 f12 = 12;
-}
 message SettingCategoryCollectionRenderer{
+  youtube.component.Label name = 2;
   repeated SubSetting subSettings = 3;
   int32 categoryId = 4;
+  Icon icon = 5;
 }
 
+message Icon{
+  int32 iconType = 1;
+}
 
 message SubSetting{
   SettingBooleanRenderer settingBooleanRenderer = 61331416;
 }
 
 message SettingBooleanRenderer{
+  youtube.component.Label title = 2;
+  youtube.component.Label description = 3;
   ServiceEndpoint enableServiceEndpoint = 5;
   ServiceEndpoint disableServiceEndpoint = 6;
-  TrackingParams clickTrackingParams = 13;
   int32 itemId = 15;
 }
 message ServiceEndpoint{
-  TrackingParams trackingParams = 2;
   SetClientSettingEndpoint setClientSettingEndpoint = 81212182;
 }
 message SetClientSettingEndpoint{
-  SettingDatas settingDatas = 1;
+  SettingData settingData = 1;
 }
-message SettingDatas{
+message SettingData{
   ClientSettingEnum clientSettingEnum = 1;
   bool boolValue = 3;
 }

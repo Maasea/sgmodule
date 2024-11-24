@@ -1,0 +1,17 @@
+syntax = "proto3";
+package youtube.response.next;
+import "protobuf/response/browse.proto";
+import "protobuf/component/framework.proto";
+
+message Next{
+  Content content = 7;
+  youtube.response.browse.Content onResponseReceivedAction = 8;
+  youtube.component.FrameworkUpdateTransport frameworkUpdateTransport = 777;
+}
+message Content{
+  NextResult nextResult = 51779735;
+}
+
+message NextResult{
+  youtube.response.browse.Content content = 1;
+}

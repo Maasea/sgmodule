@@ -1,7 +1,7 @@
 syntax = "proto3";
 package youtube.response.watch;
-import "response/player.proto";
-import "response/next.proto";
+import "protobuf/response/player.proto";
+import "protobuf/response/next.proto";
 
 message Watch{
   repeated Content contents = 1;

@@ -7,7 +7,7 @@ import {
   GuideMessage,
   SettingMessage,
   WatchMessage
-} from '../src/responseHandler'
+} from '../src/response'
 import { YouTubeMessage } from '../src/youtube'
 
 const messages = new Map<string, new () => YouTubeMessage>([
@@ -21,7 +21,7 @@ const messages = new Map<string, new () => YouTubeMessage>([
   ['get_watch', WatchMessage]
 ])
 
-export default function createMessage (url): YouTubeMessage | null {
+export default function createMessage (url: string): YouTubeMessage | null {
   for (const [path, MessageClass] of messages.entries()) {
     if (url.includes(path)) {
       return new MessageClass()

@@ -1,0 +1,15 @@
+syntax = "proto3";
+package youtube.component;
+
+message ResponseContext{
+  repeated ServiceTrackingParam serviceTrackingParams = 6;
+}
+
+message ServiceTrackingParam{
+  int32 service = 1;
+  repeated Param params = 2;
+}
+message Param{
+  string key = 1;
+  string value = 2;
+}

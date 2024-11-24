@@ -1,5 +1,5 @@
 syntax = "proto3";
-package youtube.response.frameworkUpdate;
+package youtube.component;
 
 message FrameworkUpdateTransport{
   EntityBatchUpdate entityBatchUpdate = 1;

@@ -1,4 +1,4 @@
 version: v1
 plugins:
   - plugin: es
-    out: lib/protobuf
+    out: lib

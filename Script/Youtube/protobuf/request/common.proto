@@ -10,7 +10,7 @@ message  Context{
 message AdSignalsInfo{
   repeated Params params = 1;
 }
-message  Params{
+message Params{
   string key = 1;
   string value = 2;
 }
