@@ -179,6 +179,7 @@ export class PlayerMessage extends YouTubeMessage {
   }
 
   addTranslateCaption (): void {
+    return
     const captionTargetLang = this.argument.captionLang as string
     if (captionTargetLang === 'off') return
 
