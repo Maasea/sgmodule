@@ -1,0 +1,23 @@
+#!name=Youtube (Music) Enhance
+#!desc=Applies to Youtube & Youtube Music
+#!arguments=blockUploadButton:true,blockSelectionButton:true,subtitleTranslateLanguage:vi-VN,lyricsTranslateLanguage:vi-VN,scriptExecutionEngine:auto,enableDebugMode:false
+#!arguments-desc=- 屏蔽参数：[true, false] \n- 翻译参数：[语言代码, off] \n- 脚本引擎：[auto, jsc, webview]\n\n1. 语言代码遵循 Google Translate Languages Codes, 当填入 off 时关闭翻译\n2. 推荐使用 jsc 引擎，但你仍可以切换成 webview 体验 Surge 新特性\n3. 开启调试模式用于输出更多日志
+
+# > Note
+# Youtube picture-in-picture and background playback can be turned off in the client
+#   - Settings -> Playback -> Picture-in-picture
+#   - Settings -> Background playback and downloading -> Background playback
+
+
+[Rule]
+AND,((DOMAIN-SUFFIX,googlevideo.com), (PROTOCOL,UDP)),REJECT
+AND,((DOMAIN,youtubei.googleapis.com), (PROTOCOL,UDP)),REJECT
+
+[Script]
+youtube.response = type=http-response,pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch),requires-body=1,max-size=-1,binary-body-mode=1,engine={{{scriptExecutionEngine}}},script-path=https://raw.githubusercontent.com/gralias/sgmodule/refs/heads/master/Script/Youtube/dist/youtube.response.preview.js,argument="{"lyricLang":"{{{lyricsTranslateLanguage}}}","captionLang":"{{{subtitleTranslateLanguage}}}","blockUpload":{{{blockUploadButton}}},"blockImmersive":{{{blockSelectionButton}}},"debug":{{{enableDebugMode}}}}"
+
+[Map Local]
+^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data-type=text data="" status-code=502
+
+[MITM]
+hostname = %APPEND% *.googlevideo.com, youtubei.googleapis.com
