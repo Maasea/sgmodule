@@ -52,5 +52,5 @@ function RL (a: any, b: any) {
 }
 
 export function translateURL (lyric, target): string {
-  return `https://translate.google.com/translate_a/single?client=gtx&sl=auto&tl=${target}&hl=zh-CN&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&source=bh&ssel=0&tsel=0&kc=1&tk=${TL(lyric)}&q=${encodeURIComponent(lyric)}`
+  return `https://translate.google.com/translate_a/single?client=gtx&sl=auto&tl=${target}&hl=vi-VN&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&source=bh&ssel=0&tsel=0&kc=1&tk=${TL(lyric)}&q=${encodeURIComponent(lyric)}`
 }

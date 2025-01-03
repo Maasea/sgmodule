@@ -230,16 +230,8 @@ export class PlayerMessage extends YouTubeMessage {
 
       // 重建自动翻译
       const languages = {
-        de: 'Deutsch',
-        ru: 'Русский',
-        fr: 'Français',
-        fil: 'Filipino',
-        ko: '한국어',
-        ja: '日本語',
         en: 'English',
         vi: 'Tiếng Việt',
-        'zh-Hant': '中文（繁體）',
-        'zh-Hans': '中文（简体）',
         und: '@VirgilClyne'
       }
       obj.translationLanguages =
