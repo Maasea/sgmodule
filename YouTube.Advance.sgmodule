@@ -1,6 +1,6 @@
 #!name=Youtube (Music) Enhance
 #!desc=Applies to Youtube & Youtube Music
-#!arguments=blockUploadButton:true,blockSelectionButton:true,subtitleTranslateLanguage:off,lyricsTranslateLanguage:vi-VN,scriptExecutionEngine:auto,enableDebugMode:false
+#!arguments=blockUploadButton:true,blockSelectionButton:true,subtitleTranslateLanguage:off,lyricsTranslateLanguage:off,scriptExecutionEngine:auto,enableDebugMode:false
 
 # > Note
 # Youtube picture-in-picture and background playback can be turned off in the client
