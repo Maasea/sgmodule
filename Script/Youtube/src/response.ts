@@ -180,7 +180,7 @@ export class PlayerMessage extends YouTubeMessage {
 
   addTranslateCaption (): void {
     const captionTargetLang = this.argument.captionLang as string
-    if (captionTargetLang === 'off') return
+    if (captionTargetLang === 'off' || true) return // disable cc when open video
 
     this.iterate(this.message, 'captionTracks', (obj, stack) => {
       const captionTracks = obj.captionTracks
