@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-import "protos/view.proto";
-
-// 主评论列表-响应
-message MainListReply {
-  // 广告
-  CM cm = 11;
-}
