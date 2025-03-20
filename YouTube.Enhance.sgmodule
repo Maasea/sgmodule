@@ -1,6 +1,6 @@
 #!name=Youtube (Music) Enhance
 #!desc=适用于 Youtube & Youtube Music
-#!arguments=屏蔽上传按钮:true,屏蔽选段按钮:true,字幕翻译语言:zh-Hans,歌词翻译语言:zh-Hans,脚本执行引擎:auto,启用调试模式:false
+#!arguments=屏蔽上传按钮:true,屏蔽选段按钮:true,字幕翻译语言:off,歌词翻译语言:off,脚本执行引擎:auto,启用调试模式:false
 #!arguments-desc=- 屏蔽参数：[true, false] \n- 翻译参数：[语言代码, off] \n- 脚本引擎：[auto, jsc, webview]\n\n1. 语言代码遵循 Google Translate Languages Codes, 当填入 off 时关闭翻译\n2. 推荐使用 jsc 引擎，但你仍可以切换成 webview 体验 Surge 新特性\n3. 开启调试模式用于输出更多日志
 
 # > Note
