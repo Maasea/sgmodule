@@ -1,9 +1,10 @@
 #!name=YoutubeLite
 #!desc=Lite with little memory (Experimental)
-#!arguments=server:https://stream.maasea.workers.dev
+#!arguments=请求处理服务:https://stream.maasea.workers.dev,屏蔽上传按钮:true,屏蔽选段按钮:true,屏蔽Shorts按钮:false,字幕翻译语言:off,歌词翻译语言:off
+#!arguments-desc=- 屏蔽参数：[true, false] \n- 翻译参数：[语言代码, off] \n\n1. 语言代码遵循 Google Translate Languages Codes, 当填入 off 时关闭翻译
 
 [URL Rewrite]
-^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch)) {{{server}}}/$1 307
+^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch))(\?(.*))?$ {{{请求处理服务}}}/$1?blockUpload={{{屏蔽上传按钮}}}&blockImmersive={{{屏蔽选段按钮}}}&blockShorts={{{屏蔽Shorts按钮}}}&captionLang={{{字幕翻译语言}}}&lyricLang={{{歌词翻译语言}}}&$4 307
 
 [Map Local]
 ^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data-type=text data="" status-code=502
