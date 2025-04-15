@@ -9,7 +9,7 @@
 - **功能**：去广告、画中画、后台播放、翻译
 - **适用**：YouTube & YouTube Music
 - **安装**：[链接](YouTube.Enhance.sgmodule?raw=true)
-- **备选**：[YouTube Lite](YouTube.Lite.sgmodule?raw=true)
+- **备选**：[YouTube Lite](YouTube.Lite.sgmodule?raw=true) （内存友好）
 
 ---
 
