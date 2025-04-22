@@ -7,7 +7,7 @@
 ^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch))(\?(.*))?$ {{{请求处理服务}}}/$1?blockUpload={{{屏蔽上传按钮}}}&blockImmersive={{{屏蔽选段按钮}}}&blockShorts={{{屏蔽Shorts按钮}}}&captionLang={{{字幕翻译语言}}}&lyricLang={{{歌词翻译语言}}}&$4 307
 
 [Map Local]
-^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data-type=text data="" status-code=502
+^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data-type=text data="" status-code=200
 
 [MITM]
 hostname = %APPEND% *.googlevideo.com, youtubei.googleapis.com
