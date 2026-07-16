@@ -1,6 +1,6 @@
-# Module for Surge
+# Modules for Surge / Quantumult X
 
-脚本基于 Surge 测试，其他客户端的兼容性不做保证。
+上游模块主要基于 Surge。本地分支已将 YouTube Enhance 的模块语法、二进制请求/响应和参数读取适配到 Quantumult X；其他模块仍保持上游 Surge 格式。
 
 ## 模块目录
 
@@ -8,8 +8,10 @@
 
 - **功能**：去广告、画中画、后台播放、翻译
 - **适用**：YouTube & YouTube Music
-- **安装**：[链接](YouTube.Enhance.sgmodule?raw=true)
-- **备选**：[YouTube Lite](YouTube.Lite.sgmodule?raw=true) （内存友好）
+- **Surge 原版**：[YouTube.Enhance.sgmodule](YouTube.Enhance.sgmodule)
+- **Quantumult X 一键订阅**：[添加原生重写](https://raw.githubusercontent.com/vcdog/QuantumultX_sgmodule/master/QuantumultX/YouTube.Enhance.snippet)
+- **Quantumult X 原生片段**：[查看源码](QuantumultX/YouTube.Enhance.snippet)
+- **Quantumult X 安装说明**：[QuantumultX/README.md](QuantumultX/README.md)
 
 ---
 

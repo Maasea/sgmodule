@@ -1,0 +1,11 @@
+#!name=YouTube (Music) Enhance
+#!desc=Quantumult X 原生适配：去广告、画中画、后台播放、字幕翻译
+
+# Quantumult X 原生远程重写，不需要资源解析器。
+# Quantumult X 不支持 Surge 模块参数；默认选项见 QuantumultX/README.md。
+
+^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch|log_event|config)(\?.*)?$ url script-response-body https://raw.githubusercontent.com/vcdog/QuantumultX_sgmodule/master/Script/Youtube/youtube.response.js
+^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&ack.* url script-request-body https://raw.githubusercontent.com/vcdog/QuantumultX_sgmodule/master/Script/Youtube/youtube.request.js
+^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/log_event(\?.*)?$ url script-request-header https://raw.githubusercontent.com/vcdog/QuantumultX_sgmodule/master/Script/Youtube/youtube.request.js
+
+hostname = *.googlevideo.com, youtubei.googleapis.com
